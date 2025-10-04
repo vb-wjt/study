@@ -1,3 +1,5 @@
 # Project ignored files
 .idea/
-*.impl
+*.iml
+
+*.class
