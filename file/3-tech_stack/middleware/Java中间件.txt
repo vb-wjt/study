@@ -5,7 +5,7 @@
 负载均衡：DNS、F5、LVS、Nginx、OpenResty、HAproxy
 注册中心：Eureka、Zookeeper、Redis、Etcd、Consul
 认证鉴权：JWT、SpringSecurity
-消费队列：RabbitMQ、Kafka、RocketMQ、ActiveMQ、Redis
+消息队列：RabbitMQ、Kafka、RocketMQ、ActiveMQ、Redis
 系统监控：Grafana、Prometheus、Influxdb、Telegraf、Lepus
 文件系统：OSS、NFS、FastDFS、MogileFS
 RPC框架： Dubbo、Motan、Thrift、grpc
