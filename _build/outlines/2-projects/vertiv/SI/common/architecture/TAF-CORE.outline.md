@@ -1,0 +1,56 @@
+﻿<!-- auto-generated from 2-projects\vertiv\SI\common\architecture\TAF-CORE.xmind by _build/extract-xmind.ps1, do NOT edit -->
+
+# TAF
+
+- 组成（架构）
+  - Trellis Application Framework，是 SI、PI 等产品的技术底层。
+  - TAF 平台核心层（TAF Platform Core）
+    - 平台的核心层，提供基础能力供插件扩展层处理，相当于操作系统层次
+    - 指导（开发）原则
+      - Domain Agnostic - 希望支持任何领域工作的应用程序，不仅限于数据中心等特定领域
+      - Extensible - 可在运行行动态扩展
+      - High Quality - 平台核心框架类似于操作系统，必须非常可靠，必须高水平的质量标准
+    - 组成
+      - Console
+        - UI Console Framework
+          - 提供基本的 HTML5 用户控制台及管理核心平台的管理功能
+      - Core Management Platform
+        - Dynamic API and Intercommunication Grid
+          - 动态API和互通网格
+          - 会自动创建有高级查询，属性过滤，排序和分页的服务，以及分布在各个节点的内存数据网格
+        - Security Framework
+          - 安全框架，目前用Spring Sercuity
+          - 提供内部身份验证服务和用户管理等
+        - Schema Manager
+          - 管理模式
+        - Plugin Manager
+          - 部署和管理插件
+        - Service Location
+          - 定位和访问平台上部署的其他服务
+        - Dynamic Data Model
+          - 通过向（Mongodb中的）元数据定义向系统添加新模型定义和服务
+        - Core Services
+          - 对其他核心组件提供支持
+        - Self Monitoring
+          - 提供自我监控能力。可管理 TAF 部署中的节点，包括性能KPI 和运行状况等信息
+          - 通过 /manage API 公开，只有具有 PLATFORM_ROLE 的用户（默认为管理员）才能访问
+      - Monitoring
+        - 将数据提供商的数据（例如 Intelligencr Engine, Stringray,Redfish 和其他监控系统）和事件发送到平台共享存储的功能。
+      - Install
+        - 提供交互式GUI安装程序
+      - Other Core Assets
+        - 包括SDK文档，示例，入门指南，SDK 工具
+      - Shared Storage Service
+        - 使用 MongoDB 共享文档存储数据库，用于存储元数据定义以及与这些定义相关的实例数据，为平台和应用程序数据提供高性能的存储机制
+  - 插件扩展层（Plug-in(Extensions)）
+    - 提供了在运行时动态扩展系统关键区域的能力，不同类别的插件可以扩展系统的不同区域和基础能力 --- 可以在不重新编译打包发布应用的情况下，更新和新增插件来热操作 （原理：暂时不知道）
+    - 相当于 Service 层，扩展平台核心层的能力，以及进行业务处理
+  - 应用层（Application）
+    - Smart Insight
+    - Power Insight
+    - Shutdown Manager
+    - Monitoring Center
+    - Asset Insight
+    - Thermal Insight
+    - Virtual Insight
+

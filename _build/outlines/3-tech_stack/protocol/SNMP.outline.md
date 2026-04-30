@@ -1,0 +1,100 @@
+﻿<!-- auto-generated from 3-tech_stack\protocol\SNMP.xmind by _build/extract-xmind.ps1, do NOT edit -->
+
+# SNMP 协议
+
+- 概述
+  - Simple Network Management Protocol，简单网络管理协议，是一种用于网络管理的标准协议。
+  - 是 TCP/IP 协议簇的一个应用层协议。通过 UDP 进行通信。使用端口 161 进行 SNMP 管理，端口162 进行 SNMP Trap 消息传递
+  - 主要用于监视金额和管理网络设备，如路由器，交换机，服务器，打印机等。
+  - 主要有三个版本，v1、v2c、v3，后两个版本使用的比较多。
+- 功能和用途
+  - 监控网络设备
+    - 监控设备性能，收集状态信息，如CPU使用率、内存使用情况、网络流量等
+  - 配置设备
+    - 远程配置网络设备，如修改设置的配置参数，重启设备等
+  - 检测故障
+    - 检测和报告设备故障。当设备出现问题时，可以通过 SNMP 发出警报通知管理员
+  - 收集数据
+    - 收集设备的历史数据，用于分析和优化网络
+- 版本
+  - v1
+    - 是 SNMP 协议的最初版本。采用团队名认证（类似于密码），来限制 NMS 对于 Agent 的访问
+    - 是简单的请求/响应协议，网络管理系统 NMS 发出一个请求，管理器返回一个响应
+    - 有 GET、GETNEXT、SET、TRAP 四种操作
+      - GET 从 Agent 处得到一个或多个的对象值，如果 Agent 不能提供请求列表中的所有对象值，则不提供
+    - 安全性不高。取决于发送消息的通道的安全性等。可能会受到 IP 欺骗的威胁
+  - v2c
+    - 兼容 v1，新增了两种操作，GET BULK、INFORM
+      - GET BULK: 获取大块数据，Agent 不能提供请求列表中的所有对象值时，只返回部分结果
+      - INFORM：也是设备主动返回给 NMS，不同于 TRAP 的只上报一次，INFORM 需要收到确认消息，不然就会一直发送
+    - 还是采用团队名认证，也是会受到 IP 欺骗等的威胁
+  - v3
+    - 提高安全性，USM（基于用户的安全控制模型）提供认证和加密，VACM（基于视图的访问控制模型）确定用户是否允许访问特定的 MIB d对象和访问方式
+- 组成
+  - MIB：管理信息库
+    - 任何一个被管理的资源都表示为一个对象。MIB 是被管理对象的集合。每个 SNMP 设备，也就是 Agent 都有自己的 MIB 。
+    - 基本概念
+      - 对象标识符（OID）：
+        - 是 MIB 中每个管理对象的唯一标识。由一系列数字组成，表示对象在层次结构中的位置。如 '1.3.6.1.2.1.1.1'
+      - 层次结构：
+        - MIB 中的对象按照树状结构组织，每个节点代表一个或一组管理对象。
+        - 树的顶层有 ISO 和 IETF 组织定义的公共对象组成，具体网络设备的 MIB 位于树的较低层次
+      - 管理对象
+        - MIB 中的基本单位，表示网络设备的某个特定属性或参数，例如某个路由器的接口状态、CPU使用率、内存使用情况等都可以作为管理对象
+  - SMI：管理信息结构
+    - 定义了 SNMP 所用信息的组织、组成和标识，还为描述 MIB 对象和描述协议怎么交换信息奠定了基础
+    - 数据类型
+      - 简单类型
+        - integer
+          - 整型
+        - octet string
+          - 字符串
+        - object identifier
+          - 表示对象标识符，用于唯一标识管理对象
+      - 简单结构类型
+        - sequence
+          - 集合，可以包含多个不同类型的元素，类似于 C 语言中的结构体，C++ 中类的成员变量
+        - sequence of
+          - 数组，同一种类型的元素
+      - 应用类型
+        - ipAddress
+          - 表示一个 IPV4 地址，4个字节，32位
+        - counter
+          - 表示一个非负的整数，递增到最大值后归零，然后重新计数。不同 SNMP 版本的 counter 位数不同，最大值也不同
+        - gauge
+          - 表示一个非负整数，可以递增或者递减，但在达到最大值时保持在最大值
+        - time ticks
+          - 是一个时间单位，表示以0.01秒为单位计算的时间
+  - SNMP 报文协议
+    - 操作
+      - Get
+        - 入参为需要获取的一个或者多个 MIB 对象的 OID
+        - GET Request: OID = 1.3.6.1.2.1.2.2.1.7 (ifAdminStatus)
+      - GetNext
+        - 检索 MIB 树中下一个对象的值，通常用于遍历 MIB 中的对象。入参为起始 OID
+        - GETNEXT Request: OID = 1.3.6.1.2.1.2.2.1
+      - GetBulk
+        - 用于一次性获取大量的 MIB 对象。入参为起始 OID 和 返回的最大数据量
+        - GETBULK Request: OID = 1.3.6.1.2.1.2.2
+      - Set
+        - 修改网络设备中的一个或多个 MIB 对象的值。入参为要修改的对象 OID 和新的值
+        - SET Request: OID = 1.3.6.1.2.1.2.2.1.7 (ifAdminStatus), Value = 1 (up)
+      - Response
+        - 用于响应前面四个request报文的
+        - RESPONSE: OID = 1.3.6.1.2.1.1.1 (sysDescr), Value = "System Description"
+      - Trap
+        - 设备会在某个事件发生时，主动向管理站发送通知
+        - TRAP: OID = 1.3.6.1.6.3.1.1.5.1 (linkDown)
+      - Inform
+        - 类似于 trap，但是要求管理站接收到通知后发送确认响应，以确保通知被正常接收
+        - INFORM: OID = 1.3.6.1.6.3.1.1.5.3 (authenticationFailure)
+      - Report
+        - 在 v3 版本中，在处理错误和异常信息时使用，用于处理管理站与代理之间的报告通信。报文包含错误信息和状态
+        - REPORT: Error information and status details
+    - 报文组成
+      - Version：协议版本
+      - community: SNMP 共同体标识符
+      - PDU：数据区，每个 PDU 包含一个请求和一个响应
+        - 详情：
+          > image: xap:resources/9465cfdb0e498c24fb917e7bcd0b280a21639124ea2f481b41463f6b90bfa5f4.png
+
