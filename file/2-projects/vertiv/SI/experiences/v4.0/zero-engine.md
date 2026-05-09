@@ -1,3 +1,5 @@
+<!-- 标签:[整] —— 用户整理稿(自己梳理过,可作简历/面试素材) -->
+
 ### Question:
 在本工程的，com.avocent.taf.ieengine.tafprovider.controller.TafProviderController#discoverDevices 这个接口相关的内容都是我写的。分析下写的怎么样，有什么亮点，性能问题，设计与实现问题，有哪些可以改进的，还有最后生成项目经验看看
 

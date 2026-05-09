@@ -2,7 +2,7 @@
 
 标签:`[就绪]` `[需补充]` `[盲点]`⚠️
 
-> 你的 `file/unclassified/linux-privilege.md` (35 行) 写了 rwx 权限和 chmod,但**缺**:
+> 你的 `file/3-tech_stack/os/linux/linux-privilege.md` (44 行,2026-05-08 从 `unclassified/` 归位) 写了 rwx 权限和 chmod,但**缺**:
 > - 文件系统树状结构 (FHS)
 > - 特殊权限的细节 (SUID / SGID / 粘滞位,你标了 todo)
 > - 用户与组管理
@@ -10,8 +10,6 @@
 > - 常用命令速查
 >
 > 这份文档**补全**这些。已写过的部分(rwx 数字 / chmod 用法)我不重复。
->
-> 适合作为你 `linux-privilege.md` 的扩展版,可以归位到 `file/3-tech_stack/os/linux/`(目前 `3-tech_stack/` 下没有 OS 子分类,你可以新建)。
 
 ---
 
@@ -328,7 +326,7 @@ umount /mnt/data                        # 卸载
 
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
-| rwx 权限 + chmod | (本文已避免重复) | `file/unclassified/linux-privilege.md` |
+| rwx 权限 + chmod | (本文已避免重复) | `file/3-tech_stack/os/linux/linux-privilege.md` |
 | FHS 文件系统结构 | §1 | (无) |
 | 特殊权限细节 | §2 | 你 linux-privilege.md §1 标了 todo |
 

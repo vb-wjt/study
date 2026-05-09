@@ -2,7 +2,7 @@
 
 标签:`[就绪]` `[简历亮点]`⭐⭐ `[面试高频]`🎯 `[源文]`
 
-> 这份文档把你 `ferretdb-no-docker.md` (215 行) + `archived_chats.md` (你之前已经写好的简历语言版)
+> 这份文档把你 `ferretdb-no-docker.md` (241 行) + `resume-snippet.md` (原 `unclassified/archived_chats.md`,2026-05-08 归位到 `ferretdb/`)
 > **整合归档**,并补充我视角的提炼。
 >
 > 这是你**最完整、最自包含**的简历素材之一(有问题、有方案、有失败、有结论、有决策影响)。
@@ -136,7 +136,7 @@
 
 ## 5. 简历版 (你已写,我整合至此)
 
-> 你的 `archived_chats.md` 里已经有简历版(2026.04 内容)。我做最小调整,统一标点和措辞:
+> 你的 `resume-snippet.md`(原 `archived_chats.md`)里已经有简历版(2026.04 内容)。我做最小调整,统一标点和措辞:
 
 ```
 【项目经历】开源文档数据库 FerretDB 环境搭建与可行性研究
@@ -173,7 +173,7 @@
 
 ## 6. STAR 法则讲述 (面试时用)
 
-> 你 `archived_chats.md` 已经给出 STAR 框架,我把它**口语化**,方便你面试当场说:
+> 你 `resume-snippet.md` 已经给出 STAR 框架,我把它**口语化**,方便你面试当场说:
 
 ### S (Situation 情境)
 > "公司项目组要评估 MongoDB 的开源替代品 FerretDB,最初的需求是在 Windows 服务器上**不用 Docker** 部署。我负责搭建环境,特别是搞定 Microsoft DocumentDB 扩展(C++ 编写)在 Windows 上的编译和集成。"
@@ -191,7 +191,7 @@
 
 ## 7. 这段经历的"软实力面" (小贴士)
 
-> 你 `archived_chats.md` 末尾的提醒,我完全同意:
+> 你 `resume-snippet.md` 末尾的提醒,我完全同意:
 >
 > > "你证明了你不仅仅是一个'写代码的人',更是一个'**懂架构、懂取舍、能从底层原理出发解决问题**' 的工程师。这对于后端 / 运维 / DevOps 岗位是非常加分的。"
 
@@ -207,8 +207,8 @@
 
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
-| 调研全过程 + 截图 + 错误日志 | §1-3 | `file/3-tech_stack/database/ferretdb/ferretdb-no-docker.md` (215 行 + 6 张图) |
-| 简历语言版 | §5 | `file/unclassified/archived_chats.md` (你之前已写,可归位到 `ferretdb/`) |
+| 调研全过程 + 截图 + 错误日志 | §1-3 | `file/3-tech_stack/database/ferretdb/ferretdb-no-docker.md` (241 行 + 6 张图) |
+| 简历语言版 | §5 | `file/3-tech_stack/database/ferretdb/resume-snippet.md` (2026-05-08 已归位到 `ferretdb/`) |
 | FerretDB → PI 4.0 决策传导 | §3, §4.3 | `file/2-projects/vertiv/refactor_pi/docs/rebuild-plan/01-overview.md` §1.1 |
 | 替代选 PG 的方案 | §3 Plan C | [`./postgresql-knowledge.md`](./postgresql-knowledge.md) |
 

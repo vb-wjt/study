@@ -1,3 +1,5 @@
+<!-- 标签:[整] —— 用户整理稿(自己梳理过,可作简历/面试素材) -->
+
 # Vertiv Power Insight (PI) — 数据中心监控系统源码分析
 
 > 来源：基于 `D:\cursor_workspace\pi_origin` 全量代码（mtp-core 内含 .json，其余目录按规则忽略 .json）的总结。

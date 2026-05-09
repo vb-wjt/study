@@ -1,3 +1,5 @@
+<!-- 标签:[整] —— 用户整理稿(自己梳理过,可作简历/面试素材) -->
+
 # MongoDB 现状分析（实例数据 dump）
 
 > 来源：本地 `mongodb://localhost:27019/mtp` 实例，使用 `tools/mongo_analyze.py` 抽样统计。

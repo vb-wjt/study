@@ -1,3 +1,5 @@
+<!-- 标签:[摘] —— 用户摘录稿(从 PDF/网络/课程摘抄) -->
+
 # SOAP 1.1 与 SOAP 1.2 的区别及相关内容
 
 ## 核心概念回顾：SOAP (Simple Object Access Protocol)

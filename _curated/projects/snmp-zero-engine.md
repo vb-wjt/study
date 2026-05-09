@@ -4,7 +4,7 @@
 
 > 这份文档把你**4 块素材**串联起来:
 > - SNMP 协议本身 (`SNMP.outline.md`, 97 行)
-> - SNMP4J 客户端使用 (基本空白,对应 [`expansions/snmp4j-quickref.md`](../expansions/snmp4j-quickref.md))
+> - SNMP4J 客户端使用 (基本空白,对应 [`tech-stack/snmp4j-quickref.md`](../tech-stack/snmp4j-quickref.md))
 > - MIB 解析方案设计 (`resolve-mib.md`, 754 行 + `snmp-smi-pro.outline.md`)
 > - Zero Engine 信号采集 + 告警流(`zero-engine.md`, 6514 行 + `flow.outline.md`)
 >
@@ -275,13 +275,13 @@ JMS 订阅端 (SI 多消费者):
 | 设备发现 | §3.4 | `file/2-projects/vertiv/SI/experiences/v4.0/discovery.md` (2401 行) |
 | 告警流图 | §3.3 | `_build/outlines/2-projects/vertiv/SI/common/flow/flow.outline.md` |
 | MIB OID 解析图 | §2 | `_build/outlines/.../snmp-smi-pro.outline.md` |
-| SNMP4J 客户端速查 | §1.2 | [`expansions/snmp4j-quickref.md`](../expansions/snmp4j-quickref.md) |
+| SNMP4J 客户端速查 | §1.2 | [`tech-stack/snmp4j-quickref.md`](../tech-stack/snmp4j-quickref.md) |
 
 ---
 
 ## 6. [盲点]⚠️ 我看到的、你可能忽视的
 
-1. **`zero-engine.md` 6500 行是 AI 对话记录** —— 内容质量高但**形式不利于阅读**(都是 Q&A 格式)。建议你**重新整理**成系统化文档(对应 [`gaps/still-missing.md` §1.1](../gaps/still-missing.md))
+1. **`zero-engine.md` 6500 行是 AI 对话记录** —— 内容质量高但**形式不利于阅读**(都是 Q&A 格式)。建议你**重新整理**成系统化文档(对应 [`meta/still-missing.md` §1.1](../meta/still-missing.md))
 2. **OID 解析的索引解码细节没明示** —— `resolve-mib.md` §3.3 说 "如果是表索引,进行索引值解码",但**具体怎么做**?面试官可能会追问
 3. **SNMP v3 你用过吗?** —— Outline 里讲了 v3 的 USM/VACM,但你**实际项目里用的是哪个版本**?如果只用过 v2c,简历不要写"精通 v3"
 

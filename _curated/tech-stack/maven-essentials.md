@@ -270,7 +270,7 @@ mvn dependency:tree -Dincludes=com.fasterxml.jackson.core:jackson-databind
 
 ## 6. 大版本升级的痛点(你 SI 4.1 已踩过)
 
-> 链接到 [`../summaries/dependency-upgrade.md`](../summaries/dependency-upgrade.md) §3
+> 链接到 [`../projects/dependency-upgrade.md`](../projects/dependency-upgrade.md) §3
 
 **与 Maven 直接相关**的痛点:
 
@@ -300,7 +300,7 @@ mvn dependency:tree -Dincludes=com.fasterxml.jackson.core:jackson-databind
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
 | 原始 Maven 笔记 | (本文) | `file/3-tech_stack/build/maven.md` (1 行 todo) |
-| 大版本升级中 Maven 的角色 | §6 | [`../summaries/dependency-upgrade.md`](../summaries/dependency-upgrade.md) |
+| 大版本升级中 Maven 的角色 | §6 | [`../projects/dependency-upgrade.md`](../projects/dependency-upgrade.md) |
 | PI 多模块设计 | §2.4 | `file/2-projects/vertiv/refactor_pi/docs/rebuild-plan/01-overview.md` §3 |
 
 ---

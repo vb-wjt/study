@@ -1,3 +1,5 @@
+<!-- 标签:[整] —— 用户整理稿(自己梳理过,可作简历/面试素材) -->
+
 # MongoDB → PostgreSQL 迁移：表结构设计
 
 > 输入：`docs/legacy-analysis/03-mongodb-collections.md`（72 个 Mongo 集合的盘点）

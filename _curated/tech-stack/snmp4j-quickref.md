@@ -170,7 +170,7 @@ transport.listen();
 
 ### 3.3 Trap 监听 + 策略模式解析
 
-> 详见 [`../summaries/snmp-zero-engine.md`](../summaries/snmp-zero-engine.md) §3.3
+> 详见 [`../projects/snmp-zero-engine.md`](../projects/snmp-zero-engine.md) §3.3
 
 **多厂商 trap 解析器**:
 ```
@@ -186,7 +186,7 @@ TrapResolver (接口)
 
 ### 3.4 MIB 解析 (SI 4.1, SMI-PRO)
 
-> 详见 [`../summaries/snmp-zero-engine.md`](../summaries/snmp-zero-engine.md) §2
+> 详见 [`../projects/snmp-zero-engine.md`](../projects/snmp-zero-engine.md) §2
 
 ```java
 SmiManager smiManager = new SmiManager();
@@ -292,9 +292,9 @@ pdu.setNonRepeaters(0);
 | Zero Engine 实战 | §3.2 | `file/2-projects/vertiv/SI/experiences/v4.0/zero-engine.md` |
 | 设备发现实战 | §3.1 | `file/2-projects/vertiv/SI/experiences/v4.0/discovery.md` |
 | MIB 解析(SMI-PRO) | §3.4 | `file/2-projects/vertiv/SI/experiences/v4.1/resolve-mib/design/resolve-mib.md` |
-| 整合视角 | (本文) | [`../summaries/snmp-zero-engine.md`](../summaries/snmp-zero-engine.md) |
+| 整合视角 | (本文) | [`../projects/snmp-zero-engine.md`](../projects/snmp-zero-engine.md) |
 
 ---
 
 > 全部 `_curated/` 文件已写完!
-> **下一步**: 回 [`../README.md`](../README.md) 选你要看的方向,或直接去 [`../00-inventory.md`](../00-inventory.md) 看全工程盘点。
+> **下一步**: 回 [`../README.md`](../README.md) 选你要看的方向,或直接去 [`../meta/inventory.md`](../meta/inventory.md) 看全工程盘点。

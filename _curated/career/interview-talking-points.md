@@ -46,7 +46,7 @@
 4. **教训**(30 秒): 这次决策的最大学习是 —— **看清楚是治标还是治本**。Plan A 看似快,但延续了"动态 schema"这个根本包袱;Plan C 看似慢,但是把架构债一次还清。
 
 **素材出处**:
-- `_curated/summaries/ferretdb-research.md` (我会写)
+- `_curated/projects/ferretdb-research.md` (我会写)
 - `file/3-tech_stack/database/ferretdb/ferretdb-no-docker.md`
 - `file/2-projects/vertiv/refactor_pi/docs/rebuild-plan/01-overview.md` §1.1 触发因素
 
@@ -113,7 +113,7 @@
 
 **素材出处**:
 - `file/2-projects/vertiv/refactor_pi/docs/legacy-analysis/01-architecture-overview.md` (277 行)
-- `file/2-projects/vertiv/SI/common/mtp-core-strengths-summary.md` + `mtp-core-deep-analysis.md`(对 mtp-core 优势 + 缺陷的深度分析,1 万行;整合见 [`../summaries/mtp-core-framework.md`](../summaries/mtp-core-framework.md))
+- `file/2-projects/vertiv/SI/common/mtp-core-strengths-summary.md` + `mtp-core-deep-analysis.md`(对 mtp-core 优势 + 缺陷的深度分析,1 万行;整合见 [`../projects/mtp-core-framework.md`](../projects/mtp-core-framework.md))
 - `_build/outlines/2-projects/vertiv/SI/common/architecture/TAF-CORE.outline.md`
 
 ### 2.2 "插件机制是怎么实现的?"
@@ -342,6 +342,164 @@
 
 ---
 
+## 6.5 中国移动 ASP 项目可讲点  ⭐⭐ [面试高频]🎯
+
+> 2026-05 用户补充了详细素材后新增。详细见 [`../projects/asp-platform.md`](../projects/asp-platform.md) §4 + §5 + §8。
+>
+> ASP 项目和 Vertiv 项目**互补**:Vertiv 偏架构调研 + 大版本升级,ASP 偏**国企级业务复杂度 + 工程化封装**。
+
+### 6.5.1 ⭐⭐ "为什么不用 ShardingSphere?"
+
+**预期问法**:
+- "你们这么多表怎么分库?"
+- "怎么没用主流的分库分表中间件?"
+
+**回答骨架**(60 秒):
+1. **场景特殊**:不是纯垂直/水平拆分,是"**先整合再分库**" —— CRM/BRM 两套系统的上千张表先做模型整合再划分到 4 个中心
+2. **配置爆炸**:每个存量应用都要单独配 ShardingSphere → 上线变更难统一管理
+3. **能力不足**:大量多表关联 / 跨库 join / 分页排序 —— ShardingSphere 不能完美支持
+4. **替代方案 = dbproxy**:在 Druid 处做代理层,自定义 DataSource,SQL 解析后查"中心字典"路由到目标库,**集成到应用内,零运维成本**
+
+**L4 加分**:**"看清楚是治标还是治本"** —— ShardingSphere 是通用方案但不一定是好方案,具体场景要看数据规模、应用形态、变更成本。
+
+### 6.5.2 ⭐⭐⭐ "你做过哪些 Spring 框架级的工程化封装?"
+
+> 这是简历"框架使用者 → 框架建造者"的关键证据。
+
+**素材**:**@RedisLock 注解 + AOP + Auto Configuration**
+
+**回答骨架**:
+1. **背景**:多微服务都需要分布式锁,各团队独立实现导致重复 + 实现质量参差不齐
+2. **设计**:
+   - `@RedisLock` 自定义注解(prefixKey / SpEL key / 等待时间)
+   - `RedisLockAspect @Aspect` 环绕通知:解析 SpEL → tryLock → finally unlock
+   - `RedisLockAutoConfiguration @Configuration` + spring.factories 自动装配
+   - 公共 slib jar → 其他微服务**加依赖即可用**
+3. **⭐ 关键决策**:`@Order(HIGHEST_PRECEDENCE)`
+4. **结果**:N 个微服务复用,消除 X 行重复代码
+
+**L4 反问钩子**:面试官 90% 会接着问 6.5.3 → 你顺势讲。
+
+### 6.5.3 ⭐⭐⭐⭐ "为什么 @RedisLock 切面要 HIGHEST_PRECEDENCE?"
+
+> 这是 **P7+ 级面试题** —— 答出来直接拉开和普通候选人的差距。
+
+**4 条递进**:
+1. **职责不同**:分布式锁是为了"多实例并发互斥",事务是为了"单实例原子性" → 这两件事是**正交的**,不能混
+2. **加锁要在事务前**:**先获取锁,再开启事务**,这样事务执行期间锁始终持有
+3. **释放锁要在事务后**:无论事务提交还是回滚,**锁都要等事务结束才释放** —— 否则:
+   - 事务回滚 → 锁先释放 → 另一个线程拿锁 → 读到回滚前的脏数据 → 死锁或数据错乱
+4. **AOP 顺序不指定就是不确定的**:Spring AOP 不显式 `@Order` 的多个切面执行顺序是**随机的** → **必须显式 HIGHEST_PRECEDENCE 让锁切面在事务切面外**
+
+**素材出处**:`file/2-projects/asp/knowledge.md` §RedisLockAspect / `_curated/projects/asp-platform.md` §4.4.1
+
+### 6.5.4 ⭐ "HttpServletRequest body 重读问题"
+
+**问法**:"网关或 Filter 链里 body 读不到怎么办?"
+
+**回答**:
+1. **根因**:HttpServletRequest 的 InputStream **只能读一次**(默认 ServletInputStream 不支持 reset)
+2. **场景**:Filter A 读了 body 做鉴权 → DispatcherServlet 再读不到 → `@RequestBody` 抛 "required request body is missing"
+3. **解决**:`CachedBodyHttpServletRequestWrapper extends HttpServletRequestWrapper`
+   - 构造时一次性读完 body 缓存到 `byte[]`
+   - 重写 `getInputStream()` / `getReader()` 返回基于缓存的新 InputStream
+4. **挂载**:在 Filter 链最前 wrap 原始 request,后续所有人拿到的都是 Wrapper
+
+**L4 加分**:**线上调试时为什么常常排查不出来** —— 因为问题往往是"加了一个不起眼的 LogFilter"导致的;**Filter 链改动后必须验证 body 重读**。
+
+### 6.5.5 ⭐⭐ "缓存一致性怎么解决?"(可对照 PDF p.56-58)
+
+ASP 项目有**两层架构**:Caffeine 本地缓存(1 分钟 TTL) + Redis 远程缓存。
+
+**回答 4 种顺序的对比**:
+
+| 方案 | 高并发问题 | 适用 |
+|---|---|---|
+| 先写 DB 再写缓存 | 网络抖动可能写缓存失败 → 缓存脏 | 低并发 + 同事务 |
+| 先写缓存再写 DB | DB 写失败缓存脏(最严重) | ❌ 不推荐 |
+| 先删缓存再写 DB | 高并发下读线程可能写回旧值 | 加缓存双删 |
+| **先写 DB 再删缓存** ✅ | **少数极端情况会脏,概率小** | **ASP 选用** |
+
+**ASP 还做了**:cache-cli + cache-server 工具(@ShellComponent)+ Redis pub/sub `convertAndSend(UPDATE_INFO_CHANNEL)` 通知所有节点本地缓存失效。
+
+### 6.5.6 ⭐ "PortalReqContext + ThreadLocal 怎么设计的?"
+
+ASP 网关 4 个 Filter 链(AuthFilter / OperatorAuthFilter / FrequentAccessFilter / ApiAuthZuulFilter)用 ThreadLocal 传递操作员上下文。
+
+**面试可讲点**:
+- 为什么用 ThreadLocal 不用方法参数 → 跨多个组件 / 跨方法调用栈
+- ThreadLocal 内存泄漏 → 在 Filter 末尾 `remove()` 释放
+- InheritableThreadLocal vs 普通 → 异步线程池场景的传递问题
+
+### 6.5.7 ⭐ "国企特色的安全实践 —— 二次登录"
+
+ASP 项目的"数据库密码不明文"方案:
+1. 配置文件只放"logon 账户"(只有读取存储过程权限)
+2. Druid `getConnection` 拦截 → logon 账户连库 → 执行 `AP_GETDBUSERANDPASS` 存储过程 → 解密得到真密码 → 重新连业务库
+
+**L4 加分**:**这是国企/金融特有的安全合规模式** —— 在外企面试可作为"我做过严格安全合规场景"的差异化亮点。
+
+### 6.5.8 ⭐ "Arthas 你会用吗?"
+
+ASP knowledge.md 给出了**真用过**的命令:
+
+```bash
+sc -d com.alibaba.druid.filter.stat.StatFilter
+ognl -c <classloader_hashcode> '@SpringUtil@getBean("statFilter").slowSqlMills=0'
+```
+
+**L4 加分**:讲一个具体故事 —— "线上 X 接口慢,通过 Arthas `ognl` 修改运行时阈值动态观察,不用重启就解决了问题"。
+
+---
+
+## 6.6 Java 通用知识可讲点(基于 `Java Study.pdf`)
+
+> 详细索引 → [`../tech-stack/java-knowledge-map.md`](../tech-stack/java-knowledge-map.md)
+>
+> 这里只列**最高频** + **本工程能给故事化**的几道题:
+
+### 6.6.1 ⭐⭐⭐⭐ HashMap
+
+**预期问法**:扩容 / 红黑树 / 1.7 头插 vs 1.8 尾插 / 并发问题
+
+**素材出处**:Java Study.pdf p.8 + 你工程内任何 HashMap 用法
+
+### 6.6.2 ⭐⭐⭐⭐ ThreadLocal
+
+**预期问法**:实现原理 / 内存泄漏 / InheritableThreadLocal / 弱引用
+
+**素材出处**:PDF p.51-53 + ASP 网关 PortalReqContext 实战
+
+### 6.6.3 ⭐⭐⭐⭐ 线程池
+
+**预期问法**:5 参数 / 4 种内置 / CPU vs IO 密集型 / 拒绝策略 / 动态线程池
+
+**素材出处**:PDF p.45-50 + SI Zero Engine `samplingScheduler`(1000 线程)实战
+
+### 6.6.4 ⭐⭐⭐⭐ 数据库索引(B+树 / change buffer / 失效 9 种 / explain)
+
+**素材出处**:PDF p.26-33 + ASP 项目 SQL 优化实战(knowledge.md §6.2)
+
+### 6.6.5 ⭐⭐⭐⭐ 缓存三件套(穿透 / 击穿 / 雪崩)
+
+**素材出处**:PDF p.54-55 + ASP cache-cli + SI Zero Engine 设备点缓存
+
+### 6.6.6 ⭐⭐⭐⭐ 分布式事务(7 种方案对比)
+
+**预期问法**:CAP / BASE / 2PC / 3PC / TCC / Seata / 本地消息表 / 消息事务 / 最大努力通知
+
+**素材出处**:PDF p.65-87(**写得最完整**)+ ASP DAM XA 实战
+
+### 6.6.7 ⭐⭐⭐⭐ Spring 事务(传播级别 + 失效场景)
+
+**预期问法**:7 种传播级别 / 9 种失效场景 / @Transactional AOP 底层
+
+**素材出处**:PDF p.88-91 + ASP @RedisLock 与事务的协作设计
+
+> ⚠️ **PDF 严重盲点**(强烈建议补):**JVM / GC / JUC(AQS / volatile / synchronized 升级)** —— 详见 [`../tech-stack/java-knowledge-map.md` §3](../tech-stack/java-knowledge-map.md#3-pdf-的盲点我建议你补的)。
+
+---
+
 ## 7. 软实力 / 行为面试
 
 ### 7.1 "你最近一次解决最复杂问题的经历?"
@@ -397,4 +555,6 @@
 
 ---
 
-> **下一步**:如果你想做**个人复盘 + 回答 `pre_action.md` 末尾 3 个问题**,看 [`growth-and-feedback.md`](./growth-and-feedback.md)。
+> **下一步**:
+> - 个人复盘 + L 给的反馈 → [`growth-and-feedback.md`](./growth-and-feedback.md)
+> - 第二年谈话提炼(调薪 / 培养方向 / 今年行动清单)→ [`talking-2026-leader-feedback.md`](./talking-2026-leader-feedback.md)

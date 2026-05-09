@@ -140,15 +140,19 @@
 
 ## 6. 个人成长 / 复盘相关
 
-### 6.1 `pre_action.md` 末尾 3 个问题 `[必须]` `[优先级⭐]`
+### 6.1 ~~`pre_action.md` 末尾 3 个问题~~ ✅ L 已直接回答 (2026 春节后谈话)
 
 ```
-和项目经理的沟通怎么样
-开讨论会, 例会上的表达, 沟通怎么样
-怎么更进一步
+和项目经理的沟通怎么样      → L:有进步(sprint 不再"惊吓"别人) + 但还缺乏理论化(给了"左-中-右"模型)
+开讨论会, 例会上的表达     → L:比以前好,简洁不绕,准备工作好;需提升:会议进程主动管理
+怎么更进一步               → L:5 条具体路径(业务摸瓜 / 专业英语 / 会议管理 / 跨国合作 / 沟通理论化)
+                                + 培养方向 = "独当一面的技术高手"
 ```
 
-这 3 个问题是空的。我在 [`career/growth-and-feedback.md`](../career/growth-and-feedback.md) 给你做了**回答框架** + **若干提问引导**。但**最终答案只能你给**。
+详细整理 → [`career/talking-2026-leader-feedback.md`](../career/talking-2026-leader-feedback.md) §5 + §3 + §4。
+
+> 自答框架仍保留在 [`career/growth-and-feedback.md`](../career/growth-and-feedback.md) §1 ——
+> 因为 L 是**外部视角**,你自己的内部视角(主动同步频率、模式自评等)依然有价值,**两者结合**才是完整画像。
 
 ### 6.2 `action.md` 里"去留抉择" `[强化]`
 
@@ -166,49 +170,73 @@
 - `other.md` → `mtp-core-strengths-summary.md`
 - `other2.md` → `mtp-core-deep-analysis.md`
 
-git 历史保留(用 `git mv`)。整合后的 `_curated/` 文档见 [`../summaries/mtp-core-framework.md`](../summaries/mtp-core-framework.md)。
+git 历史保留(用 `git mv`)。整合后的 `_curated/` 文档见 [`../projects/mtp-core-framework.md`](../projects/mtp-core-framework.md)。
 
-### 7.2 `unclassified/` 是个临时区,不应该长存 `[盲点]`⚠️
+### 7.2 ~~`unclassified/` 是个临时区~~ ✅ 已清空 (2026-05-08)
 
-5 个文件全部是 `[就绪]` 状态,**没有任何一个是真"未分类"**,只是没动手归位。
-
-我在 [`00-inventory.md` §5](../00-inventory.md#5-fileunclassified--暂未归类) 给了每个文件的建议归类。
+6 个文件全部归位,详见 [`meta/inventory.md §8 变更日志`](./inventory.md#8-变更日志)。
 
 ### 7.3 `business/SI/task/SI 工作总结.xmind` `[未决]`❓
 
 文件名是 `SI 工作总结`,但 xmind 内部 sheet 名是 `SI 依赖升级`。**不一致**。需要你确认是改文件名还是改 sheet 名。
 
-### 7.4 `Java中间件.txt` 用 .txt 后缀 `[盲点]`⚠️
+### 7.4 ~~`Java中间件.txt` 用 .txt 后缀~~ ✅ 已修正 (2026-05-08)
 
-`3-tech_stack/middleware/Java中间件.txt` —— 工程里其他都是 .md,**唯一一个 .txt** 显得很可疑,可能是临时文件忘改后缀。
+已改后缀 + 改名为 `middleware-overview.md` + 加了表格化结构 + 链接到 `_curated/tech-stack/`。
+
+### 7.5 `1 行 todo 占位文件` ✅ 已修正 (2026-05-08)
+
+- `build/maven.md`(原 `todo`)→ redirect link 到 `tech-stack/maven-essentials.md`
+- `protocol/SNMP4J.md`(原 `todo`)→ redirect link 到 `tech-stack/snmp4j-quickref.md`
+- `1-meta/study_index.md`(原 0 行)→ redirect link 到 `_curated/README.md` 等三大入口
+
+### 7.6 中文文件名 ✅ 已修正 (2026-05-08)
+
+- `database/mongo/mongodb指令.md` → `mongodb-commands.md`
+- `protocol/SOAP版本.md` → `soap-versions.md`
+- 工程内剩余中文文件名:`business/PI/迁移 mongodb.xmind` 和 `business/SI/task/SI 工作总结.xmind`(用户最早整理的脑图,**保留**)
 
 ---
 
 ## 8. 完全不存在但应该有的 `[盲点]`⚠️
 
-我浏览整个工程,**没看到**以下你应该考虑的点:
+我浏览整个工程,**没看到**以下你应该考虑的点(2026-05 更新:用户补了 `Java Study.pdf` 103 页 + `asp/knowledge.md` 570 行后,**多项已被覆盖**):
 
-| 缺失主题 | 为什么要有 |
-|---|---|
-| `Spring 框架` 专题(`3-tech_stack/framework/spring/`) | Java 后端核心,你天天用,没有沉淀 |
-| `JVM` / GC / 调优 | 面试必问,简历"Java 后端"必须有 |
-| `MySQL / SQLite` | SI 4.1 里 MySQL→SQLite 切换,但只在大纲提了一行 |
-| `单元测试 / Mockito / TestContainers` | 你的代码质量加分项,目前 0 |
-| `Docker / 容器化` | 即使 PI 不用 Docker,FerretDB 调研里你提了 |
-| `Git workflow` / Code Review 经验 | 团队协作,简历可讲 |
-| `English` 技术写作 | Vertiv 是外企,你日常应该会写英文 doc / commit / PR? |
+| 缺失主题 | 为什么要有 | 覆盖状态 |
+|---|---|---|
+| `Spring 框架` 专题 | Java 后端核心,你天天用 | ✅ **已补**:[`tech-stack/spring-internals.md`](../tech-stack/spring-internals.md)(Bean 生命周期 / 循环依赖 / AOP / Boot 启动 / 自动装配 / @Transactional)+ ASP @RedisLock 实战 |
+| `JVM` / GC / 调优 | 面试必问,简历"Java 后端"必须有 | ✅ **已补**:[`tech-stack/jvm-and-concurrency.md` §1-§5](../tech-stack/jvm-and-concurrency.md) |
+| `MySQL` 进阶 | SI 4.1 里 MySQL→SQLite 切换 | ✅ **已补**:[`tech-stack/mysql-deep-dive.md`](../tech-stack/mysql-deep-dive.md)(InnoDB 锁 / MVCC / 主从 / binlog / ICP) + PDF p.23-43 基础 |
+| `单元测试 / Mockito / TestContainers` | 代码质量加分项 | ✅ **已补**:[`tech-stack/testing-and-engineering.md`](../tech-stack/testing-and-engineering.md)(JUnit5 / Mockito / TestContainers / Git / CR / 文档写作) |
+| `Docker / 容器化` | FerretDB 调研里你提了 | ⚠️ **半覆盖**:ASP knowledge.md 有 K8s 指令 / Dockerfile 流程,但**缺独立深度** |
+| `Git workflow` / Code Review 经验 | 团队协作 | ✅ **已补**:[`tech-stack/testing-and-engineering.md` §2-§3](../tech-stack/testing-and-engineering.md) |
+| `English` 技术写作 | Vertiv 是外企,你日常应该会写英文 doc / commit / PR? | ✅ **已补**:[`tech-stack/programming-english.md`](../tech-stack/programming-english.md)(731 行,词汇 + 句型 + Standup/PR/Design Doc/会议 模板)+ [`tech-stack/testing-and-engineering.md` §4](../tech-stack/testing-and-engineering.md)。**实操还需用户长期积累**。 |
+| **JUC / AQS / volatile / synchronized 锁升级** | P6+ **必考** | ✅ **已补**:[`tech-stack/jvm-and-concurrency.md` §6-§12](../tech-stack/jvm-and-concurrency.md) |
+| **Redis 持久化 / 主从 / 哨兵 / 集群** | 后端必考 | ✅ **已补**:[`tech-stack/redis-deep-dive.md`](../tech-stack/redis-deep-dive.md)(数据结构底层 / RDB+AOF+混合 / 主从+哨兵+Cluster / 8 淘汰策略) |
+| **MySQL InnoDB 行锁 / 间隙锁 / 临键锁** | P6+ 必考 | ✅ **已补**:[`tech-stack/mysql-deep-dive.md` §1](../tech-stack/mysql-deep-dive.md) |
+| **Spring Bean 生命周期 / 循环依赖三级缓存** | P6+ 必考 | ✅ **已补**:[`tech-stack/spring-internals.md` §1-§2](../tech-stack/spring-internals.md) |
+| **MQ 三大问题(可靠性/顺序/重复)** | 后端必考 | ✅ **已补**:[`tech-stack/mq-essentials.md`](../tech-stack/mq-essentials.md)(三大问题 + Kafka 架构 + RocketMQ vs Kafka vs RabbitMQ 选型) |
+| **TCP / HTTP / HTTPS / WebSocket** ⚠️新增 | 后端必考 | ✅ **已补**:[`tech-stack/network-essentials.md`](../tech-stack/network-essentials.md)(三/四次握手 / TIME_WAIT / HTTP123 / TLS 握手 / WS 升级) |
+| **系统设计方法论** ⚠️新增 | P7 加分 | ✅ **已补**:[`tech-stack/system-design-primer.md`](../tech-stack/system-design-primer.md)(7 步法 + 8 经典题 + 你项目映射) |
+| **算法刷题路径** ⚠️新增 | 国内大厂笔试关 | ❌ **仍空白**(不是知识,是训练 → 看 [`tech-stack/00-skill-roadmap.md` §5](../tech-stack/00-skill-roadmap.md)) |
+| **Netty / DDD / Kotlin** | 看目标公司 | ❌ **仍空白**(长尾,不紧急) |
 
 ---
 
 ## 9. 优先级 Top 5 (我的推荐)
 
-如果时间有限,只补 5 个,我建议:
+如果时间有限,只补 5 个,我建议(**2026-05 更新**:进阶 7 大模块写完后,优先级再调整):
 
-1. **回答 [`pre_action.md`](../../file/1-meta/gate/pre_action.md) 末尾 3 个问题** (30 分钟,影响下半年)
-2. **回答 §5 简历语言版的输入**(目标岗位 / 反例 / 优势)(30 分钟,让 `resume-projects.md` 真正有用)
-3. **填充 SI 4.0 / 4.0.1 / 4.1 各自的具体细节**(每版本 1-2 小时,补完面试时就能讲)
-4. **回答 §2.1 PI 重构里你自己标的 12 个 `[missing]`** (滚动进行)
-5. ~~**重命名 `other.md` / `other2.md`**~~ ✅ 已完成 + **归位 `unclassified/` 5 个文件**(10 分钟,工程整洁度大幅提升)
+1. ~~**回答 `pre_action.md` 末尾 3 个问题**~~ ✅ L 已答 → 转为:**把 [`career/talking-2026-leader-feedback.md` §7](../career/talking-2026-leader-feedback.md#7-我的今年行动清单基于-l-的反馈) 的行动清单转化为 SOP**(1-2 小时,影响今年绩效)
+2. ⭐ **基于新增的中移 ASP 素材更新简历 §2 段**(1 小时,从"几乎空白"到"4 个完整 STAR 段") —— 见 [`career/resume-projects.md` §2](../career/resume-projects.md)
+3. ~~⭐ **补 JVM/GC/JUC 三个 PDF 盲点**~~ ✅ 已写 → 转为:**长期消化进阶 7 模块**(见 [`tech-stack/00-skill-roadmap.md`](../tech-stack/00-skill-roadmap.md) 的优先级排序,**积累式不要一次消化**)
+4. **回答 §5 简历语言版的输入**(目标岗位 / 反例 / 优势)(30 分钟,让 `resume-projects.md` 真正有用)
+5. **填充 SI 4.0 / 4.0.1 / 4.1 各自的具体细节** + **回答 §2.1 PI 重构 12 个 `[missing]`**(滚动进行)
+
+> 已不在 Top 5 但重要:
+> - ~~**归位 `unclassified/` 5 个文件**~~ ✅ 2026-05-08 完成(6 个归位 + 命名修正,见 [`meta/inventory.md §8`](./inventory.md#8-变更日志))
+> - ~~**决定 `Java Study.pdf` 是否转 markdown**~~ ✅ 2026-05 完成 → [`file/3-tech_stack/java-study.md`](../../file/3-tech_stack/java-study.md) 1714 行
+> - **算法刷题** —— 国内大厂笔试关,需要长期训练,本工程内未覆盖
 
 ---
 

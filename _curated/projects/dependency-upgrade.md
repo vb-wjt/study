@@ -262,4 +262,4 @@
 
 ---
 
-> **下一步**: 看 [`expansions/maven-essentials.md`](../expansions/maven-essentials.md) (Maven 是依赖升级的载体)
+> **下一步**: 看 [`tech-stack/maven-essentials.md`](../tech-stack/maven-essentials.md) (Maven 是依赖升级的载体)
