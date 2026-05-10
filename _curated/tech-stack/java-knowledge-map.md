@@ -21,7 +21,7 @@
 | 大致整理时间 | 中移在职期间(2022-2024)|
 | 我的总体评价 | ⭐⭐⭐ **覆盖广 + 实战气足**(很多题来自真实开发遇到的问题,不是单纯抄书) |
 
-> ✅ **已转写**(2026-05):[`file/3-tech_stack/java-study.md`](../../file/3-tech_stack/java-study.md) (1714 行),修正了 OCR 错别字 + 优化排版,原 PDF 仍保留可对照。
+> ✅ **已转写**(2026-05):[`file/3-tech_stack/java-study.md`](../../origin/3-tech_stack/java-study.md) (1714 行),修正了 OCR 错别字 + 优化排版,原 PDF 仍保留可对照。
 
 ---
 
