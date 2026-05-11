@@ -2,7 +2,7 @@
 
 标签:`[就绪]` `[需补充]` `[盲点]`⚠️
 
-> 你的 `file/3-tech_stack/os/linux/linux-privilege.md` (44 行,2026-05-08 从 `unclassified/` 归位) 写了 rwx 权限和 chmod,但**缺**:
+> 你的 `tech-stack/os/linux/linux-privilege.md` (44 行,2026-05-08 从 `unclassified/` 归位) 写了 rwx 权限和 chmod,但**缺**:
 > - 文件系统树状结构 (FHS)
 > - 特殊权限的细节 (SUID / SGID / 粘滞位,你标了 todo)
 > - 用户与组管理
@@ -322,14 +322,51 @@ umount /mnt/data                        # 卸载
 
 ---
 
-## 8. 与你 `file/` 其他素材的链接
+## 8. 与你 `origin/` 其他素材的链接
 
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
-| rwx 权限 + chmod | (本文已避免重复) | `file/3-tech_stack/os/linux/linux-privilege.md` |
+| rwx 权限 + chmod | §2 + 附录 A | 原 `linux-privilege.md`(已合并) |
 | FHS 文件系统结构 | §1 | (无) |
-| 特殊权限细节 | §2 | 你 linux-privilege.md §1 标了 todo |
+| 特殊权限细节 | §2 | 原 `linux-privilege.md` §1 标了 todo |
 
 ---
 
-> **下一步**: [`snmp4j-quickref.md`](./snmp4j-quickref.md) (SI 用得最多的库,你竟然没沉淀)
+## 附录 A. 权限速查表(原 `origin/os/linux/linux-privilege.md`)
+
+> 以下内容来自用户整理笔记,2026-05-11 合并。
+
+| 权限字符 | 数字 | 对文件 | 对目录 |
+|---|---|---|---|
+| r(read) | 4 | 读取文件内容 | 列出目录内容(ls) |
+| w(write) | 2 | 修改文件内容 | 在目录中创建/删除文件 |
+| x(execute) | 1 | 执行文件(程序/脚本) | 进入目录(cd) |
+
+特殊权限: SUID(4)、SGID(2)、粘滞位(1) — todo
+
+```shell
+# 权限的三个身份组
+-rwxr-xr-- 1 alice developers 1024 Jan 1 12:34 script.sh
+# 所有者：alice (user)     → rwx
+# 所属组：developers (group) → r-x
+# 其他用户：others          → r--
+
+# 数字方式
+$ chmod 755 script.sh      # rwxr-xr-x
+$ chmod 644 config.txt     # rw-r--r--
+
+# 字符方式
+$ chmod u+x script.sh      # 给所有者添加执行权限
+$ chmod a+x script.sh      # 给所有人添加执行权限
+
+# 特殊权限
+$ chmod 4755 /usr/bin/myprogram   # 设置SUID
+$ chmod 1777 /tmp                 # 设置粘滞位
+
+# 递归修改
+$ chmod -R 755 directory/
+```
+
+---
+
+> **下一步**: [`snmp4j-quickref.md`](./protocol/snmp4j-quickref.md)

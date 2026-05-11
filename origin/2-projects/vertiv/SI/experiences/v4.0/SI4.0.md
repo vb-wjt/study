@@ -20,8 +20,8 @@
 - 前端: Angular + Lumos(私有组件库)
 - 后端:
     - SI: Taf + SpringBoot + SpringSecurity + Hazelcast(分布式缓存)
-    - ZE: SpringBoot + Mybatis-Plus + Undertow(服务器) + Caffeine(本地缓存) + ActiveMQ
-- 数据库: mongodb + mysql
+    - ZE: SpringBoot 3.5.6 + Java 21 + MyBatis-Plus 3.5.5 + Undertow + Caffeine + ActiveMQ + snmp4j 3.8.2
+- 数据库: SI 用 MongoDB; ZE 用 SQLite (当前版本, 原 MySQL 已在升级中替换)
 ```
 
 ## 背景/前置 知识
@@ -31,6 +31,11 @@
 3. Mongodb
 
 ## 信号和告警流
+
+> 详见 [`zero-engine-analysis.md`](./zero-engine-analysis.md) §2-§3
+> 信号采集: Device.execute() → 每个 OID 单独 GET → Caffeine 缓存 → 观察者通知 → HTTP 推送
+> 告警来源: SNMP Trap (v1/v2c) + 通信丢失检测;无阈值告警
+> SNMPv3: GET 完整支持 (USM + Engine ID 发现);Trap 仅 v1/v2c
 
 ## 负责的模块
 
@@ -42,8 +47,17 @@
 
 ### 驱动管理
 
-1. 查
-2. 增: 驱动压缩包，加密。。。
-3. 删: 失败时，只回滚当前驱动的相关内容。。。
-4. 改: 有设备的时候，需要额外处理。。。
-5. 见 zero engine 源码中的相关功能实现
+> 基于 ie-engine 源码分析,详见 [`zero-engine-analysis.md`](./zero-engine-analysis.md) §4
+
+**"驱动"的组成**(不是 ZIP 包,是 4 张表的组合):
+- `monitoring_mapping` — 驱动身份(name, version, protocol)
+- `monitoring_definition` — 协议映射(datapoints, events, SNMP 地址, trap 规则)
+- `monitoring_specification` — 采集规格(哪些数据点/事件需要采集)
+- `product_template` — 产品元数据
+
+**CRUD 行为**(与之前文档描述不同,以下基于代码):
+1. **查**: `GET /devicedrivers` 从 `DeviceDriverContext` 内存缓存读取
+2. **增/全量更新**: `POST /tafprovider/pushdriver` — 压缩包解析和加密在上游 Center/TAF 端完成,ie-engine 接收结构化 JSON
+3. **删**: `DELETE /tafprovider/devicedrivers` — **有设备引用时直接拒绝删除**(返回 usedDriverDevices 列表);批量删除时每个驱动独立事务,单个失败不影响其他
+4. **部分更新**: `POST /tafprovider/updatedriver` — 仅更新 definition 和 specification,**直接修改缓存**,设备立即看到新定义(无版本控制/冻结机制)
+5. **校验**: `POST /tafprovider/checkdrivers` — 比较 Center 下发列表与本地缓存的差异

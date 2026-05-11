@@ -396,4 +396,44 @@ public void onMyEventAsync(MyEvent event) { ... }
 
 ---
 
-> 📌 **下一步**:[`mysql-deep-dive.md`](./mysql-deep-dive.md) → InnoDB 锁 / MVCC / 主从
+---
+
+## 附录 A. 实战零碎笔记(原 `origin/spring/notes.md`)
+
+> 以下内容来自用户在 SI 项目中的实战笔记,2026-05-11 合并。
+
+### A.1 用 `ApplicationEvent` 实现观察者模式
+
+- 自定义事件 → 继承 `ApplicationEvent`
+- 发布 → `ApplicationEventPublisher#publishEvent`
+- 监听 → `@EventListener` 或 `ApplicationListener<XxxEvent>`
+- 异步 → 监听方法上加 `@Async` + 全局 `@EnableAsync`
+
+> 项目里用过:见 SI 内 mtp-core 的事件总线相关章节。
+
+### A.2 Bean 加载顺序
+
+- 单纯按"声明顺序"是错的;真实顺序由依赖关系 + `@DependsOn` + `BeanFactoryPostProcessor` 决定
+- 强制顺序:`@DependsOn("xxx")` / 实现 `Ordered` 接口或 `@Order`
+- 完整生命周期 → 本文 §1
+
+### A.3 Servlet 容器因启动顺序拿不到 Spring Bean
+
+- 典型场景:Filter / Listener 在 `web.xml` / Servlet 初始化时,Spring 还没起完
+- 解法:
+  - 用 `DelegatingFilterProxy` 把 Filter 注册到 Spring 上下文中
+  - 或在 Filter 里 `WebApplicationContextUtils.getRequiredWebApplicationContext()` 懒加载
+  - SpringBoot:用 `FilterRegistrationBean`,顺序由 `setOrder` 控制
+
+### A.4 用 `AntPathMatcher` 自定义请求匹配
+
+```java
+AntPathMatcher matcher = new AntPathMatcher();
+matcher.match("/api/**", request.getRequestURI());
+```
+
+- 一次请求到 Controller 的完整链路:`DispatcherServlet#doDispatch` → `HandlerMapping#getHandler` → `HandlerAdapter#handle` → 反射调用 Controller 方法
+
+---
+
+> 📌 **下一步**:[`mysql-deep-dive.md`](../database/mysql-deep-dive.md) → InnoDB 锁 / MVCC / 主从

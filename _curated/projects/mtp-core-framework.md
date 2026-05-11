@@ -3,12 +3,12 @@
 标签:`[就绪]` `[简历亮点]`⭐⭐ `[面试高频]`🎯 `[源文]`
 
 > 这份文档是你两个原始文件的**整合版**(原 `other.md` / `other2.md`,**已重命名**):
-> - `file/2-projects/vertiv/SI/common/mtp-core-strengths-summary.md` (338 行,10 大优势精简版)
-> - `file/2-projects/vertiv/SI/common/mtp-core-deep-analysis.md` (10299 行,7 大子系统深度分析 + 框架缺陷反思 + 项目经验总结)
+> - `origin/2-projects/vertiv/SI/common/mtp-core-strengths-summary.md` (338 行,10 大优势精简版)
+> - `origin/2-projects/vertiv/SI/common/mtp-core-deep-analysis.md` (10299 行,7 大子系统深度分析 + 框架缺陷反思 + 项目经验总结)
 >
 > 我做的事:
 > - **不抄原文**(原文 1 万行,详细到极致)
-> - **提炼"框架本身"的精华**(与 [`pi-platform-deep-dive.md`](./pi-platform-deep-dive.md) 互补——那个聚焦"PI/SI/重构"对比,本文聚焦"框架本身的设计与反思")
+> - **提炼"框架本身"的精华**,聚焦"框架本身的设计与反思"
 > - **标注两面**:框架的优势 / 框架的缺陷
 > - **简历语言版**:面试时怎么讲
 
@@ -61,7 +61,7 @@
 **你在这里的角色**:
 - **SI 4.x**: 在 mtp-core 之上做业务开发(用其 schema / 插件 / 集群机制)
 - **SI 4.1 升级**: 推动 mtp-core 升级到 SB 3 / Java 21 / Hazelcast 5 兼容版本
-- **PI 4.0 重构**: 主导参与 mtp-core 4.0 的**重写方案**(详见 [`pi-platform-deep-dive.md`](./pi-platform-deep-dive.md) §3)
+- **PI 4.0 重构**: 主导参与 mtp-core 4.0 的重写方案(进行中,暂不记载)
 
 ---
 
@@ -193,23 +193,23 @@ PI 4.0 mtp-core 重写时定下的 5 条红线
 
 | 文档 | 关注点 | 与本文的关系 |
 |---|---|---|
-| [`pi-platform-deep-dive.md`](./pi-platform-deep-dive.md) | PI / SI / mtp-core 三方对比 + PI 4.0 重构关键决策 | **互补**——那个讲"产品视角",本文讲"框架视角" |
+| (PI 重构文档) | PI 4.0 重构关键决策 | 进行中,暂不记载 |
 | [`dependency-upgrade.md`](./dependency-upgrade.md) | 大版本依赖升级方法论 (SI 4.1) | 砍 Hazelcast 的反思来自本文 §3 |
 | [`../career/interview-talking-points.md`](../career/interview-talking-points.md) §2 | 面试问答 (mtp-core 平台) | 本文 §5 是其扩展版 |
 | [`../career/resume-projects.md`](../career/resume-projects.md) §1 | 简历项目段 | 本文 §4 是其精简版 |
 
 ---
 
-## 7. 与你 `file/` 其他素材的链接
+## 7. 与你 `origin/` 其他素材的链接
 
 | 主题 | 我提到的 | 你的源文 (重命名后) |
 |---|---|---|
-| 10 大设计亮点 | §1 | `file/2-projects/vertiv/SI/common/mtp-core-strengths-summary.md` (原 `other.md`) |
-| 7 大子系统深度分析 | §2 | `file/2-projects/vertiv/SI/common/mtp-core-deep-analysis.md` (原 `other2.md`) |
+| 10 大设计亮点 | §1 | `origin/2-projects/vertiv/SI/common/mtp-core-strengths-summary.md` (原 `other.md`) |
+| 7 大子系统深度分析 | §2 | `origin/2-projects/vertiv/SI/common/mtp-core-deep-analysis.md` (原 `other2.md`) |
 | 5 大设计缺陷 | §3.1 | `mtp-core-deep-analysis.md` 行 320-651 |
 | TAF-CORE 架构图 | §0 | `_build/outlines/2-projects/vertiv/SI/common/architecture/TAF-CORE.outline.md` |
-| PI 现状(基于 mtp-core) | §3.2 | `file/2-projects/vertiv/refactor_pi/docs/legacy-analysis/01-architecture-overview.md` |
-| PI 4.0 mtp-core 重写决策 | §3.2 | `file/2-projects/vertiv/refactor_pi/docs/rebuild-plan/01-overview.md` §3.2 |
+| PI 现状(基于 mtp-core) | §3.2 | (PI 重构文档暂不记载) |
+| PI 4.0 mtp-core 重写决策 | §3.2 | (PI 重构文档暂不记载) |
 
 ---
 
@@ -222,5 +222,5 @@ PI 4.0 mtp-core 重写时定下的 5 条红线
 
 ---
 
-> **下一步**: 看 [`pi-platform-deep-dive.md`](./pi-platform-deep-dive.md)(产品视角的延伸) 或
+> **下一步**: 看
 > [`../career/interview-talking-points.md`](../career/interview-talking-points.md) §2(面试问答详细版)

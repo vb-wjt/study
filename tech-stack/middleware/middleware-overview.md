@@ -2,7 +2,7 @@
 
 # 中间件全景速查
 
-> 按用途分类的中间件清单,作为"知道有这些东西"的快速对照(每条不展开,需要细节去对应的 `_curated/tech-stack/` 文档查)
+> 按用途分类的中间件清单,作为"知道有这些东西"的快速对照(每条不展开,需要细节去对应的 `tech-stack/` 文档查)
 
 | 用途 | 候选 |
 |---|---|
@@ -31,7 +31,7 @@
 
 ## 关联深度文档
 
-- 缓存原理 → [`_curated/tech-stack/redis-deep-dive.md`](../../../_curated/tech-stack/redis-deep-dive.md)
-- 消息队列三大问题 → [`_curated/tech-stack/mq-essentials.md`](../../../_curated/tech-stack/mq-essentials.md)
-- 注册中心/网关/熔断(项目落地) → [`_curated/projects/asp-platform.md`](../../../_curated/projects/asp-platform.md) §portal-gateway
-- 数据库中间件(ShardingSphere/dbproxy) → [`_curated/projects/asp-platform.md`](../../../_curated/projects/asp-platform.md) §SQL 解耦
+- 缓存原理 → [`tech-stack/redis-deep-dive.md`](../cache/redis-deep-dive.md)
+- 消息队列三大问题 → [`tech-stack/mq-essentials.md`](./mq-essentials.md)
+- 注册中心/网关/熔断(项目落地) → [`_curated/projects/asp-platform.md`](../../_curated/projects/asp-platform.md) §portal-gateway
+- 数据库中间件(ShardingSphere/dbproxy) → [`_curated/projects/asp-platform.md`](../../_curated/projects/asp-platform.md) §SQL 解耦

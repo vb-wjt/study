@@ -193,16 +193,16 @@
 
 ---
 
-## 5. 与你 `file/` 其他素材的链接
+## 5. 与你 `origin/` 其他素材的链接
 
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
 | PG 全部知识点 | §1 | `_build/outlines/3-tech_stack/database/postgresql/postgresql.outline.md` (775 行) |
-| PI 4.0 schema 设计 | §2 | `file/2-projects/vertiv/refactor_pi/db/postgres/*.sql` |
-| Schema 设计文档 | §2 | `file/2-projects/vertiv/refactor_pi/docs/migration/01-postgres-schema.md` |
-| Mongo → PG ETL | §3 | `file/2-projects/vertiv/refactor_pi/tools/*.py` |
+| PI 4.0 schema 设计 | §2 | `origin/2-projects/vertiv/refactor_pi/db/postgres/*.sql` |
+| Schema 设计文档 | §2 | `origin/2-projects/vertiv/refactor_pi/docs/migration/01-postgres-schema.md` |
+| Mongo → PG ETL | §3 | `origin/2-projects/vertiv/refactor_pi/tools/*.py` |
 | FerretDB 不可行的根因 | §A 决策背景 | [`./ferretdb-research.md`](./ferretdb-research.md) |
-| MongoDB 集合清单 | §3 摸底 | `file/2-projects/vertiv/refactor_pi/docs/legacy-analysis/03-mongodb-collections.md` |
+| MongoDB 集合清单 | §3 摸底 | `origin/2-projects/vertiv/refactor_pi/docs/legacy-analysis/03-mongodb-collections.md` |
 
 ---
 

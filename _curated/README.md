@@ -1,18 +1,23 @@
 # `_curated/` —— AI 视角的工程梳理
 
 > 这个目录里的所有内容**由 AI 主动整理**,与
-> - `file/` (你手写的源内容)
+> - `origin/` (你手写的项目/个人源内容)
+> - `tech-stack/` (技术栈统一目录,2026-05-11 从 `origin/3-tech_stack/` + `_curated/tech-stack/` 合并)
 > - `_build/` (脚本自动从 xmind/drawio 解析出的 outline)
 >
-> 三者**互相独立、互不覆盖**。如果我说错了或归类不合适,请直接改 `_curated/` 下的文件,不影响你 `file/` 下的素材。
+> 四者各有分工。如果我说错了或归类不合适,请直接改对应目录下的文件。
 >
-> **2026-05-08 大重构**:`_curated/` 顶层从"产物类型"(summaries/expansions/gaps)改为"主题对齐"(meta/projects/tech-stack/career),与 `file/` 的内容分类对齐;`file/` 下文档类原文(`.md`)在**首行加 HTML 注释**标签([原]/[整]/[摘]),非文档类(.xmind/.drawio/.sql/.py/.pdf/...)按扩展名识别。详见 [`meta/inventory.md §8 变更日志`](./meta/inventory.md#8-变更日志)。
+> **2026-05-11 整合**:将 `origin/3-tech_stack/` 和 `_curated/tech-stack/` 合并到顶层 `tech-stack/`,按主题子目录组织;`_curated/` 不再包含 tech-stack 子目录。
+>
+> **2026-05-10 整理**:将 `file/` 重命名为 `origin/`;删除冗余 / 分析不佳的文档(mtp-core-deep-analysis、zero-engine、refactor_pi 整套、asp 原始文件等);修正并补充了部分问题的答案。
+>
+> **2026-05-08 大重构**:`_curated/` 顶层从"产物类型"(summaries/expansions/gaps)改为"主题对齐"(meta/projects/tech-stack/career),与 `origin/` 的内容分类对齐;`origin/` 下文档类原文(`.md`)在**首行加 HTML 注释**标签([原]/[整]/[摘]),非文档类(.xmind/.drawio/.sql/.py/.pdf/...)按扩展名识别。详见 [`meta/inventory.md §8 变更日志`](./meta/inventory.md#8-变更日志)。
 
 ---
 
 ## 1. 这个目录解决什么问题
 
-你的 `file/` 累积了 2 年多素材(Vertiv SI / PI 重构 / 中移 ASP / Java Study / 各种技术栈笔记 / xmind / drawio),但:
+你的 `origin/` 累积了 2 年多素材(Vertiv SI / PI 重构 / 中移 ASP / Java Study / 各种技术栈笔记 / xmind / drawio),但:
 - **跨主题串联不足**(SI 和 PI 都用 mtp-core,但散在不同目录)
 - **简历语言版**没有(写得多、能直接用的少)
 - **盲点没人替你指出**(P6+ 必考的 JVM/JUC/Spring/MySQL/Redis/MQ/网络/系统设计;maven、linux、SNMP4J 等基础)
@@ -30,9 +35,9 @@
 
 工程内有**两套**标签:
 
-### 2.1 ⭐ 内容来源标签(`file/` 下文档类的首行注释)
+### 2.1 ⭐ 内容来源标签(`origin/` 下文档类的首行注释)
 
-`file/` 下文档类(`.md`)的**第一行**是一条 HTML 注释,标明**文件来源性质**:
+`origin/` 下文档类(`.md`)的**第一行**是一条 HTML 注释,标明**文件来源性质**:
 
 ```markdown
 <!-- 标签:[整] —— 用户整理稿(自己梳理过,可作简历/面试素材) -->
@@ -42,20 +47,21 @@ HTML 注释**渲染时不显示**,只在源码里可见,不打扰阅读;但 grep
 
 | 标签 | 含义 | 数量 | 例子 |
 |---|---|---:|---|
-| `[原]` | **原始素材**:录音转写 / 草稿 / 随手记 / 未经整理 | 1 | `talking.md`(2026 年第二年谈话录音转写) |
-| `[整]` | **整理稿**:你下功夫写的成稿,可作简历 / 面试素材 | 32 | `knowledge.md`、`mtp-core-deep-analysis.md`、`01-overview.md` |
-| `[摘]` | **转载 / 外部收集**:网上找的资料、别人的题集汇编、通用速查清单 | 5(+1 PDF) | `java-study.md`、`mongodb-commands.md`、`Java Study.pdf` |
+| `[原]` | **原始素材**:录音转写 / 草稿 / 随手记 / 未经整理 | 1 | `talking-analyze-detailed.md`(2026 年第二年谈话录音转写) |
+| `[整]` | **整理稿**:你下功夫写的成稿,可作简历 / 面试素材 | — | `dependency-upgrade.md`、`resolve-mib.md`、`DriverHub.md` |
+| `[摘]` | **转载 / 外部收集**:网上找的资料、别人的题集汇编、通用速查清单 | — | `java-study.md`、`mongodb-commands.md`、`Java Study.pdf` |
 
 **非文档类不打首行标签,靠扩展名 + 父目录识别**:
 
 | 类型 | 扩展名 | 数量 | 含义 |
 |---|---|---:|---|
-| 脑图 | `.xmind` / `.drawio` | 11 | 用 xmind / drawio 工具打开,outline 见 `_build/outlines/` |
-| 代码 / 工具产物 | `.sql` / `.py` / `.json` / `.log` / `.txt` | 26 | 项目实操产物,简历可提"产出 X 个 SQL / 工具" |
+| 脑图 | `.xmind` / `.drawio` | 8 | 用 xmind / drawio 工具打开,outline 见 `_build/outlines/` |
 | 外部资料 | `.pdf` | 1 | `Java Study.pdf`(参考资料,转写版见同目录 `java-study.md`) |
-| 嵌入图片 | `.png` / `.jpg` | 13 | 文档配图 |
+| 嵌入图片 | `.png` | 13 | 文档配图 |
 
 > **`_curated/` 下的 `.md` 不打这个标签**:`_curated/` 全部由 AI 生成,整体自带"AI 产物"语义。
+>
+> 2026-05-10 删除了大量冗余/分析不佳的文档后,部分 `[整]` 标记的文件已不在 `origin/` 中,但提炼版仍保留在 `_curated/` 内。
 
 #### 怎么用这套标签?
 
@@ -70,7 +76,7 @@ HTML 注释**渲染时不显示**,只在源码里可见,不打扰阅读;但 grep
 | `[就绪]` | 内容完整,可直接对外输出 / 写进简历 / 给同事看 |
 | `[需补充]` | 已写但缺某些关键细节(具体细节在文中标注) |
 | `[待开始]` | 几乎没有素材,需要你提供更多信息 |
-| `[源文]` | 该段直接归并 / 串联了你已有的 `file/` 下的素材,不算我"原创" |
+| `[源文]` | 该段直接归并 / 串联了你已有的 `origin/` 下的素材,不算我"原创" |
 
 ### 2.3 价值标签(我对你的判断)
 
@@ -104,38 +110,39 @@ _curated/
 │   └── still-missing.md                   ← 还需要你补充才能总结的内容(我视角清单)
 │
 ├── projects/                              ← 项目级 summary
-│   ├── pi-platform-deep-dive.md           ← MTP-Core / PI 现状 / PI 4.0 重构 / SI 三方对比 [跨主题]🔗
 │   ├── mtp-core-framework.md              ← MTP-Core/TAF Core 框架 设计精华 + 缺陷反思
 │   ├── asp-platform.md                    ← 中国移动 ASP 提炼(整合 project.md+knowledge.md,4 大模块 + 简历段 + 10 大面试题)⭐⭐
 │   ├── ferretdb-research.md               ← FerretDB Windows 调研归档(技术结论 + 简历版)
 │   ├── snmp-zero-engine.md                ← SNMP 协议族 + MIB 解析 + Zero Engine 信号告警流
 │   └── dependency-upgrade.md              ← 大版本依赖升级方法论(SI 4.1 经验沉淀)
 │
-├── tech-stack/                            ← 技术深度文档
-│   ├── 00-skill-roadmap.md                ← 进阶补强总索引 + 标签体系 + 学习路径 ⭐⭐⭐
-│   │
-│   ├── java-knowledge-map.md              ← Java Study.pdf 索引导航 + 评级 + 盲点分析 ⭐⭐⭐
-│   │
-│   ├── jvm-and-concurrency.md             ← JVM / GC / JUC 进阶补强(P6+ 必考,16 章)⭐⭐⭐
-│   ├── spring-internals.md                ← Spring Bean生命周期 / 循环依赖 / AOP / Boot启动 ⭐⭐⭐
-│   ├── mysql-deep-dive.md                 ← InnoDB锁 / MVCC / 主从 / binlog / 索引下推 ⭐⭐⭐
-│   ├── redis-deep-dive.md                 ← 数据结构底层 / 持久化 / 主从 / Cluster / 淘汰策略 ⭐⭐⭐
-│   ├── mq-essentials.md                   ← 三大问题 / Kafka架构 / RocketMQ对比 ⭐⭐
-│   ├── network-essentials.md              ← TCP / HTTP / HTTPS / WebSocket ⭐⭐
-│   ├── testing-and-engineering.md         ← 单测 / Git / CR / 文档(外企友好 + L 反馈)⭐⭐⭐
-│   ├── system-design-primer.md            ← 系统设计 7 步法 + 8 经典题 + 项目映射 ⭐⭐
-│   ├── programming-english.md             ← 编程领域英语词汇 + 句型(对应 L 反馈"专业英语")⭐⭐⭐
-│   │
-│   ├── postgresql-knowledge.md            ← PostgreSQL 知识体系(xmind+SQL+迁移工程)
-│   ├── maven-essentials.md                ← Maven 基础(原 file/3-tech_stack/build/maven.md 仅 1 行 todo)
-│   ├── linux-filesystem-and-perms.md      ← Linux 文件系统 + 权限(扩展原 linux-privilege.md)
-│   └── snmp4j-quickref.md                 ← SNMP4J 速查(原 file/3-tech_stack/protocol/SNMP4J.md 仅 1 行 todo)
+│   (tech-stack/ 已独立为顶层目录,见下方 §3.1)
 │
 └── career/                                ← 工作 / 项目经历的简历版
     ├── resume-projects.md                 ← 直接可用的简历项目段(STAR 法则 + 量化)
     ├── interview-talking-points.md        ← 面试可讲的技术点(按主题/按项目分类)
     ├── growth-and-feedback.md             ← 成长复盘 + pre_action.md 末尾 3 问的回答框架(已结合 L 第二年反馈修订)
     └── talking-2026-leader-feedback.md    ← 2026 春节后第二年谈话提炼(调薪 7.7% / 培养方向 / 今年行动清单) ⭐
+```
+
+### 3.1 `tech-stack/` —— 技术栈统一目录(2026-05-11 整合)
+
+> 原 `origin/3-tech_stack/`(用户笔记)和 `_curated/tech-stack/`(AI 深度文档)合并到此。
+
+```
+tech-stack/
+├── 00-skill-roadmap.md             ← 进阶补强总索引
+├── system-design-primer.md         ← 系统设计 7 步法
+├── linux-filesystem-and-perms.md   ← Linux 文件系统 + 权限
+├── freemarker.md / undertow.xmind / OpenAPI 规范.xmind
+│
+├── java/                           ← Java 核心 (5 files)
+├── database/                       ← 数据库 (PostgreSQL/MySQL/Mongo/FerretDB)
+├── cache/                          ← 缓存 (Hazelcast + Redis)
+├── middleware/                     ← 中间件 (MQ)
+├── protocol/                       ← 协议 (SNMP/WebSocket/HTTP)
+├── design_patterns/                ← 设计模式
+└── engineering/                    ← 工程实践 (测试/Maven/英语)
 ```
 
 ---
@@ -154,34 +161,33 @@ _curated/
 
 1. [`career/resume-projects.md`](./career/resume-projects.md) ⭐(最重要;§1 Vertiv + §2 中国移动 ASP 都已就绪)
 2. [`career/interview-talking-points.md`](./career/interview-talking-points.md)(§1-§5 Vertiv + §6.5 ASP + §6.6 Java 通用)
-3. [`projects/pi-platform-deep-dive.md`](./projects/pi-platform-deep-dive.md)(PI 重构是你最大的差异化)
-4. [`projects/asp-platform.md`](./projects/asp-platform.md) ⭐⭐(中国移动 ASP 项目提炼)
-5. [`tech-stack/java-knowledge-map.md`](./tech-stack/java-knowledge-map.md)(Java 通用知识地图,基于 PDF)
+3. [`projects/asp-platform.md`](./projects/asp-platform.md) ⭐⭐(中国移动 ASP 项目提炼)
+5. [`tech-stack/java/java-knowledge-map.md`](../tech-stack/java/java-knowledge-map.md)(Java 通用知识地图,基于 PDF)
 6. [`projects/ferretdb-research.md`](./projects/ferretdb-research.md)(已经写好可用的简历段)
 
 ### 4.3 想把工程的"盲点"补齐 → 长期(不要一次消化)
 
-> 先读 [`tech-stack/00-skill-roadmap.md`](./tech-stack/00-skill-roadmap.md) 看完整体系 + 标签 + 优先级,再按需精读单篇。
+> 先读 [`tech-stack/00-skill-roadmap.md`](../tech-stack/00-skill-roadmap.md) 看完整体系 + 标签 + 优先级,再按需精读单篇。
 
 **P6+ 三件套(本月精读)**:
-1. [`tech-stack/jvm-and-concurrency.md`](./tech-stack/jvm-and-concurrency.md) ⭐⭐⭐(P6+ 必读,16 章)
-2. [`tech-stack/spring-internals.md`](./tech-stack/spring-internals.md) ⭐⭐⭐(Bean/AOP/启动/事务)
-3. [`tech-stack/mysql-deep-dive.md`](./tech-stack/mysql-deep-dive.md) ⭐⭐⭐(锁/MVCC/主从)
-4. [`tech-stack/redis-deep-dive.md`](./tech-stack/redis-deep-dive.md) ⭐⭐⭐(底层/持久化/Cluster)
+1. [`jvm-and-concurrency.md`](../tech-stack/java/jvm-and-concurrency.md) ⭐⭐⭐(P6+ 必读,16 章)
+2. [`spring-internals.md`](../tech-stack/java/spring-internals.md) ⭐⭐⭐(Bean/AOP/启动/事务)
+3. [`mysql-deep-dive.md`](../tech-stack/database/mysql-deep-dive.md) ⭐⭐⭐(锁/MVCC/主从)
+4. [`redis-deep-dive.md`](../tech-stack/cache/redis-deep-dive.md) ⭐⭐⭐(底层/持久化/Cluster)
 
 **季度内**:
 
-5. [`tech-stack/mq-essentials.md`](./tech-stack/mq-essentials.md)(三大问题 + Kafka)
-6. [`tech-stack/network-essentials.md`](./tech-stack/network-essentials.md)(TCP/HTTPS/WS)
-7. [`tech-stack/testing-and-engineering.md`](./tech-stack/testing-and-engineering.md)(外企友好 + L 反馈呼应)
-8. [`tech-stack/system-design-primer.md`](./tech-stack/system-design-primer.md)(P7 加分)
-9. [`tech-stack/programming-english.md`](./tech-stack/programming-english.md)(L 反馈硬指标 — 长期积累)
+5. [`mq-essentials.md`](../tech-stack/middleware/mq-essentials.md)(三大问题 + Kafka)
+6. [`network-essentials.md`](../tech-stack/protocol/network-essentials.md)(TCP/HTTPS/WS)
+7. [`testing-and-engineering.md`](../tech-stack/engineering/testing-and-engineering.md)(外企友好 + L 反馈呼应)
+8. [`system-design-primer.md`](../tech-stack/system-design-primer.md)(P7 加分)
+9. [`programming-english.md`](../tech-stack/engineering/programming-english.md)(L 反馈硬指标 — 长期积累)
 
 **基础补丁**:
 
-10. [`tech-stack/maven-essentials.md`](./tech-stack/maven-essentials.md)
-11. [`tech-stack/linux-filesystem-and-perms.md`](./tech-stack/linux-filesystem-and-perms.md)
-12. [`tech-stack/snmp4j-quickref.md`](./tech-stack/snmp4j-quickref.md)
+10. [`maven-essentials.md`](../tech-stack/engineering/maven-essentials.md)
+11. [`linux-filesystem-and-perms.md`](../tech-stack/linux-filesystem-and-perms.md)
+12. [`snmp4j-quickref.md`](../tech-stack/protocol/snmp4j-quickref.md)
 
 **复盘相关**:
 
@@ -190,8 +196,7 @@ _curated/
 
 ### 4.4 想深入某个技术领域 → 各按需阅读
 
-- 平台架构:[`projects/pi-platform-deep-dive.md`](./projects/pi-platform-deep-dive.md) → `file/2-projects/vertiv/refactor_pi/docs/`
-- 数据库:[`tech-stack/postgresql-knowledge.md`](./tech-stack/postgresql-knowledge.md) → `_build/outlines/3-tech_stack/database/postgresql/postgresql.outline.md`
+- 数据库:[`tech-stack/database/postgresql-knowledge.md`](../tech-stack/database/postgresql-knowledge.md) → `_build/outlines/3-tech_stack/database/postgresql/postgresql.outline.md`
 - SNMP:[`projects/snmp-zero-engine.md`](./projects/snmp-zero-engine.md) → `_build/outlines/3-tech_stack/protocol/SNMP.outline.md`
 
 ---
@@ -213,10 +218,10 @@ _curated/
 
 - 这个目录的所有文件**你可以自由编辑**(不像 `_build/outlines/` 是脚本生成,改了下次重跑会被覆盖)。
 - 如果某个 summary 你不认可,直接改;改完的内容如果想我以后参考,就保留;不想保留的删掉就行。
-- 如果新增了 `file/` 下的素材,可以让我"重新审视 `_curated/` 是否需要更新",而不是默默累积差异。
+- 如果新增了 `origin/` 下的素材,可以让我"重新审视 `_curated/` 是否需要更新",而不是默默累积差异。
 - [`meta/still-missing.md`](./meta/still-missing.md) 是动态的——你补一项,我们就划掉一项。
 
-### 6.1 `file/` 下新增文件时怎么打标签?
+### 6.1 `origin/` 下新增文件时怎么打标签?
 
 **只对 `.md` 文档加首行注释**,其他类型靠扩展名识别。
 

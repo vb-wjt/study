@@ -1,4 +1,4 @@
-# Extract all .drawio files under file/ into _build/outlines.
+# Extract all .drawio files under origin/ and tech-stack/ into _build/outlines.
 # Re-run this whenever drawio files are updated.
 #
 # Usage: powershell -ExecutionPolicy Bypass -File _build\extract-drawio.ps1
@@ -12,7 +12,10 @@ $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 $repoRoot   = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-$sourceRoot = Join-Path $repoRoot 'file'
+$sourceRoots = @(
+    (Join-Path $repoRoot 'origin'),
+    (Join-Path $repoRoot 'tech-stack')
+)
 $outRoot    = Join-Path $repoRoot '_build\outlines'
 
 function Strip-Html {
@@ -128,8 +131,18 @@ function Extract-OneDrawio {
     }
 }
 
-Write-Host "Scanning $sourceRoot for *.drawio ..."
-$drawios = Get-ChildItem -Path $sourceRoot -Recurse -Filter *.drawio
+$drawios = @()
+foreach ($sr in $sourceRoots) {
+    if (Test-Path $sr) {
+        Write-Host "Scanning $sr for *.drawio ..."
+        $found = Get-ChildItem -Path $sr -Recurse -Filter *.drawio
+        if ($found) {
+            foreach ($f in $found) {
+                $drawios += [PSCustomObject]@{ File=$f; SourceRoot=$sr }
+            }
+        }
+    }
+}
 
 if (-not $drawios) {
     Write-Host 'No drawio files found.'
@@ -137,7 +150,9 @@ if (-not $drawios) {
 }
 
 $results = @()
-foreach ($d in $drawios) {
+foreach ($entry in $drawios) {
+    $sourceRoot = $entry.SourceRoot
+    $d = $entry.File
     Write-Host "Processing: $($d.FullName.Substring($sourceRoot.Length + 1))"
     try {
         $results += Extract-OneDrawio -drawio $d

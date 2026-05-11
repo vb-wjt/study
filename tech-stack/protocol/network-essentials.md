@@ -2,7 +2,7 @@
 
 > **写给**:做后端但**网络没专门学过**的你
 > **目的**:补 Java 后端必备的网络知识 → 接口排查 / 性能调优 / 面试基础题
-> **配套**:你工程里 `file/3-tech_stack/protocol/websocket/basic.md` (318 行) + `deep-dive-interview.md` 已有 WebSocket 素材
+> **配套**:你工程里 `tech-stack/protocol/websocket/basic.md` (318 行) + `deep-dive-interview.md` 已有 WebSocket 素材
 
 标签:`[P6基线]`⭐⭐ `[盲点]`⚠️(工程内没系统总结) `[国内大厂]`
 
@@ -212,7 +212,7 @@ Client                                Server
 
 ## 4. ⭐ WebSocket `[与你项目]`🔗(已有素材)
 
-> 你工程已有 `file/3-tech_stack/protocol/websocket/basic.md` (318 行) 和 `deep-dive-interview.md` (158 行) —— 这里只补**面试关键 5 点**:
+> 你工程已有 `tech-stack/protocol/websocket/basic.md` (318 行) 和 `deep-dive-interview.md` (158 行) —— 这里只补**面试关键 5 点**:
 
 ### 4.1 协议升级流程
 
@@ -292,4 +292,4 @@ PDF p.36-37 提到"导出大数据用 WebSocket 通知用户" —— 这是典�
 
 ---
 
-> 📌 **下一步**:[`testing-and-engineering.md`](./testing-and-engineering.md)
+> 📌 **下一步**:[`testing-and-engineering.md`](../engineering/testing-and-engineering.md)

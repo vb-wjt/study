@@ -1,8 +1,8 @@
 # 中国移动 全业务支撑平台 (CHBN/ASP) 提炼 ⭐⭐
 
 > **来源**:
-> - `file/2-projects/asp/project.md` (87 行,项目背景 + 5 大模块 + 校内搜搜 / 中移基线)
-> - `file/2-projects/asp/knowledge.md` (570 行,极密集技术总结)
+> - `origin/2-projects/asp/project.md` (87 行,项目背景 + 5 大模块 + 校内搜搜 / 中移基线)
+> - `origin/2-projects/asp/knowledge.md` (570 行,极密集技术总结)
 >
 > **时间线**:**2022.07 - 2024.03**(约 1 年 8 个月)
 > **公司**:中国移动(广州)

@@ -203,13 +203,13 @@
 
 ---
 
-## 8. 与你 `file/` 其他素材的链接
+## 8. 与你 `origin/` 其他素材的链接
 
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
-| 调研全过程 + 截图 + 错误日志 | §1-3 | `file/3-tech_stack/database/ferretdb/ferretdb-no-docker.md` (241 行 + 6 张图) |
-| 简历语言版 | §5 | `file/3-tech_stack/database/ferretdb/resume-snippet.md` (2026-05-08 已归位到 `ferretdb/`) |
-| FerretDB → PI 4.0 决策传导 | §3, §4.3 | `file/2-projects/vertiv/refactor_pi/docs/rebuild-plan/01-overview.md` §1.1 |
+| 调研全过程 + 截图 + 错误日志 | §1-3 | `tech-stack/database/ferretdb/ferretdb-no-docker.md` (241 行 + 6 张图) |
+| 简历语言版 | §5 | `tech-stack/database/ferretdb/resume-snippet.md` (2026-05-08 已归位到 `ferretdb/`) |
+| FerretDB → PI 4.0 决策传导 | §3, §4.3 | (PI 重构文档暂不记载) |
 | 替代选 PG 的方案 | §3 Plan C | [`./postgresql-knowledge.md`](./postgresql-knowledge.md) |
 
 ---

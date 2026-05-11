@@ -1,4 +1,4 @@
-# Extract all .xmind files under file/ into _build/raw and _build/outlines.
+# Extract all .xmind files under origin/ and tech-stack/ into _build/raw and _build/outlines.
 # Re-run this whenever xmind files are updated.
 #
 # Usage: powershell -ExecutionPolicy Bypass -File _build\extract-xmind.ps1
@@ -9,7 +9,10 @@ $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 $repoRoot   = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-$sourceRoot = Join-Path $repoRoot 'file'
+$sourceRoots = @(
+    (Join-Path $repoRoot 'origin'),
+    (Join-Path $repoRoot 'tech-stack')
+)
 $rawRoot    = Join-Path $repoRoot '_build\raw'
 $outRoot    = Join-Path $repoRoot '_build\outlines'
 
@@ -103,8 +106,18 @@ function Extract-OneXmind {
     return [PSCustomObject]@{ File=$relPath; Status='ok'; OutFile=$outFile.Substring($repoRoot.Length + 1) }
 }
 
-Write-Host "Scanning $sourceRoot for *.xmind ..."
-$xminds = Get-ChildItem -Path $sourceRoot -Recurse -Filter *.xmind
+$xminds = @()
+foreach ($sr in $sourceRoots) {
+    if (Test-Path $sr) {
+        Write-Host "Scanning $sr for *.xmind ..."
+        $found = Get-ChildItem -Path $sr -Recurse -Filter *.xmind
+        if ($found) {
+            foreach ($f in $found) {
+                $xminds += [PSCustomObject]@{ File=$f; SourceRoot=$sr }
+            }
+        }
+    }
+}
 
 if (-not $xminds) {
     Write-Host 'No xmind files found.'
@@ -112,7 +125,9 @@ if (-not $xminds) {
 }
 
 $results = @()
-foreach ($x in $xminds) {
+foreach ($entry in $xminds) {
+    $sourceRoot = $entry.SourceRoot
+    $x = $entry.File
     Write-Host "Processing: $($x.FullName.Substring($sourceRoot.Length + 1))"
     try {
         $results += Extract-OneXmind -xmind $x

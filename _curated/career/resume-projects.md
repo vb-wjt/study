@@ -76,7 +76,7 @@ SI 由全新自研团队负责,采用 Spring Boot + Hazelcast + MongoDB 的技�
 - 自此团队对采集层完全可控,后续告警规则、采集模板的迭代不再受跨团队协作阻塞
 ```
 
-> 文档支撑:`file/2-projects/vertiv/SI/experiences/v4.0/zero-engine.md` (6514 行) +
+> 文档支撑:`origin/2-projects/vertiv/SI/experiences/v4.0/zero-engine-analysis.md` (基于源码分析) +
 > `_build/outlines/.../flow.outline.md` (256 行)
 
 ### 1.2 SI 4.0 · SNMP 设备发现  [简历亮点]⭐
@@ -96,7 +96,7 @@ SI 由全新自研团队负责,采用 Spring Boot + Hazelcast + MongoDB 的技�
 - 支持 [TODO: N] 种厂商的设备型号自动识别
 ```
 
-> 文档支撑:`file/2-projects/vertiv/SI/experiences/v4.0/discovery.md` (2401 行)
+> 文档支撑:`origin/2-projects/vertiv/SI/experiences/v4.0/discovery.md` (2401 行)
 
 ### 1.3 SI 4.1 · 大版本依赖升级 [简历亮点]⭐⭐ [面试高频]🎯
 
@@ -121,7 +121,7 @@ SI 由全新自研团队负责,采用 Spring Boot + Hazelcast + MongoDB 的技�
 - 形成了"大版本依赖升级 SOP",为同公司其他产品(如后续 PI 4.0)提供了路线参考
 ```
 
-> 文档支撑:`file/2-projects/vertiv/SI/experiences/v4.1/dependency-upgrade.md` (352 行) +
+> 文档支撑:`origin/2-projects/vertiv/SI/experiences/v4.1/dependency-upgrade.md` (352 行) +
 > `_build/outlines/.../SI 依赖升级.outline.md` (444 行)
 
 ### 1.4 SI 4.1 · MIB 解析(SNMP4J-SMI-PRO 引入) [简历亮点]⭐
@@ -143,7 +143,7 @@ SI 由全新自研团队负责,采用 Spring Boot + Hazelcast + MongoDB 的技�
 - 已支持 [TODO: N] 种 MIB 模块的解析,覆盖主流 UPS / PDU / 服务器型号
 ```
 
-> 文档支撑:`file/2-projects/vertiv/SI/experiences/v4.1/resolve-mib/design/resolve-mib.md` (754 行) +
+> 文档支撑:`origin/2-projects/vertiv/SI/experiences/v4.1/resolve-mib/design/resolve-mib.md` (754 行) +
 > `_build/outlines/.../snmp-smi-pro.outline.md`
 
 ### 1.5 SI 4.0.1 · MongoDB → FerretDB 切换调研  [简历亮点]⭐⭐ [面试高频]🎯
@@ -169,52 +169,10 @@ SI 由全新自研团队负责,采用 Spring Boot + Hazelcast + MongoDB 的技�
 - 调研结论直接指导了 PI 4.0 重构的技术路线决策(放弃 MongoDB 兼容层,直接迁移到 PostgreSQL)
 ```
 
-> 文档支撑:`file/3-tech_stack/database/ferretdb/ferretdb-no-docker.md` (241 行) +
-> `file/3-tech_stack/database/ferretdb/resume-snippet.md` (你之前已经写好的简历语言版,2026-05-08 已归位)
+> 文档支撑:`tech-stack/database/ferretdb/ferretdb-no-docker.md` (241 行) +
+> `tech-stack/database/ferretdb/resume-snippet.md` (你之前已经写好的简历语言版,2026-05-08 已归位)
 
-### 1.6 PI 4.0 重构 · 主导调研与方案设计  [简历亮点]⭐⭐⭐ [面试高频]🎯
-
-> ⭐ 这是你**最高价值**的简历段——决策级 / 架构级 / 跨技术栈 / 跨阶段。
-
-```
-【模块】Vertiv Power Insight 4.0 全栈重构方案设计
-【背景】PI 是 Vertiv 旗下面向小型机房的电源监控产品(已商用多年,部署在数据中心 / 银行 /
-       医疗等行业),技术栈陈旧(Spring Boot 2.6.15 + Java 8 + MongoDB 3.6 + Hazelcast 3.12 +
-       Angular 14),叠加 MongoDB 许可证风险,已不可持续。需要在保持业务等价的前提下完成
-       全面重构。
-【贡献】
-- **代码架构反向工程**:克隆 PI 全套仓库(mtp-core 平台 + 25 个 taf-plugin-* 业务插件 +
-  18 个前端 taf-* 库)到本地集中目录,产出 277 行的旧架构分析文档与 195 行的 MongoDB 集合
-  拆解,作为重构基线
-- **业务功能盘点**:基于产品手册逐章对齐到代码模块,产出 L1-L10 业务功能清单(从 UPS/PDU
-  监控 / 告警 / 服务器关机 / 联动 / 通知 / 电费 / 系统设置 / vCenter 集成全覆盖),作为重构
-  需求基线
-- **新架构方案设计** (532 行 overview + 916 行 deep-dive):
-  - 数据库:PostgreSQL 16(原生分区 + 降采样,代替 MongoDB + 自研 mtp.tsd)
-  - 后端:Spring Boot 3.x + Java 21 LTS + JOOQ + Flyway,**全面砍掉 Hazelcast 集群框架**,
-    改用 Caffeine + Spring Event + JDK 并发原语
-  - 平台层:mtp-core 4.0 重写为多模块 Spring Boot Starter 库(无运行时插件加载、无动态
-    Schema、无 ClassLoader 隔离)
-  - 产品层:pi-server 模块化单体,10 个 feature 通过编译期模块 + 配置开关启用/关闭
-  - 通信:领域事件 + 事务发件箱(Outbox)模式,替代 IMap.addEntryListener
-- **数据迁移工具开发**:开发 Python ETL 工具链(mongo_analyze / mongo_samples / mongo_to_pg /
-  verify_migration),实现 MongoDB → PostgreSQL 的全量数据迁移与一致性校验
-- **PostgreSQL Schema 设计**:产出 14 个模块的 SQL 草稿(IAM / metamodel / platform / device /
-  monitoring / event / alarm / job / telemetry / file / licensing 等),共 [TODO: 计算 SQL 行数] 行
-- **风险与未决项管理**:识别 9 类主要风险并给出缓解方案;明确 7 个组织前提与 8.x 技术
-  考量(可观测性 / 升级补丁 / 回滚 / 性能压测 / 安全审查 / 数据保留 / 浏览器兼容性 / 第三方
-  设备 driver / License 兼容 / 培训文档迁移 / 合规认证 / 跨产品账户)等待团队决策
-- **工期估算**:基于"有效人月"模型(扣除会议/Review/blocker)给出 3 / 5 / 10 人三档团队规模
-  的工期对照(22-28 月 / 12-16 月 / 8-11 月),并明确"Brooks's Law"下的人力投入边际收益
-【成果】
-- 输出 [TODO: 总文档行数,我数了下大概是 2500+] 行的重构决策文档,作为团队评审与立项的核心
-  依据
-- 已通过的核心架构决策 [TODO: N 项],为后续 [TODO: 团队规模] 的实施团队提供清晰起点
-```
-
-> 文档支撑:`file/2-projects/vertiv/refactor_pi/` 整套(docs / db / tools / result)
-
-### 1.7 内部工具 · Driver Hub  [简历亮点]⭐
+### 1.6 内部工具 · Driver Hub  [简历亮点]⭐
 
 ```
 【模块】Driver Hub —— 设备驱动开发与调试工具
@@ -232,7 +190,7 @@ SI 由全新自研团队负责,采用 Spring Boot + Hazelcast + MongoDB 的技�
 - 团队 [TODO: N] 名驱动开发人员日常使用,被认可为标杆内部工具
 ```
 
-> 文档支撑:`file/2-projects/vertiv/Tool/DriverHub.md` (素材较少,需补充展开)
+> 文档支撑:`origin/2-projects/vertiv/Tool/DriverHub.md` (素材较少,需补充展开)
 
 ---
 
@@ -240,7 +198,7 @@ SI 由全新自研团队负责,采用 Spring Boot + Hazelcast + MongoDB 的技�
 
 > **2022.07 - 2024.03(1 年 8 个月)· Java 后端开发**
 >
-> 2026-05 用户补充了 `file/2-projects/asp/project.md` (87 行) + `knowledge.md` (570 行) 两份密集材料,
+> 2026-05 用户补充了 `origin/2-projects/asp/project.md` (87 行) + `knowledge.md` (570 行) 两份密集材料,
 > 详细技术提炼见 [`_curated/projects/asp-platform.md`](../projects/asp-platform.md)。
 >
 > 下面是简历可直接复制的**精简版**(挑了最有讲法的 4 个模块);你可以根据目标岗位**裁剪**(投架构岗
@@ -286,7 +244,7 @@ SI 由全新自研团队负责,采用 Spring Boot + Hazelcast + MongoDB 的技�
 - dbproxy 方案被作为 [TODO: 部门/项目群] 内的标准 SQL 解耦实现
 ```
 
-> 文档支撑:`file/2-projects/asp/project.md` §2 + `knowledge.md` §SQL → 提炼见 `projects/asp-platform.md` §2.1-§2.2
+> 文档支撑:`origin/2-projects/asp/project.md` §2 + `knowledge.md` §SQL → 提炼见 `projects/asp-platform.md` §2.1-§2.2
 
 ### 2.2 ⭐ 订单中心微服务化  [面试高频]🎯
 
@@ -326,7 +284,7 @@ SI 由全新自研团队负责,采用 Spring Boot + Hazelcast + MongoDB 的技�
 - 在 sprint 评审中被推广为团队的最佳实践
 ```
 
-> 文档支撑:`file/2-projects/asp/knowledge.md` §RedisLock 完整代码(150 行)
+> 文档支撑:`origin/2-projects/asp/knowledge.md` §RedisLock 完整代码(150 行)
 
 ### 2.4 [可选,看篇幅] 复杂业务流 · 成员下发全流程  [简历亮点]⭐
 

@@ -1,6 +1,6 @@
 # Java 知识地图 (基于 `Java Study.pdf` 索引)
 
-> **来源**:`file/3-tech_stack/Java Study.pdf` (103 页,用户在中移 / 实习期间整理)
+> **来源**:`tech-stack/Java Study.pdf` (103 页,用户在中移 / 实习期间整理)
 > **目的**:这份文档**不抄原文**(原 PDF 已经写得很完整),只做:
 > 1. **章节索引导航** —— 哪个题在 PDF 哪一页
 > 2. **面试高频度评估** —— 标注哪些是必准备 / 哪些是冷门
@@ -21,7 +21,7 @@
 | 大致整理时间 | 中移在职期间(2022-2024)|
 | 我的总体评价 | ⭐⭐⭐ **覆盖广 + 实战气足**(很多题来自真实开发遇到的问题,不是单纯抄书) |
 
-> ✅ **已转写**(2026-05):[`file/3-tech_stack/java-study.md`](../../origin/3-tech_stack/java-study.md) (1714 行),修正了 OCR 错别字 + 优化排版,原 PDF 仍保留可对照。
+> ✅ **已转写**(2026-05):[`tech-stack/java-study.md`](./java-study.md) (1714 行),修正了 OCR 错别字 + 优化排版,原 PDF 仍保留可对照。
 
 ---
 
@@ -251,7 +251,7 @@
 | 防火墙(iptables / firewalld) | p.101 | ⭐⭐ |
 | 常用命令(top/scp/yum/crontab/rsync/mount/traceroute/netstat) | p.102 | ⭐⭐ |
 
-> 💡 你 `_curated/tech-stack/linux-filesystem-and-perms.md` 已经有更深的内容 → **PDF 这部分可以略过,优先看 expansions 那份**。
+> 💡 你 `tech-stack/linux-filesystem-and-perms.md` 已经有更深的内容 → **PDF 这部分可以略过,优先看 expansions 那份**。
 
 ---
 
@@ -280,14 +280,14 @@
 
 | PDF 章节 | 对应 _curated 文档 | 状态 |
 |---|---|---|
-| 1.3 SSM | [`tech-stack/spring-internals.md`](../tech-stack/spring-internals.md) ✏️新增 | ✅ Bean 生命周期 / 循环依赖 / AOP / Boot 启动 / @Transactional |
-| 1.4 数据库 | `tech-stack/postgresql-knowledge.md` + [`tech-stack/mysql-deep-dive.md`](../tech-stack/mysql-deep-dive.md) ✏️新增 | ✅ MySQL InnoDB 锁 / MVCC / 主从 / binlog / ICP |
-| 1.5 多线程 | [`tech-stack/jvm-and-concurrency.md`](../tech-stack/jvm-and-concurrency.md) | ✅ 完整覆盖 |
-| 1.6 缓存 | [`tech-stack/redis-deep-dive.md`](../tech-stack/redis-deep-dive.md) ✏️新增 | ✅ 数据结构底层 / 持久化 / 主从 / Cluster / 淘汰策略 |
-| 1.7 分布式 | [`tech-stack/mq-essentials.md`](../tech-stack/mq-essentials.md) ✏️新增 + [`tech-stack/system-design-primer.md`](../tech-stack/system-design-primer.md) ✏️新增 | ✅ MQ 三大问题 + 系统设计方法论 |
-| 1.8 调优 | [`tech-stack/jvm-and-concurrency.md` §5](../tech-stack/jvm-and-concurrency.md) | ✅ |
-| 1.9 Nginx/Linux | `tech-stack/linux-filesystem-and-perms.md` + [`tech-stack/network-essentials.md`](../tech-stack/network-essentials.md) ✏️新增 | ✅ TCP/HTTP/HTTPS/WebSocket |
-| **新增维度** | [`tech-stack/testing-and-engineering.md`](../tech-stack/testing-and-engineering.md) ✏️新增 | ✅ 单测 / Git / CR / 文档(外企友好+L 反馈) |
+| 1.3 SSM | [`tech-stack/spring-internals.md`](./spring-internals.md) ✏️新增 | ✅ Bean 生命周期 / 循环依赖 / AOP / Boot 启动 / @Transactional |
+| 1.4 数据库 | `tech-stack/postgresql-knowledge.md` + [`tech-stack/mysql-deep-dive.md`](../database/mysql-deep-dive.md) ✏️新增 | ✅ MySQL InnoDB 锁 / MVCC / 主从 / binlog / ICP |
+| 1.5 多线程 | [`tech-stack/jvm-and-concurrency.md`](./jvm-and-concurrency.md) | ✅ 完整覆盖 |
+| 1.6 缓存 | [`tech-stack/redis-deep-dive.md`](../cache/redis-deep-dive.md) ✏️新增 | ✅ 数据结构底层 / 持久化 / 主从 / Cluster / 淘汰策略 |
+| 1.7 分布式 | [`tech-stack/mq-essentials.md`](../middleware/mq-essentials.md) ✏️新增 + [`tech-stack/system-design-primer.md`](../system-design-primer.md) ✏️新增 | ✅ MQ 三大问题 + 系统设计方法论 |
+| 1.8 调优 | [`tech-stack/jvm-and-concurrency.md` §5](./jvm-and-concurrency.md) | ✅ |
+| 1.9 Nginx/Linux | `tech-stack/linux-filesystem-and-perms.md` + [`tech-stack/network-essentials.md`](../protocol/network-essentials.md) ✏️新增 | ✅ TCP/HTTP/HTTPS/WebSocket |
+| **新增维度** | [`tech-stack/testing-and-engineering.md`](../engineering/testing-and-engineering.md) ✏️新增 | ✅ 单测 / Git / CR / 文档(外企友好+L 反馈) |
 
 ---
 
@@ -297,19 +297,19 @@
 
 | 盲点 | 重要度 | 状态 / 优先级 |
 |---|---|---|
-| ~~**JVM 内存模型 + GC 收集器**~~ | ⭐⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/jvm-and-concurrency.md` §1-§5](../tech-stack/jvm-and-concurrency.md) |
-| ~~**AQS 源码理解**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/jvm-and-concurrency.md` §8](../tech-stack/jvm-and-concurrency.md) |
-| ~~**synchronized 锁升级 / volatile JMM**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/jvm-and-concurrency.md` §6-§7](../tech-stack/jvm-and-concurrency.md) |
-| ~~**ConcurrentHashMap / CAS / CompletableFuture**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/jvm-and-concurrency.md` §9-§12](../tech-stack/jvm-and-concurrency.md) |
-| ~~**Spring Bean 生命周期 / 循环依赖三级缓存**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/spring-internals.md` §1-§2](../tech-stack/spring-internals.md) |
-| ~~**Spring AOP 实现原理(JDK 动态代理 vs CGLIB)**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/spring-internals.md` §3](../tech-stack/spring-internals.md) |
-| ~~**MySQL InnoDB 行锁 / 间隙锁 / 临键锁**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/mysql-deep-dive.md` §1](../tech-stack/mysql-deep-dive.md) |
-| ~~**Redis 持久化(RDB/AOF) / 主从 / 哨兵 / 集群**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/redis-deep-dive.md`](../tech-stack/redis-deep-dive.md) |
-| ~~**MQ 三大问题(可靠性 / 顺序 / 重复)**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/mq-essentials.md`](../tech-stack/mq-essentials.md) |
-| ~~**TCP 三次握手 / 四次挥手 / TIME_WAIT**~~ | ⭐⭐⭐ | ✅ **已补** → [`tech-stack/network-essentials.md` §1](../tech-stack/network-essentials.md) |
-| ~~**HTTP/HTTPS / SSL/TLS**~~ | ⭐⭐⭐ | ✅ **已补** → [`tech-stack/network-essentials.md` §2-§3](../tech-stack/network-essentials.md) |
+| ~~**JVM 内存模型 + GC 收集器**~~ | ⭐⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/jvm-and-concurrency.md` §1-§5](./jvm-and-concurrency.md) |
+| ~~**AQS 源码理解**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/jvm-and-concurrency.md` §8](./jvm-and-concurrency.md) |
+| ~~**synchronized 锁升级 / volatile JMM**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/jvm-and-concurrency.md` §6-§7](./jvm-and-concurrency.md) |
+| ~~**ConcurrentHashMap / CAS / CompletableFuture**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/jvm-and-concurrency.md` §9-§12](./jvm-and-concurrency.md) |
+| ~~**Spring Bean 生命周期 / 循环依赖三级缓存**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/spring-internals.md` §1-§2](./spring-internals.md) |
+| ~~**Spring AOP 实现原理(JDK 动态代理 vs CGLIB)**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/spring-internals.md` §3](./spring-internals.md) |
+| ~~**MySQL InnoDB 行锁 / 间隙锁 / 临键锁**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/mysql-deep-dive.md` §1](../database/mysql-deep-dive.md) |
+| ~~**Redis 持久化(RDB/AOF) / 主从 / 哨兵 / 集群**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/redis-deep-dive.md`](../cache/redis-deep-dive.md) |
+| ~~**MQ 三大问题(可靠性 / 顺序 / 重复)**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/mq-essentials.md`](../middleware/mq-essentials.md) |
+| ~~**TCP 三次握手 / 四次挥手 / TIME_WAIT**~~ | ⭐⭐⭐ | ✅ **已补** → [`tech-stack/network-essentials.md` §1](../protocol/network-essentials.md) |
+| ~~**HTTP/HTTPS / SSL/TLS**~~ | ⭐⭐⭐ | ✅ **已补** → [`tech-stack/network-essentials.md` §2-§3](../protocol/network-essentials.md) |
 | **MyBatis 一二级缓存 / Plugin 机制** | ⭐⭐⭐ | ❌ 季度内(本工程未覆盖) |
-| **分布式 ID(雪花算法)** | ⭐⭐⭐ | ⚠️ 系统设计 §3.6 略提 → [`tech-stack/system-design-primer.md` §3.6](../tech-stack/system-design-primer.md) |
+| **分布式 ID(雪花算法)** | ⭐⭐⭐ | ⚠️ 系统设计 §3.6 略提 → [`tech-stack/system-design-primer.md` §3.6](../system-design-primer.md) |
 | **Java NIO / Netty 基础** | ⭐⭐⭐ | ❌ 长尾(看你目标公司方向) |
 
 ---
@@ -337,10 +337,10 @@
 **短期(1 个月)**:
 1. **挑 PDF 中标 ⭐⭐⭐⭐ 的题**(约 25 题)各准备一段 60 秒应答
 2. **每题最后加一句**:"我们项目里这块是 [具体场景]" → 知识 → 实战
-3. **补 JVM/GC/并发** 三个核心盲点(可写 `_curated/tech-stack/jvm-and-concurrency.md`,我可以帮你起草)
+3. **补 JVM/GC/并发** 三个核心盲点(可写 `tech-stack/jvm-and-concurrency.md`,我可以帮你起草)
 
 **中期(3 个月)**:
-1. 把 PDF 转 markdown(`file/3-tech_stack/java-study.md`),便于增改 / link / grep
+1. 把 PDF 转 markdown(`tech-stack/java-study.md`),便于增改 / link / grep
 2. 整理 §3 列出的 13 个盲点,逐个补强
 3. 用本工程的"知识 + 实战"双轨结构来构建你的"求职复习包"
 
@@ -390,5 +390,5 @@
 ---
 
 > 📌 **下一步**:
-> - 这份 map 是**面试复习的索引** —— 配合 [`career/interview-talking-points.md`](../career/interview-talking-points.md) 一起看
+> - 这份 map 是**面试复习的索引** —— 配合 [`career/interview-talking-points.md`](../../_curated/career/interview-talking-points.md) 一起看
 > - 如果你接受我的建议(补 JVM/JUC 盲点),告诉我,我帮你起草

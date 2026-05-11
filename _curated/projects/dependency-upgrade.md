@@ -183,7 +183,7 @@
 - 单机部署还需要 Hazelcast 吗?
 - 替换成本 vs 维护 Hazelcast 5 的长期成本,哪个高?
 
-> **结论**: PI 4.0 重构直接**全砍 Hazelcast**(详见 [`pi-platform-deep-dive.md`](./pi-platform-deep-dive.md) §3.3),改用:
+> **结论**: PI 4.0 重构计划全砍 Hazelcast(进行中,暂不记载),替代方案:
 > - IMap → Caffeine
 > - ITopic → Spring ApplicationEvent
 > - Lock → ReentrantLock
@@ -250,15 +250,15 @@
 
 ---
 
-## 7. 与你 `file/` 其他素材的链接
+## 7. 与你 `origin/` 其他素材的链接
 
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
-| SI 4.1 升级详细设计 | §1, §3 | `file/2-projects/vertiv/SI/experiences/v4.1/dependency-upgrade.md` (352 行) |
+| SI 4.1 升级详细设计 | §1, §3 | `origin/2-projects/vertiv/SI/experiences/v4.1/dependency-upgrade.md` (352 行) |
 | 大量 break change 清单 | §3.3 | `_build/outlines/business/SI/task/SI 依赖升级.outline.md` (444 行) |
-| Hazelcast 在 SI 中的用途 | §4 | `file/3-tech_stack/cache/Hazelcast.md` (235 行) |
-| PI 4.0 砍 Hazelcast 决策 | §4.3 | `file/2-projects/vertiv/refactor_pi/docs/rebuild-plan/01-overview.md` §4.1 |
-| Java / SB / Hazelcast 升级综合视角 | (本文) | [`pi-platform-deep-dive.md`](./pi-platform-deep-dive.md) §3 |
+| Hazelcast 在 SI 中的用途 | §4 | `tech-stack/cache/Hazelcast.md` (235 行) |
+| PI 4.0 砍 Hazelcast 决策 | §4.3 | (PI 重构文档暂不记载) |
+| Java / SB / Hazelcast 升级综合视角 | (本文) | (PI 重构文档暂不记载) |
 
 ---
 

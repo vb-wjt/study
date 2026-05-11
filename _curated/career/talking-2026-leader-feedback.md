@@ -1,13 +1,13 @@
 # 第二年谈话提炼 (2026 春节后) ⭐
 
-> **来源**:`file/1-meta/gate/talking.md`(手机录音转文字 + AI 整理版)
+> **来源**:`origin/1-meta/gate/talking-analyze-detailed.md`(手机录音转文字 + AI 整理版)
 > **时间**:2026 年春节后,入职 Vertiv 接近 2 年(写本文档时 2026-05,正好满 2 年)
 > **形式**:1 对 1,我 vs 部门领导(以下记 **L**)
 >
 > **关联文档**:
-> - 整理后的对话原文 + 原始录音转写 → [`file/1-meta/gate/talking.md`](../../origin/1-meta/gate/talking-analyze-detailed.md)
-> - 第一年谈话准备稿 → [`file/1-meta/gate/pre_action.md`](../../origin/1-meta/gate/talking-collect-all-origin.md)
-> - 第一年谈话策略复盘 → [`file/1-meta/gate/action.md`](../../origin/1-meta/gate/action.md)
+> - 整理后的对话原文(分析版) → [`talking-analyze-detailed.md`](../../origin/1-meta/gate/talking-analyze-detailed.md)
+> - 谈话原始素材收集 → [`talking-collect-all-origin.md`](../../origin/1-meta/gate/talking-collect-all-origin.md)
+> - ~~第一年谈话策略复盘 → `action.md`~~ (已删除)
 > - 框架式自我反思 → [`growth-and-feedback.md`](./growth-and-feedback.md)
 
 标签:`[复盘]`📝 `[优先级⭐]`
@@ -220,7 +220,7 @@ L 也提到了我已经开始有的"江湖口碑":
 
 ## 5. L 直接回答了 `pre_action.md` 末尾的 3 个问题 ⭐
 
-> 这 3 个问题原本挂在 [`pre_action.md`](../../origin/1-meta/gate/talking-collect-all-origin.md) 末尾,
+> 这 3 个问题原本挂在 [`talking-collect-all-origin.md`](../../origin/1-meta/gate/talking-collect-all-origin.md) 末尾,
 > 之前我在 [`growth-and-feedback.md`](./growth-and-feedback.md) §1 给了"自答框架"。
 > **第二年谈话,L 已经直接回答了**——以下是 L 的真实答案:
 

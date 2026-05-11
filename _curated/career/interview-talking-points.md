@@ -47,8 +47,8 @@
 
 **素材出处**:
 - `_curated/projects/ferretdb-research.md` (我会写)
-- `file/3-tech_stack/database/ferretdb/ferretdb-no-docker.md`
-- `file/2-projects/vertiv/refactor_pi/docs/rebuild-plan/01-overview.md` §1.1 触发因素
+- `tech-stack/database/ferretdb/ferretdb-no-docker.md`
+- (PI 重构文档暂不记载)
 
 ### 1.2 [面试高频]🎯 "PostgreSQL 你最熟的特性是什么?"
 
@@ -67,7 +67,7 @@
 
 **素材出处**:
 - `_build/outlines/3-tech_stack/database/postgresql/postgresql.outline.md` (775 行,你最近大改)
-- `file/2-projects/vertiv/refactor_pi/db/postgres/*.sql` (你的 schema 设计样本)
+- (PI 重构 schema 暂不记载)
 
 ### 1.3 "MongoDB → PostgreSQL 的数据迁移工具怎么做的?"
 
@@ -84,8 +84,7 @@
 5. **实战教训**:[TODO: 如果你 ETL 跑过,有什么具体踩过的坑?填进来]
 
 **素材出处**:
-- `file/2-projects/vertiv/refactor_pi/tools/mongo_to_pg.py` (46.9KB)
-- `file/2-projects/vertiv/refactor_pi/docs/migration/02-etl-execution-report.md`
+- (PI 重构 ETL 工具暂不记载)
 
 ---
 
@@ -112,8 +111,7 @@
    - 这也是为什么 PI 4.0 要彻底推翻这套机制
 
 **素材出处**:
-- `file/2-projects/vertiv/refactor_pi/docs/legacy-analysis/01-architecture-overview.md` (277 行)
-- `file/2-projects/vertiv/SI/common/mtp-core-strengths-summary.md` + `mtp-core-deep-analysis.md`(对 mtp-core 优势 + 缺陷的深度分析,1 万行;整合见 [`../projects/mtp-core-framework.md`](../projects/mtp-core-framework.md))
+- [`_curated/projects/mtp-core-framework.md`](../projects/mtp-core-framework.md)(mtp-core 优势 + 缺陷深度分析)
 - `_build/outlines/2-projects/vertiv/SI/common/architecture/TAF-CORE.outline.md`
 
 ### 2.2 "插件机制是怎么实现的?"
@@ -131,42 +129,6 @@
 
 **素材出处**:同 §2.1
 
-### 2.3 "你提到 PI 4.0 重构,具体怎么主导的?"  ⭐⭐⭐
-
-> 这是你简历最大的杀手锏。**面试官 90% 会问这个**。
-
-**完整应答框架**(2-3 分钟):
-
-1. **背景 (30 秒)**: PI 是 Vertiv 的电源监控产品,商用多年,但技术栈(Spring Boot 2.6 / Java 8 / Mongo / Hazelcast)整体老化,叠加 MongoDB 协议变更带来的合规风险,需要全面重构。
-
-2. **我做了什么 (60 秒)**:
-   - **代码反向工程**:克隆 mtp-core 平台 + 25 个 taf-plugin-* + 18 个前端 lib 到本地集中目录,产出 277 行的旧架构分析
-   - **业务功能盘点**:基于产品手册逐章对齐到代码模块,L1-L10 业务功能清单(从设备监控到 vCenter 集成)
-   - **新架构设计**:产出 532 行 overview + 916 行 deep-dive,核心决策是 ——
-     - 数据库:PG + 原生分区,**不引入 TimescaleDB**(避免第三方依赖)
-     - 框架:Spring Boot 3 + Java 21,**全砍 Hazelcast**(单机不需要分布式)
-     - 平台:mtp-core 4.0 重写为多模块 Starter 库,**禁止运行时插件 / 动态 Schema / ClassLoader 隔离** (吸取教训)
-     - 通信:**事务发件箱模式**(Outbox)解决"不能丢的外部通知"
-   - **数据迁移工具**:Python ETL 链(mongo_analyze / samples / to_pg / verify),覆盖 N 个真实客户数据集
-   - **风险与未决项管理**:9 类主要风险 + 12 个 [missing] 待决,主动 surface 而不是藏起来
-
-3. **关键决策 (30 秒)**:**完全推倒重写,而非渐进改造**。
-   - 渐进改造的诱惑:看似风险低
-   - 但**根本架构债无法在渐进中消除**(动态 schema、文档存储、插件机制三件套互相耦合)
-   - 推倒重写的代价:工期长、ETL 工具必须可靠
-   - **决策标准**:看是治标还是治本
-
-4. **结果与教训 (30 秒)**:
-   - 输出 2500+ 行决策文档,作为团队评审与立项核心依据
-   - 工期估算给出 3 / 5 / 10 人三档对照,基于"有效人月"模型(扣会议/Review/blocker)
-   - **学到的最深的事**:**架构决策不是技术决策,是组织决策** —— 我标记了 7 个 "团队/组织前提" 待回答(团队规模、Java 21 经验、CI/CD 基础设施等),没有这些信息,工期是空中楼阁
-
-> 看到没?你结尾这段已经把面试拉到 L4 层了。比 L3 多一句"架构决策是组织决策" —— 直接把你和工程师里的 90% 拉开。
-
-**素材出处**:
-- `file/2-projects/vertiv/refactor_pi/docs/rebuild-plan/01-overview.md` (532 行)
-- `file/2-projects/vertiv/refactor_pi/docs/rebuild-plan/02-deep-dive.md` (916 行)
-
 ---
 
 ## 3. SNMP / 协议
@@ -181,7 +143,7 @@
 - **v3**:**安全性大幅提升** —— USM(基于用户的安全模型)提供认证 + 加密;VACM(基于视图的访问控制)
 - **业界使用**:v1 几乎不用了,v2c 因兼容性广泛存在,v3 是标准推荐
 
-**L4 加分**:**讲一个具体踩过的坑**(从 zero-engine.md 找一个):
+**L4 加分**:**讲一个具体踩过的坑**(从 zero-engine-analysis.md 找一个):
 - "我们 SI 在做 trap 解析时,不同厂商的私有 trap 格式不一致(SnmpTrapV2 / GeistPduTrap / LgpEventTrap / UnityTrap),用策略模式把每种 trap 的解析逻辑封装,避免硬编码 if-else"
 
 ### 3.2 "MIB 文件你怎么解析的?"
@@ -199,7 +161,7 @@
 5. **价值**:新设备 driver 开发耗时从 N 人天 → M 人天
 
 **素材出处**:
-- `file/2-projects/vertiv/SI/experiences/v4.1/resolve-mib/design/resolve-mib.md` (754 行)
+- `origin/2-projects/vertiv/SI/experiences/v4.1/resolve-mib/design/resolve-mib.md` (754 行)
 
 ### 3.3 "Zero Engine 是怎么做实时采集的?并发量多大?"
 
@@ -218,7 +180,7 @@
 - 双层是合理的折中
 
 **素材出处**:
-- `file/2-projects/vertiv/SI/experiences/v4.0/zero-engine.md` (6514 行)
+- `origin/2-projects/vertiv/SI/experiences/v4.0/zero-engine-analysis.md` (基于源码分析)
 - `_build/outlines/2-projects/vertiv/SI/common/flow/flow.outline.md` (4 页 256 行)
 
 ---
@@ -247,7 +209,7 @@
 **L4 加分**:讲**反思** —— 升级过程中识别出的"不该用"的东西(比如 SI 单机却用了 Hazelcast 集群),为后续 PI 4.0 重构打下基础。
 
 **素材出处**:
-- `file/2-projects/vertiv/SI/experiences/v4.1/dependency-upgrade.md`
+- `origin/2-projects/vertiv/SI/experiences/v4.1/dependency-upgrade.md`
 - `_build/outlines/business/SI/task/SI 依赖升级.outline.md`
 
 ### 4.2 "Hazelcast 你为什么决定砍掉?"
@@ -266,8 +228,8 @@
 5. **决策**: PI 4.0 全砍
 
 **素材出处**:
-- `file/3-tech_stack/cache/Hazelcast.md`
-- `file/2-projects/vertiv/refactor_pi/docs/rebuild-plan/01-overview.md` §4.1 砍掉清单
+- `tech-stack/cache/Hazelcast.md`
+- (PI 重构砍掉清单暂不记载)
 
 ---
 
@@ -306,8 +268,8 @@
 - **里氏替换 / 接口隔离 / 依赖倒置**:能讲就讲一两句,讲不出就别勉强
 
 **素材出处**:
-- `file/3-tech_stack/design_patterns/设计模式相关.xmind` (outline 42 行)
-- `file/3-tech_stack/design_patterns/策略模式.drawio` (你画的 UML)
+- `tech-stack/design_patterns/设计模式相关.xmind` (outline 42 行)
+- `tech-stack/design_patterns/策略模式.drawio` (你画的 UML)
 
 ---
 
@@ -391,7 +353,7 @@
    - 事务回滚 → 锁先释放 → 另一个线程拿锁 → 读到回滚前的脏数据 → 死锁或数据错乱
 4. **AOP 顺序不指定就是不确定的**:Spring AOP 不显式 `@Order` 的多个切面执行顺序是**随机的** → **必须显式 HIGHEST_PRECEDENCE 让锁切面在事务切面外**
 
-**素材出处**:`file/2-projects/asp/knowledge.md` §RedisLockAspect / `_curated/projects/asp-platform.md` §4.4.1
+**素材出处**:`origin/2-projects/asp/knowledge.md` §RedisLockAspect / `_curated/projects/asp-platform.md` §4.4.1
 
 ### 6.5.4 ⭐ "HttpServletRequest body 重读问题"
 

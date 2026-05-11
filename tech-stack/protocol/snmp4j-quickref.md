@@ -2,7 +2,7 @@
 
 标签:`[就绪]` `[需补充]` `[盲点]`⚠️ `[简历亮点]`⭐
 
-> 你的 `file/3-tech_stack/protocol/SNMP4J.md` 只有 1 行 `todo`,但 SNMP4J 是 **SI / Zero Engine
+> 你的 `tech-stack/protocol/SNMP4J.md` 只有 1 行 `todo`,但 SNMP4J 是 **SI / Zero Engine
 > 的核心依赖**——这种"用得最多但沉淀最薄"的对比,是简历里被面试官追问时会**突然失语**的危险点。
 >
 > 这份文档基于 SNMP4J 官方常见用法 + 你工程上下文整理。**用过的内容请校对/补充实际经验**。
@@ -145,7 +145,7 @@ transport.listen();
 
 ### 3.1 设备发现 (SI 4.0)
 
-> 详见 `file/2-projects/vertiv/SI/experiences/v4.0/discovery.md`
+> 详见 `origin/2-projects/vertiv/SI/experiences/v4.0/discovery.md`
 
 **典型流程**:
 ```
@@ -159,7 +159,7 @@ transport.listen();
 
 ### 3.2 实时信号采集 (Zero Engine)
 
-> 详见 `file/2-projects/vertiv/SI/experiences/v4.0/zero-engine.md`
+> 详见 `origin/2-projects/vertiv/SI/experiences/v4.0/zero-engine.md`
 
 **samplingScheduler** (默认 1000 线程):
 - 每个设备一个采集任务
@@ -170,7 +170,7 @@ transport.listen();
 
 ### 3.3 Trap 监听 + 策略模式解析
 
-> 详见 [`../projects/snmp-zero-engine.md`](../projects/snmp-zero-engine.md) §3.3
+> 详见 [`../../_curated/projects/snmp-zero-engine.md`](../../_curated/projects/snmp-zero-engine.md) §3.3
 
 **多厂商 trap 解析器**:
 ```
@@ -186,7 +186,7 @@ TrapResolver (接口)
 
 ### 3.4 MIB 解析 (SI 4.1, SMI-PRO)
 
-> 详见 [`../projects/snmp-zero-engine.md`](../projects/snmp-zero-engine.md) §2
+> 详见 [`../../_curated/projects/snmp-zero-engine.md`](../../_curated/projects/snmp-zero-engine.md) §2
 
 ```java
 SmiManager smiManager = new SmiManager();
@@ -284,17 +284,17 @@ pdu.setNonRepeaters(0);
 
 ---
 
-## 8. 与你 `file/` 其他素材的链接
+## 8. 与你 `origin/` 其他素材的链接
 
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
 | SNMP 协议本身 | §0, §5 | `_build/outlines/3-tech_stack/protocol/SNMP.outline.md` |
-| Zero Engine 实战 | §3.2 | `file/2-projects/vertiv/SI/experiences/v4.0/zero-engine.md` |
-| 设备发现实战 | §3.1 | `file/2-projects/vertiv/SI/experiences/v4.0/discovery.md` |
-| MIB 解析(SMI-PRO) | §3.4 | `file/2-projects/vertiv/SI/experiences/v4.1/resolve-mib/design/resolve-mib.md` |
-| 整合视角 | (本文) | [`../projects/snmp-zero-engine.md`](../projects/snmp-zero-engine.md) |
+| Zero Engine 实战 | §3.2 | `origin/2-projects/vertiv/SI/experiences/v4.0/zero-engine.md` |
+| 设备发现实战 | §3.1 | `origin/2-projects/vertiv/SI/experiences/v4.0/discovery.md` |
+| MIB 解析(SMI-PRO) | §3.4 | `origin/2-projects/vertiv/SI/experiences/v4.1/resolve-mib/design/resolve-mib.md` |
+| 整合视角 | (本文) | [`../../_curated/projects/snmp-zero-engine.md`](../../_curated/projects/snmp-zero-engine.md) |
 
 ---
 
 > 全部 `_curated/` 文件已写完!
-> **下一步**: 回 [`../README.md`](../README.md) 选你要看的方向,或直接去 [`../meta/inventory.md`](../meta/inventory.md) 看全工程盘点。
+> **下一步**: 回 [`../README.md`](../../_curated/README.md) 选你要看的方向,或直接去 [`../meta/inventory.md`](../../_curated/meta/inventory.md) 看全工程盘点。

@@ -2,8 +2,8 @@
 
 > 这是一份给你自己看的文档。
 >
-> 基于你 `1-meta/gate/action.md`(战略复盘)、`pre_action.md`(第一年谈话准备 + 末尾 3 个未答问题)、
-> 以及 `1-meta/gate/talking.md`(2026 春节后的第二年谈话录音),
+> 基于你原 `action.md`(战略复盘,已删除)、`pre_action.md`(第一年谈话准备,内容并入 `talking-collect-all-origin.md`)、
+> 以及 `talking-analyze-detailed.md`(2026 春节后的第二年谈话录音,原名 `talking.md`),
 > 我帮你把**你表达过的判断**、**领导给的真实反馈**、**你没问出的潜在问题**一起整理成可行动的框架。
 >
 > **不是答案,是脚手架**。最终答案只能你给。

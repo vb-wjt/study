@@ -15,18 +15,19 @@
 
 ### 1.1 SI 4.0 `[必须]`
 
-文件 `file/2-projects/vertiv/SI/experiences/v4.0/SI4.0.md` 的大纲列了:
+文件 `origin/2-projects/vertiv/SI/experiences/v4.0/SI4.0.md` 的大纲列了:
 - ✅ SNMP 协议 / SNMP4J / Mongodb (前置知识) ——> 已有素材
 - ✅ 设备发现 ——> `discovery.md` 2401 行,**有素材但 SI4.0.md 里只写了 4 个 bullet**
 - ✅ Zero Engine 信号采集 + 告警流 ——> `zero-engine.md` 6514 行
-- ❓ **信号和告警流图** ——> `flow.drawio` 已经能解析,但 SI4.0.md 没有说明性描述
-  - [wu] 这个是 zero engine 的信号采集和告警逻辑，我自己看代码并总结出来的 
-- ❓ **驱动管理的具体业务规则**:
-  - "增:驱动压缩包,加密..." —— **加密怎么做的?用什么算法?谁解密?**
-  - "删:失败时只回滚当前驱动相关内容" —— **回滚的具体边界?事务还是补偿?**
-    - [wu] 这是在批量删除的时候，出现异常的话，已经成功删除的相关内容不回滚
-  - "改:有设备的时候需要额外处理" —— **额外处理是什么?设备是先迁移还是先重置?**
-  - [wu] 需要看 zero engine 源码中相关功能代码
+- ~~❓ **信号和告警流图**~~ ✅ 2026-05-11 基于代码分析补充
+  - [wu] 这个是 zero engine 的信号采集和告警逻辑，我自己看代码并总结出来的
+  - [代码分析] 已完成,见 `zero-engine-analysis.md` §2-§3;告警只有 Trap + 通信丢失两种来源,无阈值告警
+- ~~❓ **驱动管理的具体业务规则**~~ ✅ 2026-05-11 基于代码分析修正
+  - [代码分析] 压缩包解析/加密在上游 Center/TAF 端,ie-engine 接收结构化 JSON
+  - [代码分析] 删除: **有设备引用时直接拒绝删除**(getUsedDriverDevices 检查),批量删除每驱动独立事务
+    - [wu] ~~这是在批量删除的时候，出现异常的话，已经成功删除的相关内容不回滚~~ (修正: 实际行为是拒绝删除,非回滚)
+  - [代码分析] 更新: 直接原地修改缓存,设备立即看到新定义,无版本控制
+  - 详见 `zero-engine-analysis.md` §4 和 `SI4.0.md` 驱动管理章节
 
 ### 1.2 SI 4.0.1 `[必须]`
 
@@ -64,41 +65,6 @@
 
 ---
 
-## 2. PI 重构相关
-
-### 2.1 你已自答的 `[missing]` `[必须]`
-
-`refactor_pi/docs/rebuild-plan/01-overview.md` 里你自己标了 12 个 `[missing]`,我**先复制过来,等你回答**:
-
-#### §5.3 团队/组织前提
-1. 团队规模与构成?(后/前端/测试/DevOps 各几人?)
-2. 团队 Java 21 / Spring Boot 3 / Postgres 经验?
-3. 团队 Angular 升级经验?
-4. 测试自动化能力?(PI 3.x 是否有 E2E 套件?)
-5. CI/CD 基础设施?
-6. 现网客户数与版本分布?
-7. 是否有 PSO(专业服务团队)?
-
-#### §7.2 未决项
-4. OpenAPI / WebSocket 契约 owner?
-5. 历史数据保留策略(30 天 / 5 年是否需调整)?
-6. 现网客户基线?
-7. License 文件兼容性(旧 PI 3.x license 能否在 4.0 直接用)?
-
-#### §8.x 我建议补充的考量(已在你文档里列出 12 大类)
-> 这些点不是"必须",是 **我希望你心里有数**。详见原文,我不再展开。
-
-### 2.2 我有疑问的 `[强化]`
-
-- `01-overview.md §6.2`:**52-76 有效人月** 这个估算是基于什么样本?是参考过类似规模的重构(SI 4.1 升级?)还是经验拍脑袋?如果有依据,简历可强化;如果是拍脑袋,要小心被面试官追问。
-- `02-deep-dive.md` 我没逐行看,如果有让你回头反问"我当初为什么这样设计"的地方,值得回答一下。
-
-### 2.3 `task-process.md` 的 §3 minimal verification `[必须]`
-
-这一章只有 `1.` 没内容。需要补:计划如何做 minimal verification?是否已经做了?结果?
-
----
-
 ## 3. PostgreSQL `[强化]`
 
 ### 3.1 `xmind` 大改后的内容
@@ -107,14 +73,13 @@
 
 **我视角的疑问**:
 - 你新增的内容**为什么是这些**?是项目要用?还是面试准备?还是兴趣?
-- 如果是项目要用 —— 在 `refactor_pi/db/postgres/*.sql` 里能体现哪些?
 - 如果是面试准备 —— 给我一个目标岗位 / 公司 / JD,我可以帮你**针对性提炼面试可讲点**
 
 ### 3.2 实操记录的缺失 `[必须]`
 
 `postgresql.outline.md` 里全是知识点(类型 / 索引 / 事务 / 性能优化 / 备份),但缺少:
 - **你自己做过的**操作(比如建 partition table 的命令、踩过的坑)
-- **`refactor_pi/db/postgres/`** 那 15 个 SQL 文件**为什么这么拆模块**?(IAM / metamodel / platform / device / monitoring / event / alarm / job / telemetry / file / licensing)
+- ~~**`refactor_pi/db/postgres/`** 那 15 个 SQL 文件**为什么这么拆模块**~~ (源文件已删除,PI 重构为进行中任务,暂不记载)
 
 ---
 
@@ -172,37 +137,33 @@
 
 ## 7. 工程结构本身的盲点
 
-### 7.1 ~~`other.md` / `other2.md` 命名~~ ✅ 已完成 (2026-04-30)
+### 7.1 ~~`other.md` / `other2.md` 命名~~ ✅ 已完成 (2026-04-30) → 源文件已删除 (2026-05-10)
 
-已分别改名为:
-- `other.md` → `mtp-core-strengths-summary.md`
-- `other2.md` → `mtp-core-deep-analysis.md`
-
-git 历史保留(用 `git mv`)。整合后的 `_curated/` 文档见 [`../projects/mtp-core-framework.md`](../projects/mtp-core-framework.md)。
+已分别改名为 `mtp-core-strengths-summary.md` / `mtp-core-deep-analysis.md`,后在 2026-05-10 清理中删除(冗余/分析不佳)。
+提炼版仍保留在 [`../projects/mtp-core-framework.md`](../projects/mtp-core-framework.md)。
 
 ### 7.2 ~~`unclassified/` 是个临时区~~ ✅ 已清空 (2026-05-08)
 
 6 个文件全部归位,详见 [`meta/inventory.md §8 变更日志`](./inventory.md#8-变更日志)。
 
-### 7.3 `business/SI/task/SI 工作总结.xmind` `[未决]`❓
+### 7.3 ~~`business/SI/task/SI 工作总结.xmind` 命名不一致~~ ✅ 已修正 (2026-05-10)
 
-文件名是 `SI 工作总结`,但 xmind 内部 sheet 名是 `SI 依赖升级`。**不一致**。需要你确认是改文件名还是改 sheet 名。
+文件已重命名为 `SI 依赖升级.xmind`,与 xmind 内部 sheet 名一致。路径:`origin/business/SI/task/SI 依赖升级.xmind`
 
 ### 7.4 ~~`Java中间件.txt` 用 .txt 后缀~~ ✅ 已修正 (2026-05-08)
 
-已改后缀 + 改名为 `middleware-overview.md` + 加了表格化结构 + 链接到 `_curated/tech-stack/`。
+已改后缀 + 改名为 `middleware-overview.md` + 加了表格化结构 + 链接到 `tech-stack/middleware/`。
 
-### 7.5 `1 行 todo 占位文件` ✅ 已修正 (2026-05-08)
+### 7.5 ~~`1 行 todo 占位文件`~~ ✅ 已修正 (2026-05-08) → redirect 文件已删除 (2026-05-10)
 
-- `build/maven.md`(原 `todo`)→ redirect link 到 `tech-stack/maven-essentials.md`
-- `protocol/SNMP4J.md`(原 `todo`)→ redirect link 到 `tech-stack/snmp4j-quickref.md`
-- `1-meta/study_index.md`(原 0 行)→ redirect link 到 `_curated/README.md` 等三大入口
+原 `build/maven.md`、`protocol/SNMP4J.md`、`1-meta/study_index.md` 的 redirect 文件已在 2026-05-10 清理中删除。
+目标文档仍在:`tech-stack/engineering/maven-essentials.md`、`tech-stack/protocol/snmp4j-quickref.md`。
 
 ### 7.6 中文文件名 ✅ 已修正 (2026-05-08)
 
 - `database/mongo/mongodb指令.md` → `mongodb-commands.md`
 - `protocol/SOAP版本.md` → `soap-versions.md`
-- 工程内剩余中文文件名:`business/PI/迁移 mongodb.xmind` 和 `business/SI/task/SI 工作总结.xmind`(用户最早整理的脑图,**保留**)
+- 工程内剩余中文文件名:`origin/business/PI/迁移 mongodb.xmind` 和 `origin/business/SI/task/SI 依赖升级.xmind`(用户最早整理的脑图,**保留**)
 
 ---
 
@@ -216,7 +177,7 @@ git 历史保留(用 `git mv`)。整合后的 `_curated/` 文档见 [`../project
 | `JVM` / GC / 调优 | 面试必问,简历"Java 后端"必须有 | ✅ **已补**:[`tech-stack/jvm-and-concurrency.md` §1-§5](../tech-stack/jvm-and-concurrency.md) |
 | `MySQL` 进阶 | SI 4.1 里 MySQL→SQLite 切换 | ✅ **已补**:[`tech-stack/mysql-deep-dive.md`](../tech-stack/mysql-deep-dive.md)(InnoDB 锁 / MVCC / 主从 / binlog / ICP) + PDF p.23-43 基础 |
 | `单元测试 / Mockito / TestContainers` | 代码质量加分项 | ✅ **已补**:[`tech-stack/testing-and-engineering.md`](../tech-stack/testing-and-engineering.md)(JUnit5 / Mockito / TestContainers / Git / CR / 文档写作) |
-| `Docker / 容器化` | FerretDB 调研里你提了 | ⚠️ **半覆盖**:ASP knowledge.md 有 K8s 指令 / Dockerfile 流程,但**缺独立深度** |
+| `Docker / 容器化` | FerretDB 调研里你提了 | ⚠️ **半覆盖**:ASP 提炼版([`../projects/asp-platform.md`](../projects/asp-platform.md))有 K8s 指令 / Dockerfile 流程,但**缺独立深度** |
 | `Git workflow` / Code Review 经验 | 团队协作 | ✅ **已补**:[`tech-stack/testing-and-engineering.md` §2-§3](../tech-stack/testing-and-engineering.md) |
 | `English` 技术写作 | Vertiv 是外企,你日常应该会写英文 doc / commit / PR? | ✅ **已补**:[`tech-stack/programming-english.md`](../tech-stack/programming-english.md)(731 行,词汇 + 句型 + Standup/PR/Design Doc/会议 模板)+ [`tech-stack/testing-and-engineering.md` §4](../tech-stack/testing-and-engineering.md)。**实操还需用户长期积累**。 |
 | **JUC / AQS / volatile / synchronized 锁升级** | P6+ **必考** | ✅ **已补**:[`tech-stack/jvm-and-concurrency.md` §6-§12](../tech-stack/jvm-and-concurrency.md) |
@@ -243,7 +204,7 @@ git 历史保留(用 `git mv`)。整合后的 `_curated/` 文档见 [`../project
 
 > 已不在 Top 5 但重要:
 > - ~~**归位 `unclassified/` 5 个文件**~~ ✅ 2026-05-08 完成(6 个归位 + 命名修正,见 [`meta/inventory.md §8`](./inventory.md#8-变更日志))
-> - ~~**决定 `Java Study.pdf` 是否转 markdown**~~ ✅ 2026-05 完成 → [`file/3-tech_stack/java-study.md`](../../origin/3-tech_stack/java-study.md) 1714 行
+> - ~~**决定 `Java Study.pdf` 是否转 markdown**~~ ✅ 2026-05 完成 → [`tech-stack/java/java-study.md`](../../tech-stack/java/java-study.md) 1714 行
 > - **算法刷题** —— 国内大厂笔试关,需要长期训练,本工程内未覆盖
 
 ---

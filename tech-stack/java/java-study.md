@@ -6,15 +6,15 @@
 > **目的**:便于增改 / 搜索 / 链接;**保留原始内容**,仅修正 OCR 错别字 + 优化排版
 > **原 PDF**:仍保留在同目录 `Java Study.pdf`,可对照
 >
-> **进阶补强**(本文未覆盖的 P6+ 必考点)请看 `_curated/tech-stack/`:
-> - JVM/GC/JUC → [`jvm-and-concurrency.md`](../../_curated/tech-stack/jvm-and-concurrency.md)
-> - Spring 内部原理 → [`spring-internals.md`](../../_curated/tech-stack/spring-internals.md)
-> - MySQL 锁/MVCC/主从 → [`mysql-deep-dive.md`](../../_curated/tech-stack/mysql-deep-dive.md)
-> - Redis 持久化/集群 → [`redis-deep-dive.md`](../../_curated/tech-stack/redis-deep-dive.md)
-> - MQ 三大问题 → [`mq-essentials.md`](../../_curated/tech-stack/mq-essentials.md)
-> - TCP/HTTP/HTTPS/WS → [`network-essentials.md`](../../_curated/tech-stack/network-essentials.md)
+> **进阶补强**(本文未覆盖的 P6+ 必考点)请看 `tech-stack/`:
+> - JVM/GC/JUC → [`jvm-and-concurrency.md`](./jvm-and-concurrency.md)
+> - Spring 内部原理 → [`spring-internals.md`](./spring-internals.md)
+> - MySQL 锁/MVCC/主从 → [`mysql-deep-dive.md`](../database/mysql-deep-dive.md)
+> - Redis 持久化/集群 → [`redis-deep-dive.md`](../cache/redis-deep-dive.md)
+> - MQ 三大问题 → [`mq-essentials.md`](../middleware/mq-essentials.md)
+> - TCP/HTTP/HTTPS/WS → [`network-essentials.md`](../protocol/network-essentials.md)
 >
-> **导航**:[`_curated/tech-stack/java-knowledge-map.md`](../../_curated/tech-stack/java-knowledge-map.md) 给了每个章节的面试评级 + 与本工程其他素材的串联
+> **导航**:[`tech-stack/java-knowledge-map.md`](./java-knowledge-map.md) 给了每个章节的面试评级 + 与本工程其他素材的串联
 
 ---
 
@@ -1553,7 +1553,7 @@ Spring 事务的回滚机制指的是当事务发生异常时,如何处理已经
 
 ### 9.4 分布式 ID
 
-(原 PDF 此处仅留题目,无具体展开 — 可参考 `_curated/tech-stack/system-design-primer.md` §3.6)
+(原 PDF 此处仅留题目,无具体展开 — 可参考 `tech-stack/system-design-primer.md` §3.6)
 
 ---
 
@@ -1710,7 +1710,7 @@ Linux 的防火墙的两个主要工具是 **`iptables`** 和 **`firewalld`**。
 
 > **本文档结束** —— 全文 103 页 PDF 完整转写,共 11 大类约 50 个面试题。
 >
-> **进阶补强**(P6+ 必考但本文未深入的)请去 `_curated/tech-stack/`:
+> **进阶补强**(P6+ 必考但本文未深入的)请去 `tech-stack/`:
 > - JVM/GC/JUC | Spring 内部原理 | MySQL 锁 | Redis 持久化 | MQ 三大问题 | TCP/HTTP/HTTPS
 >
 > **简历 + 面试可讲点** → `_curated/career/resume-projects.md` + `interview-talking-points.md`

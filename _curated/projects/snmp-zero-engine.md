@@ -6,7 +6,7 @@
 > - SNMP 协议本身 (`SNMP.outline.md`, 97 行)
 > - SNMP4J 客户端使用 (基本空白,对应 [`tech-stack/snmp4j-quickref.md`](../tech-stack/snmp4j-quickref.md))
 > - MIB 解析方案设计 (`resolve-mib.md`, 754 行 + `snmp-smi-pro.outline.md`)
-> - Zero Engine 信号采集 + 告警流(`zero-engine.md`, 6514 行 + `flow.outline.md`)
+> - Zero Engine 信号采集 + 告警流(`zero-engine-analysis.md` + `flow.outline.md`)
 >
 > 这条线是你 SI 4.0 + SI 4.1 的**核心技术骨架**,简历讲一定挑这条。
 
@@ -32,16 +32,16 @@
 │  └──────────────────────────────────────────────────────────┘   │
 │                                                                  │
 │  ┌──────────────────────────────────────────────────────────┐   │
-│  │  采集层 (samplerContext + samplingScheduler)              │   │
-│  │  ├── 实时信号采集 (SNMP get,1000 线程池,1 分钟周期)       │   │
+│  │  采集层 (Device.execute + DynamicScheduler)               │   │
+│  │  ├── 实时信号采集 (SNMP get,1000 线程池,60s scheduleWithFixedDelay) │
 │  │  ├── 数据点缓存 (Caffeine,本地)                           │   │
 │  │  └── 数据点变化通知 (datapointService extends Observable) │   │
 │  └──────────────────────────────────────────────────────────┘   │
 │                                                                  │
 │  ┌──────────────────────────────────────────────────────────┐   │
-│  │  告警层 (snmpReceiver)                                    │   │
+│  │  告警层 (snmpReceiver, 仅处理 v1/v2c trap)                │   │
 │  │  ├── trap 监听 (snmp#1.listen)                            │   │
-│  │  ├── trap 解析 (策略模式: SnmpTrapV2/Geist/Lgp/Unity)     │   │
+│  │  ├── trap 解析 (注册表模式: SnmpTrapV2Resolver/Geist/Lgp/Unity/Ignored) │
 │  │  ├── 告警缓存                                              │   │
 │  │  └── JMS 推送 (active-alarm topic)                         │   │
 │  └──────────────────────────────────────────────────────────┘   │
@@ -98,7 +98,7 @@
 
 ## 2. MIB 解析 (SI 4.1 实战) ⭐
 
-> 详细见 `file/2-projects/vertiv/SI/experiences/v4.1/resolve-mib/design/resolve-mib.md` (754 行) +
+> 详细见 `origin/2-projects/vertiv/SI/experiences/v4.1/resolve-mib/design/resolve-mib.md` (754 行) +
 > `_build/outlines/.../snmp-smi-pro.outline.md`
 
 ### 2.1 业务背景
@@ -146,10 +146,10 @@ OID 解析子流程:
 
 ## 3. Zero Engine 信号采集 + 告警流 (SI 4.0 主战场) ⭐⭐ 🎯
 
-> 详细见 `file/2-projects/vertiv/SI/experiences/v4.0/zero-engine.md` (**6514 行!**) +
+> 详细见 `origin/2-projects/vertiv/SI/experiences/v4.0/zero-engine-analysis.md` +
 > `_build/outlines/2-projects/vertiv/SI/common/flow/flow.outline.md` (4 页 256 行)
 >
-> **6500 行的素材是金矿**,但你 SI4.0.md 只写了 4 个 bullet。**[需补充]**:把这条线完整提炼一下。
+> ✅ 2026-05-11 已基于源码重新整理,见 [`zero-engine-analysis.md`](../../origin/2-projects/vertiv/SI/experiences/v4.0/zero-engine-analysis.md)。
 
 ### 3.1 Zero Engine 是什么
 
@@ -161,55 +161,68 @@ OID 解析子流程:
 ### 3.2 信号采集(实时)
 
 ```
-samplingScheduler: ScheduledExecutorService (默认 1000 线程)
+DynamicScheduler: ScheduledExecutorService (默认 1000 线程)
   → 每个设备一个采集任务
-  → 1 分钟周期(可配置)
+  → 60 秒间隔 (scheduleWithFixedDelay, 可配置)
 
-线程池接收任务,采集信号
-  → SNMP get (针对每个设备的 OID 列表)
-  → 数据点变化检测
-  → 缓存到 Caffeine (本地)
-  → 通知观察者 (datapointService extends Observable)
-    → 6. tafService (implements Observer)
-    → XXX (implements Observer)
-    → 7. 推送数据到指定应用 (RestTemplate)
+Device.execute() 每轮:
+  → 遍历驱动中所有 polledDefinitions
+  → 每个 definition 的每个 OID 地址:单独一次 SNMP GET (非 GETBULK)
+    → 第一个成功即停止尝试后续备选地址
+  → SNMPv3 认证异常 (SamplingAuthenticationException) → 触发通信告警 + 跳过整个设备
+  → 采集结果写入 Caffeine (DatapointService.putMulti)
+  → 通知观察者 (DatapointService extends Observable)
+    → TafService → HTTP POST 到上层 SI (callbackAddress + "/zedatapoints")
+
+通信健康检测:
+  → 采集全部失败 → communicationMissingTicks++
+  → 超过阈值 → alarmService.handleCommunicationAlarm(deviceId, true)
+  → 采集成功 → resetCommunicationStatus()
 ```
 
-> **使用了观察者模式** —— 数据点变化通知多个下游,松耦合。
+> **关键设计**: 每个 OID 单独 GET(不用 GETBULK)是刻意设计,保证对设备压力小且单点失败不影响其他数据点。
 
-### 3.3 告警流(异步)
+### 3.3 告警流
+
+**告警只有两个来源**(代码中无阈值告警):
+
+1. **SNMP Trap** (设备主动发送)
+2. **通信丢失** (采集轮次连续失败)
+
+> ⚠️ `NumericDatapointDefinition` 有 `threshold` 字段,但代码中**没有任何消费者做阈值评估**。
 
 ```
-真实设备 → snmp#1.listen()
-  → consumer.accept(trap)
-  → snmpReceiver.processpdu()
-    → resolveTrap() 解析告警
-      ├── snmp-v1-trap     (策略模式,每种 trap 类型一个解析器)
-      ├── snmp-v2-trap
-      ├── GeistPduTrap
-      ├── LgpEventTrap
-      ├── SnmpTrapV2
-      └── UnityTrap
-    → 缓存
-    → 检查 (5)
-    → [alarm]
-    → JMS 推送 (topic: active-alarm)
+Trap 接收:
+  SnmpReceiver → 绑定 UDP/TCP 0.0.0.0:{trap_port}
+  → processPdu() 仅处理 V1TRAP 和 V2 TRAP (v3 trap 不处理)
+  → 构建 SnmpTrap → DeviceContext.doEvent(trap)
 
-JMS 订阅端 (SI 多消费者):
-  messageSubscriber (@JmsListener(destination = "active-alarm"))
-    → consumers-1 → SI#1 / SI#2 / SI#X
-    → 从 caffeine 缓存中获取所有上层系统(默认 10 个 / 300s 过期)
-    → 推送告警
+Trap 解析 (AlarmResolverContext, 注册表 + Spring Bean 查找模式):
+  → v2c trap → SnmpTrapV2Resolver (UPS 启发式)
+  → v1 trap → 按 enterprise OID 查 SnmpTrapRuleEntity
+    ├── 匹配规则 → Spring Bean 名称查找对应 TrapResolver
+    │   (GeistPduTrapResolver / LgpEventTrapResolver / UnityTrapResolver / IgnoredTrapResolver)
+    └── 无规则 → 自定义匹配 (EventDefinition 中的 TrapRule)
+        varbind 操作符: equals / contains / exists / notExists
+
+告警状态管理 (AlarmService, ConcurrentHashMap 缓存):
+  → active 告警: endTimestamp == null
+  → 重复 active 忽略; cleared 需要缓存中已有对应 active
+  → 无 "acknowledged" 状态
+
+JMS 推送:
+  AlarmService → MessagePublisher.publish("active-alarm")
+  MessageSubscriber @JmsListener → TafService → HTTP POST zealarms
 ```
 
 > **关键设计**:
-> - **策略模式**封装多厂商 trap 解析(避免 if-else 硬编码)
-> - **JMS topic 订阅 / 发布** 支持多消费者、异步、不阻塞主线程
-> - **观察者模式 + JMS 双层** —— 本地变化用观察者,跨服务通知用 JMS
+> - **注册表 + Spring Bean 查找**:新增厂商 trap 解析器只需添加一个 Spring Bean,不改已有代码
+> - **JMS topic "active-alarm"**:支持多消费者异步推送
+> - **v3 trap 不处理**是已知局限,SnmpReceiver.processPdu() 只识别 V1/V2 PDU 类型
 
 ### 3.4 设备发现
 
-> 详见 `file/2-projects/vertiv/SI/experiences/v4.0/discovery.md` (2401 行)
+> 详见 `origin/2-projects/vertiv/SI/experiences/v4.0/discovery.md` (2401 行)
 
 ```
 两阶段发现:
@@ -229,7 +242,7 @@ JMS 订阅端 (SI 多消费者):
 
 ### 3.5 关键代码亮点(简历可讲)
 
-> 来自你 `zero-engine.md` 开头部分 (`discoverDevices` 接口的 AI review):
+> 来自你 `zero-engine-analysis.md` 开头部分 (`discoverDevices` 接口的 AI review):
 
 - **职责分离**: Controller 只做参数转换 + 调用 service
 - **DTO 转换**: BeanUtils.copyProperties(后续可改 MapStruct 提性能)
@@ -237,6 +250,22 @@ JMS 订阅端 (SI 多消费者):
 - **异步任务**: 返回 jobId 而非阻塞等待结果
 - **统一响应**: TafResponse.successResponse / failedResponse
 - **完整异常处理**: 不暴露 500 给客户端
+
+### 3.6 SNMPv3 处理(代码实证) ⭐
+
+> 基于 `SnmpSender.java` + `SnmpConfiguration.java` + `V3ErrorOIds.java` 的代码分析。
+
+**v3 GET 完整支持**:
+- USM 初始化: AuthMD5 / AuthSHA + PrivDES / PrivAES128
+- 安全级别: noauth_nopriv / auth_nopriv / auth_priv
+- ScopedPDU (区别于 v1/v2c 的 PDU)
+- Engine ID 自动发现: 首次请求 engineId=null → 响应中获取 → 缓存 → 绑定用户
+- V3ErrorOIds 错误检查: unsupported security level / not in time window / unknown user 等
+- 时间窗口过期自动重试: removeEngineTime() → 重新发送
+
+**v3 Trap 不支持**: SnmpReceiver.processPdu() 仅处理 V1TRAP / V2 TRAP PDU 类型
+
+> 🎯 **面试讲法**: "我们实现了 SNMPv3 的完整 GET 支持,包括 USM 安全模型的 Engine ID 自动发现和时间窗口重试机制;但 trap 接收只支持 v1/v2c,这是一个已知的技术债。"
 
 ---
 
@@ -265,14 +294,14 @@ JMS 订阅端 (SI 多消费者):
 
 ---
 
-## 5. 与你 `file/` 其他素材的链接
+## 5. 与你 `origin/` 其他素材的链接
 
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
 | SNMP 协议详细 | §1 | `_build/outlines/3-tech_stack/protocol/SNMP.outline.md` |
-| MIB 解析设计 | §2 | `file/2-projects/vertiv/SI/experiences/v4.1/resolve-mib/design/resolve-mib.md` |
-| Zero Engine 全分析 | §3 | `file/2-projects/vertiv/SI/experiences/v4.0/zero-engine.md` (6514 行!) |
-| 设备发现 | §3.4 | `file/2-projects/vertiv/SI/experiences/v4.0/discovery.md` (2401 行) |
+| MIB 解析设计 | §2 | `origin/2-projects/vertiv/SI/experiences/v4.1/resolve-mib/design/resolve-mib.md` |
+| Zero Engine 全分析 | §3 | `origin/2-projects/vertiv/SI/experiences/v4.0/zero-engine-analysis.md` |
+| 设备发现 | §3.4 | `origin/2-projects/vertiv/SI/experiences/v4.0/discovery.md` (2401 行) |
 | 告警流图 | §3.3 | `_build/outlines/2-projects/vertiv/SI/common/flow/flow.outline.md` |
 | MIB OID 解析图 | §2 | `_build/outlines/.../snmp-smi-pro.outline.md` |
 | SNMP4J 客户端速查 | §1.2 | [`tech-stack/snmp4j-quickref.md`](../tech-stack/snmp4j-quickref.md) |
@@ -281,9 +310,9 @@ JMS 订阅端 (SI 多消费者):
 
 ## 6. [盲点]⚠️ 我看到的、你可能忽视的
 
-1. **`zero-engine.md` 6500 行是 AI 对话记录** —— 内容质量高但**形式不利于阅读**(都是 Q&A 格式)。建议你**重新整理**成系统化文档(对应 [`meta/still-missing.md` §1.1](../meta/still-missing.md))
-2. **OID 解析的索引解码细节没明示** —— `resolve-mib.md` §3.3 说 "如果是表索引,进行索引值解码",但**具体怎么做**?面试官可能会追问
-3. **SNMP v3 你用过吗?** —— Outline 里讲了 v3 的 USM/VACM,但你**实际项目里用的是哪个版本**?如果只用过 v2c,简历不要写"精通 v3"
+1. ~~**`zero-engine.md` 6500 行是 AI 对话记录**~~ ✅ 2026-05-11 已基于源码重写 → [`zero-engine-analysis.md`](../../origin/2-projects/vertiv/SI/experiences/v4.0/zero-engine-analysis.md)
+2. **OID 解析的索引解码细节没明示** — `resolve-mib.md` §3.3 说 "如果是表索引,进行索引值解码",但**具体怎么做**?面试官可能会追问
+3. ~~**SNMP v3 你用过吗?**~~ ✅ 2026-05-11 代码分析确认: v3 GET 完整支持 (USM + Engine ID discovery + 时间窗口重试);v3 Trap **不处理** (SnmpReceiver 只处理 v1/v2c PDU)
 
 ---
 

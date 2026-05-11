@@ -1,0 +1,41 @@
+---
+description: Auto-compress context into context-snapshot.md when conversation grows long
+alwaysApply: true
+---
+
+# Context Snapshot: Auto-Save
+
+## When to Trigger
+
+Proactively update `context-snapshot.md` when **any of the following signals** appear:
+- The conversation has accumulated many tool calls, file reads, or code diffs
+- You find yourself re-explaining project background that should already be known
+- You are about to start a new major sub-task and want to checkpoint progress
+- The user explicitly says "save context" or "update snapshot"
+
+Do **not** wait to be asked. When the signal is clear, update the file autonomously and tell the user briefly: "已更新 context-snapshot.md（新增：XXX）"
+
+## What to Include
+
+Only include content that is **durable and directly relevant to the current project's main task**:
+
+✅ Include:
+- New architectural decisions or confirmed technical conclusions
+- Newly discovered code paths, APIs, or key behavior findings
+- Progress updates on tracked milestones or tasks
+- New key file/class/method locations worth remembering
+- Resolved blockers or newly discovered blockers
+
+❌ Exclude:
+- Trivial or one-off questions (e.g. "what time is it", "explain this concept briefly")
+- Exploratory questions with no durable conclusion
+- Content already captured in the snapshot
+- Generic coding help unrelated to the project's main task
+
+## How to Write
+
+- Locate `context-snapshot.md` in the workspace (it may be in any subdirectory)
+- Merge new findings into the **existing sections** — do not append a new section per session
+- Update the timestamp at the top of the file
+- Keep the total file under ~300 lines; compress older detail if needed to stay concise
+- Preserve the existing structure and section headings

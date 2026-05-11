@@ -2,7 +2,7 @@
 
 标签:`[就绪]` `[需补充]` `[盲点]`⚠️ `[面试高频]`🎯
 
-> 你的 `file/3-tech_stack/build/maven.md` 只有一行 `todo`,但 Maven 是 Java 后端**最基础的工具**。
+> 你的 `tech-stack/build/maven.md` 只有一行 `todo`,但 Maven 是 Java 后端**最基础的工具**。
 >
 > 这份文档**不是 Maven 完整教程**,而是聚焦你工程里**真的会用到 / 面试真的会问**的内容。
 >
@@ -270,7 +270,7 @@ mvn dependency:tree -Dincludes=com.fasterxml.jackson.core:jackson-databind
 
 ## 6. 大版本升级的痛点(你 SI 4.1 已踩过)
 
-> 链接到 [`../projects/dependency-upgrade.md`](../projects/dependency-upgrade.md) §3
+> 链接到 [`../../_curated/projects/dependency-upgrade.md`](../../_curated/projects/dependency-upgrade.md) §3
 
 **与 Maven 直接相关**的痛点:
 
@@ -295,14 +295,14 @@ mvn dependency:tree -Dincludes=com.fasterxml.jackson.core:jackson-databind
 
 ---
 
-## 8. 与你 `file/` 其他素材的链接
+## 8. 与你 `origin/` 其他素材的链接
 
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
-| 原始 Maven 笔记 | (本文) | `file/3-tech_stack/build/maven.md` (1 行 todo) |
-| 大版本升级中 Maven 的角色 | §6 | [`../projects/dependency-upgrade.md`](../projects/dependency-upgrade.md) |
-| PI 多模块设计 | §2.4 | `file/2-projects/vertiv/refactor_pi/docs/rebuild-plan/01-overview.md` §3 |
+| 原始 Maven 笔记 | (本文) | `tech-stack/build/maven.md` (1 行 todo) |
+| 大版本升级中 Maven 的角色 | §6 | [`../../_curated/projects/dependency-upgrade.md`](../../_curated/projects/dependency-upgrade.md) |
+| PI 多模块设计 | §2.4 | `origin/2-projects/vertiv/refactor_pi/docs/rebuild-plan/01-overview.md` §3 |
 
 ---
 
-> **下一步**: [`linux-filesystem-and-perms.md`](./linux-filesystem-and-perms.md) (你的 linux-privilege 缺文件系统部分)
+> **下一步**: [`linux-filesystem-and-perms.md`](../linux-filesystem-and-perms.md) (你的 linux-privilege 缺文件系统部分)
