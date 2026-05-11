@@ -319,7 +319,7 @@ TransactionInterceptor.invoke()
 
 ### 5.5 🔗 结合你项目
 
-ASP 的 @RedisLock + @Transactional 协作设计 → 锁在事务外(`@Order(HIGHEST_PRECEDENCE)`),详见 [`projects/asp-platform.md` §4.4.1](../projects/asp-platform.md#441--为什么-orderhighest_precedence锁在事务外)
+ASP 的 @RedisLock + @Transactional 协作设计 → 锁在事务外(`@Order(HIGHEST_PRECEDENCE)`),详见 [`projects/asp-platform.md` §4.4.1](../../_curated/projects/asp-platform.md#441--为什么-orderhighest_precedence锁在事务外)
 
 ---
 

@@ -398,4 +398,4 @@ end
 
 ---
 
-> 📌 **下一步**:[`mq-essentials.md`](./mq-essentials.md) → MQ 三大问题 / Kafka / RocketMQ
+> 📌 **下一步**:[`mq-essentials.md`](../middleware/mq-essentials.md) → MQ 三大问题 / Kafka / RocketMQ

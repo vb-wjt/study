@@ -12,13 +12,13 @@
 
 | 维度 | 数据 |
 |---|---|
-| `origin/` 下源内容 | **36 个**(.md=24;非文档类=12:.xmind+.drawio=11 / .pdf=1)+ 13 张图片 |
-| `_curated/` AI 整理产物 | **28 个**(career=4 / meta=2 / projects=6 / tech-stack=15 + README=1) |
-| `_build/` 自动产物 | xmind/drawio outline ~2100 行(镜像 `origin/` 树) |
+| `origin/` 下源内容 | **25 个**(含 .md/.xmind/.drawio/.png;`business/` 已重命名为 `3-business/`;`temp.md` 移入 `1-meta/`) |
+| `_curated/` AI 整理产物 | **12 个**(career=4 / meta=2 / projects=5 + README=1) |
+| `tech-stack/` 技术栈统一 | 独立顶层目录,详见 §3 |
+| `_build/` 自动产物 | 11 个 outline(镜像 `origin/` + `tech-stack/` 树);`raw/` 已加入 .gitignore |
 | 内容最丰富的单一文件 | `discovery.md`(2754 行) |
-| `unclassified/` | ✅ 已清空(2026-05-08) |
 
-> `origin/temp.md`(13 行)—— 用户个人下一步 todo,位于 `origin/` 根目录,不属于以下任何子目录分类。
+> `origin/1-meta/temp.md`(15 行)—— 用户个人下一步 todo。
 
 ---
 
@@ -95,14 +95,14 @@
 | `protocol/soap-versions.md` | 143 | `[就绪]` | — | SOAP 版本对比 |
 | `protocol/websocket/basic.md` | 318 | `[就绪]` | `[面试高频]`🎯 | WebSocket 基础 |
 | `protocol/websocket/deep-dive-interview.md` | 158 | `[就绪]` | `[面试高频]`🎯 `[简历亮点]`⭐ | WebSocket 面试材料 |
-| `server/undertow.xmind` | (38 行 outline) | `[就绪]` | — | |
-| `specification/OpenAPI 规范.xmind` | (31 行 outline) | `[就绪]` | — | |
+| `java/undertow.xmind` | (38 行 outline) | `[就绪]` | — | 2026-05-11 从顶层移入 java/ |
+| `engineering/OpenAPI 规范.xmind` | (31 行 outline) | `[就绪]` | — | 2026-05-11 从顶层移入 engineering/ |
 | `spring/notes.md` | 50 | `[就绪]` | — | Spring 实战零碎笔记 |
-| `template/freemarker.md` | 232 | `[就绪]` | — | |
+| `java/freemarker.md` | 232 | `[就绪]` | — | 2026-05-11 从顶层移入 java/ |
 
 ---
 
-## 4. `origin/business/` —— 业务知识(脑图素材)
+## 4. `origin/3-business/` —— 业务知识(脑图素材)
 
 | 文件 | 行数 | 状态 | 价值 | 备注 |
 |---|---:|---|---|---|
@@ -119,17 +119,17 @@
 
 ## 6. 自动产物 `_build/outlines/`
 
-xmind 9 个 + drawio 3 个,全部已转成纯文本 outline。详见 `_build/extract-xmind.ps1` 和 `extract-drawio.ps1`。
+xmind 8 个 + drawio 3 个,全部已转成纯文本 outline。详见 `_build/extract-xmind.ps1` 和 `extract-drawio.ps1`。
 
 | Top 5 内容量 | 行数 |
 |---|---:|
-| `postgresql.outline.md` | 775 |
-| `SI 依赖升级.outline.md` | 444 |
-| `迁移 mongodb.outline.md` | 274 |
-| `flow.outline.md` (4 页) | 256 |
-| `SNMP.outline.md` | 97 |
+| `database/postgresql.outline.md` | 775 |
+| `3-business/SI/task/SI 依赖升级.outline.md` | 444 |
+| `3-business/PI/迁移 mongodb.outline.md` | 274 |
+| `2-projects/.../flow/flow.outline.md` (4 页) | 256 |
+| `protocol/SNMP.outline.md` | 97 |
 
-> `_build/outlines/` 镜像 `origin/` 目录树。文件名未加前缀,与 `origin/` 一一对应。脚本下次重跑前路径若变化会自动同步。
+> `_build/outlines/` 镜像 `origin/` 和 `tech-stack/` 的目录树。`_build/raw/` 已加入 `.gitignore`(可再生二进制产物)。脚本下次重跑前路径若变化会自动同步。
 
 ---
 

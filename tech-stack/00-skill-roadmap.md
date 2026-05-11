@@ -50,21 +50,21 @@
 
 | 文档 | 标签 | 行数 | 备注 |
 |---|---|---:|---|
-| [`jvm-and-concurrency.md`](./jvm-and-concurrency.md) | `[P6基线]`⭐⭐⭐ `[盲点]`⚠️ `[与你项目]`🔗 | 1100+ | JVM 内存 / GC / JMM / 锁升级 / AQS / JUC 集合 / CompletableFuture |
-| [`maven-essentials.md`](./maven-essentials.md) | `[P6基线]`⭐⭐ `[ROI高]`💎 | 已有 | Maven 多模块 / dependencyManagement / Profile |
+| [`jvm-and-concurrency.md`](./java/jvm-and-concurrency.md) | `[P6基线]`⭐⭐⭐ `[盲点]`⚠️ `[与你项目]`🔗 | 1100+ | JVM 内存 / GC / JMM / 锁升级 / AQS / JUC 集合 / CompletableFuture |
+| [`maven-essentials.md`](./engineering/maven-essentials.md) | `[P6基线]`⭐⭐ `[ROI高]`💎 | 已有 | Maven 多模块 / dependencyManagement / Profile |
 | [`linux-filesystem-and-perms.md`](./linux-filesystem-and-perms.md) | `[P6基线]`⭐ `[ROI高]`💎 | 已有 | Linux 文件系统 + 权限 |
-| [`snmp4j-quickref.md`](./snmp4j-quickref.md) | `[与你项目]`🔗 SI 专属 | 301 | SNMP4J 速查 |
+| [`snmp4j-quickref.md`](./protocol/snmp4j-quickref.md) | `[与你项目]`🔗 SI 专属 | 301 | SNMP4J 速查 |
 
 ### 2.2 ✏️ 本批次新增(2026-05)
 
 | # | 文档 | 标签 | 优先级 |
 |---|---|---|---|
-| 1 | [`spring-internals.md`](./spring-internals.md) | `[P6基线]`⭐⭐⭐ `[与PDF重叠]`📚 `[与你项目]`🔗 | **本月精读** |
-| 2 | [`mysql-deep-dive.md`](./mysql-deep-dive.md) | `[P6基线]`⭐⭐⭐ `[国内大厂]` `[与你项目]`🔗 | **本月精读** |
-| 3 | [`redis-deep-dive.md`](./redis-deep-dive.md) | `[P6基线]`⭐⭐⭐ `[国内大厂]` `[与你项目]`🔗 | **本月精读** |
-| 4 | [`mq-essentials.md`](./mq-essentials.md) | `[P6基线]`⭐⭐ `[国内大厂]` | 季度内 |
-| 5 | [`network-essentials.md`](./network-essentials.md) | `[P6基线]`⭐⭐ | 季度内 |
-| 6 | [`testing-and-engineering.md`](./testing-and-engineering.md) | `[外企友好]` `[与L反馈]`📝 | **本月**(L 谈话强调英文+工程化) |
+| 1 | [`spring-internals.md`](./java/spring-internals.md) | `[P6基线]`⭐⭐⭐ `[与PDF重叠]`📚 `[与你项目]`🔗 | **本月精读** |
+| 2 | [`mysql-deep-dive.md`](./database/mysql-deep-dive.md) | `[P6基线]`⭐⭐⭐ `[国内大厂]` `[与你项目]`🔗 | **本月精读** |
+| 3 | [`redis-deep-dive.md`](./cache/redis-deep-dive.md) | `[P6基线]`⭐⭐⭐ `[国内大厂]` `[与你项目]`🔗 | **本月精读** |
+| 4 | [`mq-essentials.md`](./middleware/mq-essentials.md) | `[P6基线]`⭐⭐ `[国内大厂]` | 季度内 |
+| 5 | [`network-essentials.md`](./protocol/network-essentials.md) | `[P6基线]`⭐⭐ | 季度内 |
+| 6 | [`testing-and-engineering.md`](./engineering/testing-and-engineering.md) | `[外企友好]` `[与L反馈]`📝 | **本月**(L 谈话强调英文+工程化) |
 | 7 | [`system-design-primer.md`](./system-design-primer.md) | `[P7加分]`⭐⭐ `[国内大厂]` `[需要积累]`⏳ | 半年内 |
 
 ### 2.3 后续(本工程未覆盖,你目标公司决定要不要)
@@ -86,7 +86,7 @@
 | 优势点 | 来自 | 简历用法 |
 |---|---|---|
 | ⭐⭐⭐ **业务广度**:国企级电信(中移) + 外企边缘机房(Vertiv) | 工作背景 | 简历自我评价段:"跨国企级 + 外企级业务复杂度" |
-| ⭐⭐⭐ **工程化封装**:@RedisLock AOP / dbproxy / Driver Hub | ASP / Vertiv | 简历项目段(已写在 [`career/resume-projects.md`](../career/resume-projects.md)) |
+| ⭐⭐⭐ **工程化封装**:@RedisLock AOP / dbproxy / Driver Hub | ASP / Vertiv | 简历项目段(已写在 [`career/resume-projects.md`](../_curated/career/resume-projects.md)) |
 | ⭐⭐⭐ **大版本依赖升级**:Java 8→21 / Spring Boot 2→3 / Hazelcast 3→5 | SI 4.1 | 简历项目 §1.3 |
 | ⭐⭐ **跨团队 + 跨时区协作**:SNMP4J-SMI-PRO 国外采购 | SI 4.1 | 简历软实力段 |
 | ⭐⭐ **架构反向工程 + 重构方案设计**:PI 4.0 | PI 重构 | 简历项目 §1.6(决策级 / 架构级) |
@@ -102,23 +102,23 @@
 
 ### 4.1 第 1 优先级(本月)
 
-1. **JVM/GC/JUC** ✅ 已写 [`jvm-and-concurrency.md`](./jvm-and-concurrency.md)
-2. **Spring 进阶** → [`spring-internals.md`](./spring-internals.md)
-3. **MySQL 锁 + MVCC** → [`mysql-deep-dive.md`](./mysql-deep-dive.md)
-4. **Redis 持久化 + 主从** → [`redis-deep-dive.md`](./redis-deep-dive.md)
+1. **JVM/GC/JUC** ✅ 已写 [`jvm-and-concurrency.md`](./java/jvm-and-concurrency.md)
+2. **Spring 进阶** → [`spring-internals.md`](./java/spring-internals.md)
+3. **MySQL 锁 + MVCC** → [`mysql-deep-dive.md`](./database/mysql-deep-dive.md)
+4. **Redis 持久化 + 主从** → [`redis-deep-dive.md`](./cache/redis-deep-dive.md)
 5. **生产 GC/OOM 排查实战故事** → 在你日常工作里**主动找一个 case** 补 `_curated/career/resume-projects.md`
 
 ### 4.2 第 2 优先级(季度内)
 
-6. **MQ 三大问题** → [`mq-essentials.md`](./mq-essentials.md)
-7. **TCP/HTTP/HTTPS** → [`network-essentials.md`](./network-essentials.md)
-8. **单元测试 + 工程化** → [`testing-and-engineering.md`](./testing-and-engineering.md) (L 反馈也强调)
+6. **MQ 三大问题** → [`mq-essentials.md`](./middleware/mq-essentials.md)
+7. **TCP/HTTP/HTTPS** → [`network-essentials.md`](./protocol/network-essentials.md)
+8. **单元测试 + 工程化** → [`testing-and-engineering.md`](./engineering/testing-and-engineering.md) (L 反馈也强调)
 9. **系统设计入门** → [`system-design-primer.md`](./system-design-primer.md)
 
 ### 4.3 第 3 优先级(半年内)
 
 10. **算法刷题** —— 目标 LeetCode top 100,大厂笔试关
-11. **专业英语 + 技术写作** —— L 第二年谈话明确**硬指标**(详见 [`career/talking-2026-leader-feedback.md`](../career/talking-2026-leader-feedback.md))
+11. **专业英语 + 技术写作** —— L 第二年谈话明确**硬指标**(详见 [`career/talking-2026-leader-feedback.md`](../_curated/career/talking-2026-leader-feedback.md))
 12. **Netty / DDD / Kotlin** —— 看目标公司方向
 
 ---
@@ -155,5 +155,5 @@
 ---
 
 > 📌 **下一步**:
-> - 看 [`spring-internals.md`](./spring-internals.md) 开始 P6+ 三件套
-> - 或回到 [`career/talking-2026-leader-feedback.md`](../career/talking-2026-leader-feedback.md) 看你今年的硬目标
+> - 看 [`spring-internals.md`](./java/spring-internals.md) 开始 P6+ 三件套
+> - 或回到 [`career/talking-2026-leader-feedback.md`](../_curated/career/talking-2026-leader-feedback.md) 看你今年的硬目标

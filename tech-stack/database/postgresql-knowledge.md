@@ -47,7 +47,7 @@
 
 ## 1. 你 outline 里讲到的 (基础 + 进阶) `[源文]`
 
-> 直接看 [`_build/outlines/3-tech_stack/database/postgresql/postgresql.outline.md`](../../_build/outlines/3-tech_stack/database/postgresql/postgresql.outline.md)。
+> 直接看 [`_build/outlines/database/postgresql.outline.md`](../../_build/outlines/database/postgresql.outline.md)。
 >
 > 这一节我只**勾画结构**,让你知道整个 outline 在讲什么:
 
@@ -197,13 +197,13 @@
 
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
-| PG 全部知识点 | §1 | `_build/outlines/3-tech_stack/database/postgresql/postgresql.outline.md` (775 行) |
+| PG 全部知识点 | §1 | `_build/outlines/database/postgresql.outline.md` (775 行) |
 | PI 4.0 schema 设计 | §2 | `origin/2-projects/vertiv/refactor_pi/db/postgres/*.sql` |
 | Schema 设计文档 | §2 | `origin/2-projects/vertiv/refactor_pi/docs/migration/01-postgres-schema.md` |
 | Mongo → PG ETL | §3 | `origin/2-projects/vertiv/refactor_pi/tools/*.py` |
-| FerretDB 不可行的根因 | §A 决策背景 | [`./ferretdb-research.md`](./ferretdb-research.md) |
+| FerretDB 不可行的根因 | §A 决策背景 | [`ferretdb-research.md`](../../_curated/projects/ferretdb-research.md) |
 | MongoDB 集合清单 | §3 摸底 | `origin/2-projects/vertiv/refactor_pi/docs/legacy-analysis/03-mongodb-collections.md` |
 
 ---
 
-> **下一步**: 看 [`ferretdb-research.md`](./ferretdb-research.md) (PG 故事的另一面)
+> **下一步**: 看 [`ferretdb-research.md`](../../_curated/projects/ferretdb-research.md) (PG 故事的另一面)

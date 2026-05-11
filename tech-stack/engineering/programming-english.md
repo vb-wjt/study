@@ -513,7 +513,7 @@ Pros: A, B, C. Cons: D, E. Recommendation: proceed."
 
 ## 13. ⭐ 会议主持 / 参与句型
 
-> **配套**:这一节直接呼应 [`career/talking-2026-leader-feedback.md`](../career/talking-2026-leader-feedback.md) §3 — L 的"会议主持脚手架"反馈。
+> **配套**:这一节直接呼应 [`career/talking-2026-leader-feedback.md`](../../_curated/career/talking-2026-leader-feedback.md) §3 — L 的"会议主持脚手架"反馈。
 
 ### 13.1 开会(主持人)
 
@@ -652,7 +652,7 @@ but I could revisit next sprint."
 
 ## 16. ⭐⭐ 你这一年的"专业英语行动清单"(基于 L 反馈)
 
-> 与 [`testing-and-engineering.md` §4](./testing-and-engineering.md) + [`career/talking-2026-leader-feedback.md`](../career/talking-2026-leader-feedback.md) 联动。
+> 与 [`testing-and-engineering.md` §4](./testing-and-engineering.md) + [`career/talking-2026-leader-feedback.md`](../../_curated/career/talking-2026-leader-feedback.md) 联动。
 
 ### 16.1 每周(累计)
 
@@ -728,4 +728,4 @@ PR 5 句:
 ---
 
 > 📌 **下一步**:回到 [`tech-stack/00-skill-roadmap.md`](./00-skill-roadmap.md) 看完整体系
-> 或 [`career/talking-2026-leader-feedback.md`](../career/talking-2026-leader-feedback.md) 看 L 反馈
+> 或 [`career/talking-2026-leader-feedback.md`](../../_curated/career/talking-2026-leader-feedback.md) 看 L 反馈

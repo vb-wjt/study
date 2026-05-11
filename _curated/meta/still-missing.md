@@ -37,7 +37,7 @@
   - [wu] 见 postgresql.xmind, 7.索引优化部分
 - **RDU 模拟器**:模拟什么设备?用什么技术(Java / Python / SNMP4J Agent)?如何注入故障场景?
 - **备份恢复**:备份哪些数据(Mongo / 文件 / 配置)?恢复时间(RTO)和数据丢失(RPO)?
-- **MongoDB → FerretDB 迁移**:**这部分 `business/PI/迁移 mongodb.xmind` 有覆盖吗?还是 SI 自己有一份?**
+- **MongoDB → FerretDB 迁移**:**这部分 `3-business/PI/迁移 mongodb.xmind` 有覆盖吗?还是 SI 自己有一份?**
   - [wu] 都是用的同一套
 
 ### 1.3 SI 4.1 `[必须]`
@@ -148,7 +148,7 @@
 
 ### 7.3 ~~`business/SI/task/SI 工作总结.xmind` 命名不一致~~ ✅ 已修正 (2026-05-10)
 
-文件已重命名为 `SI 依赖升级.xmind`,与 xmind 内部 sheet 名一致。路径:`origin/business/SI/task/SI 依赖升级.xmind`
+文件已重命名为 `SI 依赖升级.xmind`,与 xmind 内部 sheet 名一致。路径:`origin/3-business/SI/task/SI 依赖升级.xmind`
 
 ### 7.4 ~~`Java中间件.txt` 用 .txt 后缀~~ ✅ 已修正 (2026-05-08)
 
@@ -163,7 +163,7 @@
 
 - `database/mongo/mongodb指令.md` → `mongodb-commands.md`
 - `protocol/SOAP版本.md` → `soap-versions.md`
-- 工程内剩余中文文件名:`origin/business/PI/迁移 mongodb.xmind` 和 `origin/business/SI/task/SI 依赖升级.xmind`(用户最早整理的脑图,**保留**)
+- 工程内剩余中文文件名:`origin/3-business/PI/迁移 mongodb.xmind` 和 `origin/3-business/SI/task/SI 依赖升级.xmind`(用户最早整理的脑图,**保留**)
 
 ---
 

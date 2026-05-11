@@ -255,7 +255,7 @@
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
 | SI 4.1 升级详细设计 | §1, §3 | `origin/2-projects/vertiv/SI/experiences/v4.1/dependency-upgrade.md` (352 行) |
-| 大量 break change 清单 | §3.3 | `_build/outlines/business/SI/task/SI 依赖升级.outline.md` (444 行) |
+| 大量 break change 清单 | §3.3 | `_build/outlines/3-business/SI/task/SI 依赖升级.outline.md` (444 行) |
 | Hazelcast 在 SI 中的用途 | §4 | `tech-stack/cache/Hazelcast.md` (235 行) |
 | PI 4.0 砍 Hazelcast 决策 | §4.3 | (PI 重构文档暂不记载) |
 | Java / SB / Hazelcast 升级综合视角 | (本文) | (PI 重构文档暂不记载) |

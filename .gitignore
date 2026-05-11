@@ -1,5 +1,10 @@
 # Project ignored files
 .idea/
 *.iml
-
 *.class
+
+# Build artifacts (regenerable from xmind/drawio sources)
+_build/raw/
+
+# Cursor IDE local config
+.cursor/mine/

@@ -297,7 +297,7 @@ CREATE TABLE short_url (
 
 > 你**已经做过**,这是**最强项目题**(很多候选人只能讲 Redisson 的用法)。
 >
-> 详见 [`projects/asp-platform.md` §4.4](../projects/asp-platform.md)
+> 详见 [`projects/asp-platform.md` §4.4](../_curated/projects/asp-platform.md)
 
 ---
 

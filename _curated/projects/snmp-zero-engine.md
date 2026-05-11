@@ -60,7 +60,7 @@
 
 ## 1. SNMP 协议核心 (面试基础题) 🎯
 
-> 直接看 `_build/outlines/3-tech_stack/protocol/SNMP.outline.md` (97 行,内容详尽)。
+> 直接看 `_build/outlines/protocol/SNMP.outline.md` (97 行,内容详尽)。
 >
 > 我只**勾画结构**,加几个面试加分的点:
 
@@ -298,7 +298,7 @@ JMS 推送:
 
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
-| SNMP 协议详细 | §1 | `_build/outlines/3-tech_stack/protocol/SNMP.outline.md` |
+| SNMP 协议详细 | §1 | `_build/outlines/protocol/SNMP.outline.md` |
 | MIB 解析设计 | §2 | `origin/2-projects/vertiv/SI/experiences/v4.1/resolve-mib/design/resolve-mib.md` |
 | Zero Engine 全分析 | §3 | `origin/2-projects/vertiv/SI/experiences/v4.0/zero-engine-analysis.md` |
 | 设备发现 | §3.4 | `origin/2-projects/vertiv/SI/experiences/v4.0/discovery.md` (2401 行) |

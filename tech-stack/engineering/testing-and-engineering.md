@@ -23,7 +23,7 @@
 
 ### 0.2 ⭐⭐⭐ 为什么这块对你尤其重要
 
-> **L 第二年谈话强调**:**专业英语 + 软实力 + 跨团队协作**(详见 [`career/talking-2026-leader-feedback.md`](../career/talking-2026-leader-feedback.md))。
+> **L 第二年谈话强调**:**专业英语 + 软实力 + 跨团队协作**(详见 [`career/talking-2026-leader-feedback.md`](../../_curated/career/talking-2026-leader-feedback.md))。
 >
 > **外企面试** 很少考"算法/八股",**很常考**:
 > - "你怎么写单测?覆盖率多少?"
@@ -445,4 +445,4 @@ ASP 用 Jenkins → Vertiv [TODO: 你 Vertiv 用什么 CI/CD?]
 
 ---
 
-> 📌 **下一步**:[`system-design-primer.md`](./system-design-primer.md)
+> 📌 **下一步**:[`system-design-primer.md`](../system-design-primer.md)

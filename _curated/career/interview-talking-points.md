@@ -66,7 +66,7 @@
 3. **暴露你的边界**:对于 PG 的某些深度特性(比如 GIN 索引内部、WAL 复制),可以坦白"了解但没在生产用过",**不假装**。
 
 **素材出处**:
-- `_build/outlines/3-tech_stack/database/postgresql/postgresql.outline.md` (775 行,你最近大改)
+- `_build/outlines/database/postgresql.outline.md` (775 行,你最近大改)
 - (PI 重构 schema 暂不记载)
 
 ### 1.3 "MongoDB → PostgreSQL 的数据迁移工具怎么做的?"
@@ -210,7 +210,7 @@
 
 **素材出处**:
 - `origin/2-projects/vertiv/SI/experiences/v4.1/dependency-upgrade.md`
-- `_build/outlines/business/SI/task/SI 依赖升级.outline.md`
+- `_build/outlines/3-business/SI/task/SI 依赖升级.outline.md`
 
 ### 4.2 "Hazelcast 你为什么决定砍掉?"
 

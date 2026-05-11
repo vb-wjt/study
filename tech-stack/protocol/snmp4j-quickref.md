@@ -288,7 +288,7 @@ pdu.setNonRepeaters(0);
 
 | 主题 | 我提到的 | 你的源文 |
 |---|---|---|
-| SNMP 协议本身 | §0, §5 | `_build/outlines/3-tech_stack/protocol/SNMP.outline.md` |
+| SNMP 协议本身 | §0, §5 | `_build/outlines/protocol/SNMP.outline.md` |
 | Zero Engine 实战 | §3.2 | `origin/2-projects/vertiv/SI/experiences/v4.0/zero-engine.md` |
 | 设备发现实战 | §3.1 | `origin/2-projects/vertiv/SI/experiences/v4.0/discovery.md` |
 | MIB 解析(SMI-PRO) | §3.4 | `origin/2-projects/vertiv/SI/experiences/v4.1/resolve-mib/design/resolve-mib.md` |

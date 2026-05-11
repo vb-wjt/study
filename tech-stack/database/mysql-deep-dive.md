@@ -380,4 +380,4 @@ SELECT * FROM t WHERE id > (SELECT id FROM t ORDER BY id LIMIT 100000, 1) LIMIT 
 
 ---
 
-> 📌 **下一步**:[`redis-deep-dive.md`](./redis-deep-dive.md) → Redis 数据结构底层 / 持久化 / 主从
+> 📌 **下一步**:[`redis-deep-dive.md`](../cache/redis-deep-dive.md) → Redis 数据结构底层 / 持久化 / 主从

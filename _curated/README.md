@@ -134,15 +134,14 @@ tech-stack/
 ├── 00-skill-roadmap.md             ← 进阶补强总索引
 ├── system-design-primer.md         ← 系统设计 7 步法
 ├── linux-filesystem-and-perms.md   ← Linux 文件系统 + 权限
-├── freemarker.md / undertow.xmind / OpenAPI 规范.xmind
 │
-├── java/                           ← Java 核心 (5 files)
+├── java/                           ← Java 核心 (7 files, 含 freemarker.md + undertow.xmind)
 ├── database/                       ← 数据库 (PostgreSQL/MySQL/Mongo/FerretDB)
 ├── cache/                          ← 缓存 (Hazelcast + Redis)
 ├── middleware/                     ← 中间件 (MQ)
 ├── protocol/                       ← 协议 (SNMP/WebSocket/HTTP)
 ├── design_patterns/                ← 设计模式
-└── engineering/                    ← 工程实践 (测试/Maven/英语)
+└── engineering/                    ← 工程实践 (测试/Maven/英语/OpenAPI)
 ```
 
 ---
@@ -196,8 +195,8 @@ tech-stack/
 
 ### 4.4 想深入某个技术领域 → 各按需阅读
 
-- 数据库:[`tech-stack/database/postgresql-knowledge.md`](../tech-stack/database/postgresql-knowledge.md) → `_build/outlines/3-tech_stack/database/postgresql/postgresql.outline.md`
-- SNMP:[`projects/snmp-zero-engine.md`](./projects/snmp-zero-engine.md) → `_build/outlines/3-tech_stack/protocol/SNMP.outline.md`
+- 数据库:[`tech-stack/database/postgresql-knowledge.md`](../tech-stack/database/postgresql-knowledge.md) → `_build/outlines/database/postgresql.outline.md`
+- SNMP:[`projects/snmp-zero-engine.md`](./projects/snmp-zero-engine.md) → `_build/outlines/protocol/SNMP.outline.md`
 
 ---
 
