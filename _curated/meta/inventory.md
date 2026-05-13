@@ -49,8 +49,10 @@
 | `common/flow/flow.drawio` | (256 行 outline,4 页) | `[就绪]` | `[面试高频]`🎯 | 设备采集 + 告警 JMS 推送的完整数据流 |
 | `experiences/v4.0/SI4.0.md` | 48 | `[需补充]` | `[优先级⭐]` | 大纲 + todo;底下 `discovery.md`(2754 行)素材已充分 |
 | `experiences/v4.0/discovery.md` | **2754** | `[就绪]` | `[简历亮点]`⭐ `[面试高频]`🎯 | SNMP 设备发现的详尽实现(**当前工程最大单一 .md 文件**) |
-| `experiences/v4.0.1/SI4.0.1.md` | 29 | `[需补充]` | — | 大纲 + todo |
-| `experiences/v4.1/SI4.1.md` | 36 | `[需补充]` | — | 大纲 + todo |
+| `experiences/v4.0.1/SI4.0.1.md` | 75+ | `[就绪]` | `[简历亮点]`⭐ `[面试高频]`🎯 | 性能测试 + RDU 模拟器 + **备份恢复**(2026-05-13 充实) |
+| `experiences/v4.0.1/backup-restore/design/` | 3 md + 8 puml + 20 png | `[就绪]` | `[简历亮点]`⭐⭐ | **备份恢复设计文档**:三方案选型 + 性能基准(1kw~10 亿行) + ZE 数据同步 + 跨机器恢复 |
+| `experiences/v4.1/SI4.1.md` | 70+ | `[就绪]` | `[简历亮点]`⭐ | MIB 解析 + 依赖升级 + **SCID-Fath**(2026-05-13 充实) |
+| `experiences/v4.1/SCID/` | 2 md + 19 png | `[就绪]` | `[简历亮点]`⭐⭐ `[面试高频]`🎯 | **SCID 智能锁接入**:DDD(接口/数据模型/UML) + RDD(需求讨论/会议决策/UI 方案对比) |
 | `experiences/v4.1/dependency-upgrade.md` | 426 | `[就绪]` | `[简历亮点]`⭐ `[面试高频]`🎯 | Java 8→21 / SpringBoot 2→3 / Hazelcast 3→5 升级 → [`../projects/dependency-upgrade.md`](../projects/dependency-upgrade.md) |
 | `experiences/v4.1/resolve-mib/design/resolve-mib.md` | 874 | `[就绪]` | `[简历亮点]`⭐ | SNMP4J-SMI-PRO 解析 MIB 设计文档(+6 配套图片) |
 | `experiences/v4.1/resolve-mib/snmp-smi-pro.drawio` | (48 行 outline) | `[就绪]` | — | OID 解析流程图 |

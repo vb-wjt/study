@@ -1,0 +1,17 @@
+@startuml
+start
+
+:清除容器内的临时目录
+docker exec -t ferret-postgres rm -rf /test;
+:备份数据
+docker exec -t ferret-postgres pg_basebackup -U ferret -h localhost -D /test
+&#45;&#45;checkpoint=fast --no-sync -Ft -z -P;
+:从容器复制到备份目录
+docker cp ferret-postgres:/test/. /root/tmp/;
+:将生成的三个文件压缩成一个包
+tar -czvf /root/tmp/postgres-11111.tar.gz -C /root/tmp .;
+:删除原文件
+cd /root/tmp && rm -rf backup_manifest base.tar.gz pg_wal.tar.gz;
+
+stop
+@enduml

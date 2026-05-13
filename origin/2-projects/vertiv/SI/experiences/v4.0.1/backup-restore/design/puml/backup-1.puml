@@ -1,0 +1,13 @@
+@startuml
+start
+
+:停止 ferretdb-postgres 容器
+docker stop ferret-postgres;
+:压缩数据卷目录
+tar -czvf /var/opt/SI-Backup/backupdata.tar.gz
+-C /var/lib/docker/volumes/ferret_data/_data .;
+:开启 ferretdb-postgres 容器
+docker start ferret-postgres;
+
+stop
+@enduml

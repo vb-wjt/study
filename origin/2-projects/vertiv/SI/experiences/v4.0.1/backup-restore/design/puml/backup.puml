@@ -1,0 +1,50 @@
+@startuml
+autonumber
+
+actor User
+participant "UI" as UI
+participant "DatabaseDumpAction" as API
+participant "AbstractTestService" as Validation
+participant "BackupConfigurationService" as Config
+participant "PlatformService" as platform
+participant "BackupMongodbService" as Backup
+participant "StateHolder" as status
+participant "RecordsService" as Record
+participant "Server/Windows" as Storage
+
+User -> UI: 点击备份按钮
+UI -> API: 调用备份接口
+API -> Validation: 校验输入
+Validation -> Validation: 检查特殊字符 (">", "<", "|", "&")
+Validation -> Validation: 检查 remoteAccess 可达性
+Validation -> Validation: 检查挂载目录
+Validation -> Validation: 检查写权限
+Validation -> Validation: 检查磁盘空间
+Validation -> API: 校验成功 / 失败
+
+API -> platform: 获取环境配置
+Config -> API: 返回数据库用户名、密码、端口、host 等
+
+API -> status: 更新状态为Running
+API -> Record: 创建备份记录
+API -> Backup: 执行备份
+API --> UI: 返回 "备份已启动" (无需等待完成)
+
+... 备份任务在后台执行 ...
+Backup -> Storage: 生成 .tmp 临时文件
+Backup -> Backup: 加密备份文件
+Backup -> Storage: 生成 .db 备份文件
+Backup -> Storage: 删除 .tmp 文件
+Backup -> status: 更新状态为Completed
+
+loop 轮询 status
+    UI -> status: 获取任务状态
+    status -> UI: 返回 status
+
+    alt status == "running"
+        UI -> status: 继续轮询
+    else status == "fail" or "completed"
+        UI -> User: 轮询结束
+end
+
+@enduml

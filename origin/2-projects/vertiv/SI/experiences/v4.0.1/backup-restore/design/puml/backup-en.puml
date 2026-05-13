@@ -1,0 +1,50 @@
+@startuml
+autonumber
+
+actor User
+participant "UI" as UI
+participant "DatabaseDumpAction" as API
+participant "AbstractTestService" as Validation
+participant "BackupConfigurationService" as Config
+participant "PlatformService" as platform
+participant "BackupMongodbService" as Backup
+participant "StateHolder" as status
+participant "RecordsService" as Record
+participant "Server/Windows" as Storage
+
+User -> UI: Click the backup button
+UI -> API: Call the backup interface
+API -> Validation: Verify input
+Validation -> Validation: Check special characters (">", "<", "|", "&")
+Validation -> Validation: Check remoteAccess reachability
+Validation -> Validation: Check the mount directory
+Validation -> Validation: Check write permissions
+Validation -> Validation: Check disk space
+Validation -> API: Verification success / failure
+
+API -> platform: Get environment configuration
+Config -> API: Return database username, password, port, host, etc.
+
+API -> status: Update status to Running
+API -> Record: Create backup record
+API -> Backup: Execute backup
+API --> UI: Return "Backup started" (no need to wait for completion)
+
+... The backup task is executed in the background ...
+Backup -> Storage: Generate .tmp temporary files
+Backup -> Backup: Encrypt backup files
+Backup -> Storage: Generate .db backup file
+Backup -> Storage: Delete .tmp file
+Backup -> status: Update status to Completed
+
+loop poll status
+UI -> status: Get task state
+status -> UI: Return status
+
+alt status == "running"
+UI -> status: Continue polling
+else status == "fail" or "completed"
+UI -> User: Polling ends
+end
+
+@enduml

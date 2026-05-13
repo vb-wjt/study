@@ -1,0 +1,66 @@
+@startuml
+actor User
+participant "UI" as UI
+participant "DatabaseRestoreAction" as API
+participant "AbstractTestService" as validation
+participant "BackupConfigurationService" as config
+participant "PlatformService" as platform
+participant "RestoreMongodbService" as restore
+participant "StateHolder" as status
+participant "RecordsService" as record
+participant "Server/Windows" as storage
+participant "FerretdbContainer" as ferretdb_container
+database "Postgresql_Documentdb" as postgresql_documentdb
+
+User -> UI: 1. 点击"快捷恢复"/"自定义恢复"
+UI -> API: 2. 调用恢复接口
+API -> validation: 3. 校验输入
+validation -> validation: 3.1 检查特殊字符 (">", "<", "|", "&")
+validation -> validation: 3.2 检查 remoteAccess 可达性
+validation -> validation: 3.3 检查挂载目录
+validation -> validation: 3.4 检查写权限
+validation -> validation: 3.5 检查磁盘空间
+validation -> API: 4. 校验成功 / 失败
+
+API -> platform: 5. 获取环境配置
+config -> API: 6. 返回数据库用户名、密码、端口、host 等
+
+API -> status: 7. 更新内存中的恢复状态为 Running
+API -> restore: 8. 执行恢复
+API --> UI: 9. 返回 "恢复已启动" (无需等待完成)
+
+... 恢复任务在后台执行 ...
+restore -> storage: 8.1 解密备份文件
+restore -> restore: 8.2 把当前数据库中的备份和恢复记录存储到内存中
+restore -> ferretdb_container:
+restore -> postgresql_documentdb: 8.3 停止数据库容器
+restore -> restore: 8.4 执行恢复操作(恢复全过程指令请参考 ../backup-restore.md, /备注/方案三)
+
+restore -> status:  8.5 执行恢复失败/解密失败等则更新状态为 Failed
+
+restore -> postgresql_documentdb: 8.6 执行恢复成功, 重启数据库容器
+restore -> storage: 8.7 删除 .tmp 文件
+restore -> storage: 8.8 关闭挂载
+restore -> status:  8.9 未执行到上述两状态, 并且当前处于 Running, 则设置为状态 Default
+
+restore -> restore: 8.10 轮询等待数据库容器启动完成
+restore -> postgresql_documentdb: 8.11 数据库容器启动完成, 插入本次恢复记录;
+restore -> postgresql_documentdb: 8.12 把内存中历史备份和恢复记录重新插入/更新到数据库中
+
+restore -> restore: 8.13 10s后, 重启 tafsvc 服务
+
+loop 轮询 status
+    UI -> status: 获取任务状态
+    status -> UI: 返回 status
+
+    alt status == "running"
+        UI -> status: 继续轮询
+    else status == "completed"
+        UI -> User: 轮询结束
+    else status == "fail" && mtpError == "mtp.core.error.database.error"
+        UI -> status: 继续轮询
+    else status == "fail" &&  mtpError != "mtp.core.error.database.error"
+        UI -> User: 轮询结束
+end
+
+@enduml

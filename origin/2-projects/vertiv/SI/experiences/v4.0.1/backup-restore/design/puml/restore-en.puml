@@ -1,0 +1,68 @@
+@startuml
+actor User
+participant "UI" as UI
+participant "DatabaseRestoreAction" as API
+participant "AbstractTestService" as validation
+participant "BackupConfigurationService" as config
+participant "PlatformService" as platform
+participant "RestoreMongodbService" as restore
+participant "StateHolder" as status
+participant "RecordsService" as record
+participant "Server/Windows" as storage
+participant "FerretdbContainer" as ferretdb_container
+database "Postgresql_Documentdb" as postgresql_documentdb
+
+User -> UI: 1. Click "Quick Restore"/"Custom Restore"
+UI -> API: 2. Call the restore interface
+API -> validation: 3. Verify input
+validation -> validation: 3.1 Check special characters (">", "<", "|", "&")
+validation -> validation: 3.2 Check remoteAccess reachability
+validation -> validation: 3.3 Check mount directory
+validation -> validation: 3.4 Check write permission
+validation -> validation: 3.5 Check disk space
+validation -> API: 4. Verification success/failure
+
+API -> platform: 5. Get environment configuration
+config -> API: 6. Return database username, password, port, host, etc.
+
+API -> status: 7. Update the restore status in memory to Running
+API -> restore: 8. Execute restore
+API --> UI: 9. Return "Restore started" (no need to wait for completion)
+
+... The restore task is executed in the background ...
+restore -> storage: 8.1 Decrypt the backup file
+restore -> restore: 8.2 Store the backup and restore records in the current database into memory
+restore -> ferretdb_container:
+restore -> postgresql_documentdb: 8.3 Stop the database container
+restore -> restore: 8.4 Perform the restore operation((For instructions on the entire recovery process, please refer to ../backup-restore-en.md, /Remark/Solution 3))
+
+restore -> status: 8.5 If the restore fails/decryption fails, update the status to Failed
+
+restore -> postgresql_documentdb: 8.6 If the restore is successful, restart the database container
+restore -> storage: 8.7 Delete the .tmp file
+restore -> storage: 8.8 Close the mount
+restore -> status: 8.9 If the above two states are not executed and the current state is Running, set the state to Default
+
+restore -> restore: 8.10 Poll and wait for the database container to start
+restore -> postgresql_documentdb: 8.11 The database container is started and the recovery record is inserted;
+restore -> postgresql_documentdb: 8.12 Re-insert/update the historical backup and recovery records in memory into the database
+
+restore -> restore: 8.13 After 10 seconds, restart the tafsvc service
+
+loop polling status
+UI -> status: Get task state
+status -> UI: Return status
+
+alt status == "running"
+UI -> status: Continue polling
+else status == "completed"
+UI -> User: Polling ends
+else status == "fail" && mtpError == "mtp.core.error.database.error"
+UI -> status: Continue polling
+else status == "fail" && mtpError == "mtp.core.error.database.error"
+UI -> status: Continue polling
+else status == "fail" && mtpError != "mtp.core.error.database.error"
+UI -> User: Polling ends
+end
+
+@enduml

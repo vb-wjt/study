@@ -1,0 +1,13 @@
+@startuml
+start
+
+:Stop the ferretdb-postgres container
+docker stop ferret-postgres;
+:Compress the data volume directory
+tar -czvf /var/opt/SI-Backup/backupdata.tar.gz
+-C /var/lib/docker/volumes/ferret_data/_data .;
+:Start the ferretdb-postgres container
+docker start ferret-postgres;
+
+stop
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+start
+
+: Clear the temporary directory in the container
+docker exec -t ferret-postgres rm -rf /test;
+: Back up data
+docker exec -t ferret-postgres pg_basebackup -U ferret -h localhost -D /test
+&#45;&#45;checkpoint=fast --no-sync -Ft -z -P;
+: Copy from the container to the backup directory
+docker cp ferret-postgres:/test/. /root/tmp/;
+: Compress the three generated files into one package
+tar -czvf /root/tmp/postgres-11111.tar.gz -C /root/tmp .;
+: Delete the original file
+cd /root/tmp && rm -rf backup_manifest base.tar.gz pg_wal.tar.gz;
+
+stop
+@enduml
