@@ -1,0 +1,164 @@
+---
+
+description: Auto-compress context into context-snapshot.md when conversation grows long
+
+alwaysApply: true
+
+---
+
+
+
+# Context Snapshot: Auto-Save
+
+
+
+## When to Trigger
+
+
+
+Proactively update `context-snapshot.md` when **any of the following signals** appear:
+
+- The conversation has accumulated many tool calls, file reads, or code diffs
+
+- You find yourself re-explaining project background that should already be known
+
+- You are about to start a new major sub-task and want to checkpoint progress
+
+- The user explicitly says "save context" or "update snapshot"
+
+
+
+Do **not** wait to be asked. When the signal is clear, update the file autonomously and tell the user briefly: "已更新 context-snapshot.md（新增：XXX）"
+
+
+
+## What to Include
+
+
+
+Only include content that is **durable and directly relevant to the current project's main task**:
+
+
+
+✅ Include:
+
+- New architectural decisions or confirmed technical conclusions
+
+- Newly discovered code paths, APIs, or key behavior findings
+
+- Progress updates on tracked milestones or tasks
+
+- New key file/class/method locations worth remembering
+
+- Resolved blockers or newly discovered blockers
+
+
+
+❌ Exclude:
+
+- Trivial or one-off questions (e.g. "what time is it", "explain this concept briefly")
+
+- Exploratory questions with no durable conclusion
+
+- Content already captured in the snapshot
+
+- Generic coding help unrelated to the project's main task
+
+
+
+## How to Write
+
+
+
+- Search for `context-snapshot.md` in the workspace (it may be in any subdirectory)
+
+- **If the file does not exist**, create it at `docs/context-snapshot.md` with the following template:
+
+
+
+```markdown
+
+# 项目上下文快照
+
+
+
+> **最后更新**：YYYY-MM-DD  
+
+> **用途**：新对话开始时先读此文件，快速恢复全量上下文。  
+
+> **工作空间**：`<workspace path>`
+
+
+
+---
+
+
+
+## 一、项目背景与当前决策
+
+
+
+（简述项目名称、技术栈、当前活跃工作方向）
+
+
+
+---
+
+
+
+## 二、工作空间目录结构
+
+
+
+（关键目录树）
+
+
+
+---
+
+
+
+## 三、关键研究结论
+
+
+
+（已确认的技术结论、架构决策）
+
+
+
+---
+
+
+
+## 四、关键代码位置速查
+
+
+
+（重要文件/类/方法的路径索引）
+
+
+
+---
+
+
+
+## 五、下次对话启动方式
+
+
+
+1. **读本文件**恢复全量上下文
+
+2. （其他入口文档列表）
+
+```
+
+
+
+- If the file already exists, merge new findings into the **existing sections** — do not append a new section per session
+
+- Update the timestamp at the top of the file
+
+- Keep the total file under ~300 lines; compress older detail if needed to stay concise
+
+- Preserve the existing structure and section headings
+
