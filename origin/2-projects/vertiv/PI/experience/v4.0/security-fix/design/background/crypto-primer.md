@@ -87,7 +87,7 @@
 - **两档**：**Baseline**（依据 NIST SP 800-131a Rev.2，商用足够）与 **Enhanced**（依据 CNSA/FIPS，政府/国防）。选定一档要满足该档**全部**参数。详见 [requirements §6.1](../../requirements/secure-requirements-definitions.md)。
 - **本方案三算法均落 Baseline**：HKDF-SHA256、AES-256-GCM、HMAC-SHA256（无 ECB/CBC-SHA1/MD5）。
 - **DES / 3DES 为什么不行**：DES 密钥仅 56 位、秒级爆破；3DES 块长 64 位受 Sweet32、NIST 已弃用。二者**都不在批准集**（3DES 仅"解旧数据"），新代码一律 **AES-256-GCM**。
-- **档位影响**：对称是否限 AES-256、证书 RSA-2048 vs RSA-3072/ECDSA-P384、口令 KDF 迭代数——需你/安全团队拍板（P1）。
+- ✅ **档位已定（2026-07-28；证书 2026-07-30 上调 RSA-3072）：整体 Baseline** —— 对称 AES-256-GCM、派生 HKDF-SHA256、证书 RSA-3072/SHA256withRSA、口令哈希 bcrypt≥10。仅政府/国防/FIPS 客户才升 Enhanced（AES-256 only、证书 ECDSA-P384/SHA-384、KDF 迭代大幅提高）。
 
 > **§8 HTTPS/TLS、§9 PKI/X.509 已迁至 [tls-and-certificate-primer.md](tls-and-certificate-primer.md)**（含 TLS1.2/1.3 三张握手图、前向保密、证书字段、keystore/truststore、SAN、mTLS、证书生命周期等）。以下 §10/§11 编号保留不变。
 
@@ -233,7 +233,7 @@ SNMP 密钥 = HKDF-Expand(PRK, info="vertiv-pi-snmp-key-v1")
 |------|------|
 | 存储 | `machine.properties` 单行 `install-nonce=<64位Hex>`，256-bit，`SecureRandom` 生成 |
 | 权限-Linux | `chown si_app:si` + `chmod 600`（仅 owner 读写，组/其他全无） |
-| 权限-Windows | `icacls machine.properties /inheritance:r`（断继承，去掉 `BUILTIN\Users` 读）+ `/grant:r "NT SERVICE\TAFsvc:(R)"`（只授服务 VSA 读） |
+| 权限-Windows | `icacls machine.properties /inheritance:r`（断继承，去掉 `BUILTIN\Users` 读）+ `/grant:r "NT SERVICE\TAFsvc:(R)"`（只授服务 SID `NT SERVICE\TAFsvc` 读；登录身份 LocalService，ACL 授服务 SID 不变） |
 | 是否加密 nonce 本身 | **Baseline 不加密**（加密它又要另一把密钥、鸡生蛋）；靠权限护 |
 
 **纵深防御要点**：`machine_id` 绑机意味着**光把 `machine.properties` 拷到别的机器也没用**（machine_id 变→密钥变）。有效防护 = 文件权限（防本机越权读）+ 机器绑定（防拷走/离线）。
@@ -242,7 +242,7 @@ SNMP 密钥 = HKDF-Expand(PRK, info="vertiv-pi-snmp-key-v1")
 - **Windows：DPAPI**（`ProtectedData`/`CryptProtectData`，machine scope）——OS 持绑本机主密钥，密文**只能同机解**。
 - **Linux：内核 keyring（`keyctl`）或 TPM 封存**——TPM 硬件芯片，数据封入后只能在该硬件解封。
 - **跨平台更高档：Vault/KMS**（外部服务持钥）。
-- **代价**：更强但平台相关、复杂、有可用性/备份坑（TPM 重置=丢）。→ 定位为**高保障客户的"逃生口"，只登记不做**；Baseline 用"明文 + `chmod 600`/VSA-ACL + 机器绑定纵深"。
+- **代价**：更强但平台相关、复杂、有可用性/备份坑（TPM 重置=丢）。→ 定位为**高保障客户的"逃生口"，只登记不做**；Baseline 用"明文 + `chmod 600`/服务SID-ACL + 机器绑定纵深"。
 
 ## Q11 · 每实例默认登录口令用 `SecureRandom` 还是 HKDF
 
@@ -254,9 +254,11 @@ SNMP 密钥 = HKDF-Expand(PRK, info="vertiv-pi-snmp-key-v1")
 | 语义 | **一次性秘密**，反正要落文件——正合适 | "密钥"当口令用，语义别扭 |
 | 域隔离 | 默认口令**不进**密钥派生域，干净 | bootstrap 口令与保护全局的 nonce 耦合 |
 
-**结论：用 A（`SecureRandom`）。** 默认口令**本就要写进文件**给运维，不需要"可重算"；A 还把它排除在密钥派生域外，职责更清。B"文件丢了还能重推"反而是缺点（默认口令成了 nonce 的函数）。
+**结论（限"随机生成"这一分支，且方案未定）**：**若最终采用"随机生成默认口令"，则用 A（`SecureRandom`）优于 B（`HKDF`）**——默认口令本就要落文件给运维、不需要"可重算"；A 还把它排除在密钥派生域外，职责更清；B"文件丢了还能重推"反而是缺点（默认口令成了 nonce 的函数）。
 
-**A 的流程**：安装期 `pwd = Base64URL(SecureRandom 24字节)` → ① 写 root-only 文件（`chmod 600`/VSA-ACL）② DB admin 口令置 `bcrypt(sha256hex(pwd))`；前端 `827.js` 删写死值改普通输入框；首登运维读文件手敲 → 后端校验 == 库值 → 用 `init.password` 覆盖入库；onboarding 完成后删该文件。→ 详见方案文档 2-1-e。
+> ⚠️ **2-1-e 整体落地方式尚未拍板**（随机生成 / 安装期操作员自设 / …多条候选待确定，见 [../crypto-key-management-solution.md §2.3.2](../crypto-key-management-solution.md)）。本对比**只在"确实要随机生成"的前提下成立**；若最终走"操作员安装期自设口令"，则根本不涉及 `SecureRandom` / `HKDF` 之选。
+
+**A（随机生成分支）的流程（候选·非定稿）**：安装期 `pwd = Base64URL(SecureRandom 24字节)` → ① 写 root-only 文件（`chmod 600`/服务SID-ACL）② DB admin 口令置 `bcrypt(sha256hex(pwd))`；前端 `827.js` 删写死值改普通输入框；首登运维读文件手敲 → 后端校验 == 库值 → 用 `init.password` 覆盖入库；onboarding 完成后删该文件。→ 详见方案文档 2-1-e。
 
 ---
 
