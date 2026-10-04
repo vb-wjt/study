@@ -15,7 +15,6 @@
 | `origin/` 下源内容 | **25 个**(含 .md/.xmind/.drawio/.png;`business/` 已重命名为 `3-business/`;`temp.md` 移入 `1-meta/`) |
 | `_curated/` AI 整理产物 | **12 个**(career=4 / meta=2 / projects=5 + README=1) |
 | `tech-stack/` 技术栈统一 | 独立顶层目录,详见 §3 |
-| `_build/` 自动产物 | 11 个 outline(镜像 `origin/` + `tech-stack/` 树);`raw/` 已加入 .gitignore |
 | 内容最丰富的单一文件 | `discovery.md`(2754 行) |
 
 > `origin/1-meta/temp.md`(15 行)—— 用户个人下一步 todo。
@@ -119,23 +118,7 @@
 
 ---
 
-## 6. 自动产物 `_build/outlines/`
-
-xmind 8 个 + drawio 3 个,全部已转成纯文本 outline。详见 `_build/extract-xmind.ps1` 和 `extract-drawio.ps1`。
-
-| Top 5 内容量 | 行数 |
-|---|---:|
-| `database/postgresql.outline.md` | 775 |
-| `3-business/SI/task/SI 依赖升级.outline.md` | 444 |
-| `3-business/PI/迁移 mongodb.outline.md` | 274 |
-| `2-projects/.../flow/flow.outline.md` (4 页) | 256 |
-| `protocol/SNMP.outline.md` | 97 |
-
-> `_build/outlines/` 镜像 `origin/` 和 `tech-stack/` 的目录树。`_build/raw/` 已加入 `.gitignore`(可再生二进制产物)。脚本下次重跑前路径若变化会自动同步。
-
----
-
-## 7. 综合优先级建议(给你)
+## 6. 综合优先级建议(给你)
 
 按"如果只能做一件事"的顺序:
 
@@ -151,86 +134,6 @@ xmind 8 个 + drawio 3 个,全部已转成纯文本 outline。详见 `_build/ext
 | 4 | **把 `SI4.0.md` / `SI4.0.1.md` / `SI4.1.md` 写完** | 大纲都列好了,`discovery.md` 2754 行 + `zero-engine-analysis.md`(基于源码) 素材在 | 2-4 小时/版本 |
 | 5 | **填充 `tech-stack/maven-essentials.md`、`linux-filesystem-and-perms.md`、`snmp4j-quickref.md` 中你校对部分** | 我已经写了起步,你校对/补充自己的实际经验 | 1-2 小时 |
 | 6 | **回答 `meta/still-missing.md` 里的具体问题** | 让我可以把那些"半成品总结"补完 | 滚动进行 |
-
----
-
-## 8. 变更日志
-
-### 2026-05-10 大清理:重命名 `file/` → `origin/` + 删除冗余文档
-
-用户清理"冗余或者之前分析不佳的文档":
-
-| 变更类型 | 详情 |
-|---|---|
-| 目录重命名 | `file/` → `origin/` |
-| gate 文件重命名 | `talking.md` → `talking-analyze-detailed.md`;`pre_action.md` 内容合并入新建 `talking-collect-all-origin.md` |
-| 删除 `1-meta/` | `study_index.md`(redirect)、`gate/pre_action.md`(内容已合并)、`gate/action.md`(策略复盘) |
-| 删除 `2-projects/` | `projects_index.md`(索引)、`common/mtp-core-deep-analysis.md`(11322 行)、`common/mtp-core-strengths-summary.md`(421 行)、`experiences/v4.0/zero-engine.md`(7778 行) |
-| 删除 `vertiv/refactor_pi/` | **整个目录**:7 文档 + 15 SQL + 6 Python + 执行结果 |
-| 删除 `3-tech_stack/` | `build/maven.md`(redirect)、`protocol/SNMP4J.md`(redirect) |
-| `_curated/` | 不受影响;被删源文件的提炼版仍完整保留 |
-| 净效果 | 源文件从 76 → 36(减 40),redirect 从 3 → 0(全部删除),图片不变(13 张) |
-
-### 2026-05-08(d)标签机制:文件名前缀 → 内容首行 HTML 注释
-
-用户反馈"标签放在文件名上不便于搜索/不希望污染文件名",改为**只对 `.md` 文档**在第一行加 HTML 注释,`.xmind/.drawio/.sql/.py/.json/.log/.pdf/.txt` 靠扩展名识别。
-
-| 项 | 变更 |
-|---|---|
-| 76 个 `[X]xxx.ext` 文件名 | 全部还原为 `xxx.ext`(去前缀) |
-| 38 个 `.md` 文件 | 在第一行插入 `<!-- 标签:[原/整/摘] —— 含义 -->` + 空行 |
-| 38 个非 `.md` 文件 | 不动(11 .xmind/.drawio + 15 .sql + 6 .py + 2 .json + 2 .log + 1 .txt + 1 .pdf) |
-| `_curated/` 与 `origin/` 中 ~436 处带前缀引用 | 全部去除前缀 |
-
-**事故记录**:在 (c) 步操作过程中发现 21 个 `.md` 文件被某次旧的批量脚本误覆盖成 606 字节的 redirect 占位页;
-- ✅ 19 个文件已从 `git HEAD` 恢复(`mtp-core-deep-analysis.md` 11322 行 / `zero-engine.md` 7778 行 / 等)
-- ❌ 2 个文件 git 中无任何提交记录,**永久丢失**:
-  - `origin/2-projects/asp/knowledge.md`(原 569 行,极密集 ASP 技术总结)
-  - `origin/2-projects/asp/project.md`(原 88 行,ASP 项目背景 + 5 大模块)
-  - 提炼版仍在 [`../projects/asp-platform.md`](../projects/asp-platform.md);**待用户从本地备份补回**
-
-### 2026-05-08(c)大重构:`_curated/` 重组 + `origin/` 加标签前缀(已被 (d) 替代)
-
-**`_curated/` 顶层从"产物类型"→"主题对齐"**:
-
-| 旧 | 新 |
-|---|---|
-| `summaries/{asp-platform,pi-platform-deep-dive,mtp-core-framework,ferretdb-research,snmp-zero-engine,dependency-upgrade}.md` | `projects/*.md` |
-| `summaries/{postgresql-knowledge,java-knowledge-map}.md` | `tech-stack/*.md` |
-| `expansions/*.md`（13 个） | `tech-stack/*.md` |
-| `00-inventory.md` | `meta/inventory.md` |
-| `gaps/still-missing.md` | `meta/still-missing.md` |
-
-`origin/` 下 76 个文件曾加 5 类前缀标签(原/整/摘/图/码),已在 (d) 步还原文件名。
-
-### 2026-05-08(b)归一与修正
-
-`unclassified/` 6 个文件全部归位:
-
-| 原位置 | 新位置 |
-|---|---|
-| `unclassified/talking.md` | `1-meta/gate/talking.md`(谈话三件套合体) |
-| `unclassified/archived_chats.md` | `3-tech_stack/database/ferretdb/resume-snippet.md` |
-| `unclassified/linux-privilege.md` | `3-tech_stack/os/linux/linux-privilege.md`(新增 `os/linux/`) |
-| `unclassified/sms-modern.md` | `2-projects/vertiv/SI/experiences/sms-modem.md`(顺便修拼写) |
-| `unclassified/websocket_1.md` | `3-tech_stack/protocol/websocket/basic.md`(新增 `protocol/websocket/`) |
-| `unclassified/WebSocket_Deep_Dive_Interview.md` | `3-tech_stack/protocol/websocket/deep-dive-interview.md` |
-| `business/SI/task/待整理知识.md` | `3-tech_stack/spring/notes.md`(新增 `spring/`,加深度链接) |
-
-命名 / 后缀 / 占位修正:
-
-| 原 | 新 |
-|---|---|
-| `Java中间件.txt` | `middleware-overview.md` |
-| `mongodb指令.md` | `mongodb-commands.md` |
-| `SOAP版本.md` | `soap-versions.md` |
-| `build/maven.md`(原仅 `todo`) | redirect link → `tech-stack/maven-essentials.md` |
-| `protocol/SNMP4J.md`(原仅 `todo`) | redirect link → `tech-stack/snmp4j-quickref.md` |
-| `1-meta/study_index.md`(原 0 行) | redirect link → `_curated/README.md` 等 |
-
-### 2026-04-30 早期清理
-
-`other.md` / `other2.md` 重命名为 `mtp-core-strengths-summary.md` / `mtp-core-deep-analysis.md`。
 
 ---
 

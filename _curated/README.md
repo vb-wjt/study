@@ -3,7 +3,6 @@
 > 这个目录里的所有内容**由 AI 主动整理**,与
 > - `origin/` (你手写的项目/个人源内容)
 > - `tech-stack/` (技术栈统一目录,2026-05-11 从 `origin/3-tech_stack/` + `_curated/tech-stack/` 合并)
-> - `_build/` (脚本自动从 xmind/drawio 解析出的 outline)
 >
 > 四者各有分工。如果我说错了或归类不合适,请直接改对应目录下的文件。
 >

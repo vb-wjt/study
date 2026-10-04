@@ -19,15 +19,15 @@
 ### business requirement
 #### user story
 
-[US965-Upgrade Hazelcast](https://rally1.rallydev.com/#/329266204304d/backlog?detail=%2Fuserstory%2F810610613685%2Fdetails&view=3a7ee8c9-bc30-4d60-96cd-3b5238c07f16)
+[US965-Upgrade Hazelcast]()
 
-[US966-Upgrade SpringBoot](https://rally1.rallydev.com/#/329266204304d/backlog?detail=%2Fuserstory%2F810611168449%2Fdetails&view=3a7ee8c9-bc30-4d60-96cd-3b5238c07f16)
+[US966-Upgrade SpringBoot]()
 
-[US981-Upgrade java & all maven dependencies version to the latest.](https://rally1.rallydev.com/#/329266204304d/backlog?detail=%2Fuserstory%2F812229070441%2Fdetails&view=3a7ee8c9-bc30-4d60-96cd-3b5238c07f16)
+[US981-Upgrade java & all maven dependencies version to the latest.]()
 
-[US1054-ZeroEngine - Upgrade Java8 to Java17 at least](https://rally1.rallydev.com/#/329266204304d/backlog?detail=%2Fuserstory%2F818970767335%2Fdetails&view=3a7ee8c9-bc30-4d60-96cd-3b5238c07f16)
+[US1054-ZeroEngine - Upgrade Java8 to Java17 at least]()
 
-[US1055-ZeroEngine - Change MySQL DB with MariaDB](https://rally1.rallydev.com/#/329266204304d/backlog?detail=%2Fuserstory%2F818971178459%2Fdetails&view=3a7ee8c9-bc30-4d60-96cd-3b5238c07f16)
+[US1055-ZeroEngine - Change MySQL DB with MariaDB]()
 
 #### figma
 无
@@ -139,7 +139,7 @@
    1. 使用 Postgresql 的话, 也还是需要找到镜像, 进行初始化, 配置等等, 整合进 SI 里面
 5. 选择 Sqlite
 6. 另: 
-   1. Sqlite 不用账号和密码来登录, 需要考虑安全问题 [todo]. FleetManagement 也是用这个数据库, 那边已经在和安全团队沟通了 
+   1. Sqlite 不用账号和密码来登录.
 
 
 #### 变动 && 影响 && 测试范围

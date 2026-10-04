@@ -51,7 +51,7 @@
 
 **最终选 SQLite**(而不是 MariaDB):
 - SQLite 是 Public Domain,无 license 风险
-- ZE 的数据规模 [TODO: 实际数据量?] 不需要 MySQL 级别的能力
+- ZE 的需要存储到数据库的数据很小, 且很多是静态数据, 实时信号值只存储在内容, 且提送给到上层应用, 不需要 MySQL 级别的能力
 - 嵌入式部署,不需要独立 DB 进程,简化运维
 
 > **简历讲法**: "我主导了 ZE 的 MySQL → SQLite 切换,**不只是技术选型,是基于 GPLv2 license 传染性风险的法律层面决策**"。

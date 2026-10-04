@@ -39,7 +39,7 @@
 
 ## 负责的模块
 
-### 设备发现
+### 设备发现  (main)
 
 1. 是什么，有什么(输入和输出)， 怎么实现
 2. 性能，异步，线程池？
@@ -61,3 +61,9 @@
 3. **删**: `DELETE /tafprovider/devicedrivers` — **有设备引用时直接拒绝删除**(返回 usedDriverDevices 列表);批量删除时每个驱动独立事务,单个失败不影响其他
 4. **部分更新**: `POST /tafprovider/updatedriver` — 仅更新 definition 和 specification,**直接修改缓存**,设备立即看到新定义(无版本控制/冻结机制)
 5. **校验**: `POST /tafprovider/checkdrivers` — 比较 Center 下发列表与本地缓存的差异
+
+### Zero Engine 的学习
+
+1. 添加设备流
+2. 信号采集流
+3. 告警流
