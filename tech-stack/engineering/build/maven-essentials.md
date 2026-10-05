@@ -305,4 +305,4 @@ mvn dependency:tree -Dincludes=com.fasterxml.jackson.core:jackson-databind
 
 ---
 
-> **下一步**: [`linux-filesystem-and-perms.md`](../linux-filesystem-and-perms.md) (你的 linux-privilege 缺文件系统部分)
+> **下一步**: [`linux-filesystem-and-perms.md`](../linux/linux-filesystem-and-perms.md) (你的 linux-privilege 缺文件系统部分)

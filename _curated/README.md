@@ -171,12 +171,12 @@ tech-stack/
 1. [`jvm-and-concurrency.md`](../tech-stack/java/jvm-and-concurrency.md) ⭐⭐⭐(P6+ 必读,16 章)
 2. [`spring-internals.md`](../tech-stack/java/spring-internals.md) ⭐⭐⭐(Bean/AOP/启动/事务)
 3. [`mysql-deep-dive.md`](../tech-stack/database/mysql-deep-dive.md) ⭐⭐⭐(锁/MVCC/主从)
-4. [`redis-deep-dive.md`](../tech-stack/cache/redis-deep-dive.md) ⭐⭐⭐(底层/持久化/Cluster)
+4. [`redis-deep-dive.md`](../tech-stack/database/nosql/redis-deep-dive.md) ⭐⭐⭐(底层/持久化/Cluster)
 
 **季度内**:
 
-5. [`mq-essentials.md`](../tech-stack/middleware/mq-essentials.md)(三大问题 + Kafka)
-6. [`network-essentials.md`](../tech-stack/protocol/network-essentials.md)(TCP/HTTPS/WS)
+5. [`mq-essentials.md`](../tech-stack/message_queue/mq-essentials.md)(三大问题 + Kafka)
+6. [`network-essentials.md`](../tech-stack/protocol/network-base/network-essentials.md)(TCP/HTTPS/WS)
 7. [`testing-and-engineering.md`](../tech-stack/engineering/testing-and-engineering.md)(外企友好 + L 反馈呼应)
 8. [`system-design-primer.md`](../tech-stack/system-design-primer.md)(P7 加分)
 9. [`programming-english.md`](../tech-stack/engineering/programming-english.md)(L 反馈硬指标 — 长期积累)
@@ -184,7 +184,7 @@ tech-stack/
 **基础补丁**:
 
 10. [`maven-essentials.md`](../tech-stack/engineering/maven-essentials.md)
-11. [`linux-filesystem-and-perms.md`](../tech-stack/linux-filesystem-and-perms.md)
+11. [`linux-filesystem-and-perms.md`](../tech-stack/linux/linux-filesystem-and-perms.md)
 12. [`snmp4j-quickref.md`](../tech-stack/protocol/snmp4j-quickref.md)
 
 **复盘相关**:

@@ -52,7 +52,7 @@
 |---|---|---:|---|
 | [`jvm-and-concurrency.md`](./java/jvm-and-concurrency.md) | `[P6基线]`⭐⭐⭐ `[盲点]`⚠️ `[与你项目]`🔗 | 1100+ | JVM 内存 / GC / JMM / 锁升级 / AQS / JUC 集合 / CompletableFuture |
 | [`maven-essentials.md`](./engineering/maven-essentials.md) | `[P6基线]`⭐⭐ `[ROI高]`💎 | 已有 | Maven 多模块 / dependencyManagement / Profile |
-| [`linux-filesystem-and-perms.md`](./linux-filesystem-and-perms.md) | `[P6基线]`⭐ `[ROI高]`💎 | 已有 | Linux 文件系统 + 权限 |
+| [`linux-filesystem-and-perms.md`](linux/linux-filesystem-and-perms.md) | `[P6基线]`⭐ `[ROI高]`💎 | 已有 | Linux 文件系统 + 权限 |
 | [`snmp4j-quickref.md`](./protocol/snmp4j-quickref.md) | `[与你项目]`🔗 SI 专属 | 301 | SNMP4J 速查 |
 
 ### 2.2 ✏️ 本批次新增(2026-05)
@@ -61,9 +61,9 @@
 |---|---|---|---|
 | 1 | [`spring-internals.md`](./java/spring-internals.md) | `[P6基线]`⭐⭐⭐ `[与PDF重叠]`📚 `[与你项目]`🔗 | **本月精读** |
 | 2 | [`mysql-deep-dive.md`](./database/mysql-deep-dive.md) | `[P6基线]`⭐⭐⭐ `[国内大厂]` `[与你项目]`🔗 | **本月精读** |
-| 3 | [`redis-deep-dive.md`](./cache/redis-deep-dive.md) | `[P6基线]`⭐⭐⭐ `[国内大厂]` `[与你项目]`🔗 | **本月精读** |
-| 4 | [`mq-essentials.md`](./middleware/mq-essentials.md) | `[P6基线]`⭐⭐ `[国内大厂]` | 季度内 |
-| 5 | [`network-essentials.md`](./protocol/network-essentials.md) | `[P6基线]`⭐⭐ | 季度内 |
+| 3 | [`redis-deep-dive.md`](database/nosql/redis-deep-dive.md) | `[P6基线]`⭐⭐⭐ `[国内大厂]` `[与你项目]`🔗 | **本月精读** |
+| 4 | [`mq-essentials.md`](message_queue/mq-essentials.md) | `[P6基线]`⭐⭐ `[国内大厂]` | 季度内 |
+| 5 | [`network-essentials.md`](protocol/network-base/network-essentials.md) | `[P6基线]`⭐⭐ | 季度内 |
 | 6 | [`testing-and-engineering.md`](./engineering/testing-and-engineering.md) | `[外企友好]` `[与L反馈]`📝 | **本月**(L 谈话强调英文+工程化) |
 | 7 | [`system-design-primer.md`](./system-design-primer.md) | `[P7加分]`⭐⭐ `[国内大厂]` `[需要积累]`⏳ | 半年内 |
 
@@ -105,13 +105,13 @@
 1. **JVM/GC/JUC** ✅ 已写 [`jvm-and-concurrency.md`](./java/jvm-and-concurrency.md)
 2. **Spring 进阶** → [`spring-internals.md`](./java/spring-internals.md)
 3. **MySQL 锁 + MVCC** → [`mysql-deep-dive.md`](./database/mysql-deep-dive.md)
-4. **Redis 持久化 + 主从** → [`redis-deep-dive.md`](./cache/redis-deep-dive.md)
+4. **Redis 持久化 + 主从** → [`redis-deep-dive.md`](database/nosql/redis-deep-dive.md)
 5. **生产 GC/OOM 排查实战故事** → 在你日常工作里**主动找一个 case** 补 `_curated/career/resume-projects.md`
 
 ### 4.2 第 2 优先级(季度内)
 
-6. **MQ 三大问题** → [`mq-essentials.md`](./middleware/mq-essentials.md)
-7. **TCP/HTTP/HTTPS** → [`network-essentials.md`](./protocol/network-essentials.md)
+6. **MQ 三大问题** → [`mq-essentials.md`](message_queue/mq-essentials.md)
+7. **TCP/HTTP/HTTPS** → [`network-essentials.md`](protocol/network-base/network-essentials.md)
 8. **单元测试 + 工程化** → [`testing-and-engineering.md`](./engineering/testing-and-engineering.md) (L 反馈也强调)
 9. **系统设计入门** → [`system-design-primer.md`](./system-design-primer.md)
 

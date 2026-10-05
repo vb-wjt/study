@@ -31,7 +31,7 @@
 
 ## 关联深度文档
 
-- 缓存原理 → [`tech-stack/redis-deep-dive.md`](../cache/redis-deep-dive.md)
-- 消息队列三大问题 → [`tech-stack/mq-essentials.md`](./mq-essentials.md)
+- 缓存原理 → [`tech-stack/redis-deep-dive.md`](../database/nosql/redis-deep-dive.md)
+- 消息队列三大问题 → [`tech-stack/mq-essentials.md`](../message_queue/mq-essentials.md)
 - 注册中心/网关/熔断(项目落地) → [`_curated/projects/asp-platform.md`](../../_curated/projects/asp-platform.md) §portal-gateway
 - 数据库中间件(ShardingSphere/dbproxy) → [`_curated/projects/asp-platform.md`](../../_curated/projects/asp-platform.md) §SQL 解耦

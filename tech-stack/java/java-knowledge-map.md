@@ -283,10 +283,10 @@
 | 1.3 SSM | [`tech-stack/spring-internals.md`](./spring-internals.md) ✏️新增 | ✅ Bean 生命周期 / 循环依赖 / AOP / Boot 启动 / @Transactional |
 | 1.4 数据库 | `tech-stack/postgresql-knowledge.md` + [`tech-stack/mysql-deep-dive.md`](../database/mysql-deep-dive.md) ✏️新增 | ✅ MySQL InnoDB 锁 / MVCC / 主从 / binlog / ICP |
 | 1.5 多线程 | [`tech-stack/jvm-and-concurrency.md`](./jvm-and-concurrency.md) | ✅ 完整覆盖 |
-| 1.6 缓存 | [`tech-stack/redis-deep-dive.md`](../cache/redis-deep-dive.md) ✏️新增 | ✅ 数据结构底层 / 持久化 / 主从 / Cluster / 淘汰策略 |
-| 1.7 分布式 | [`tech-stack/mq-essentials.md`](../middleware/mq-essentials.md) ✏️新增 + [`tech-stack/system-design-primer.md`](../system-design-primer.md) ✏️新增 | ✅ MQ 三大问题 + 系统设计方法论 |
+| 1.6 缓存 | [`tech-stack/redis-deep-dive.md`](../database/nosql/redis-deep-dive.md) ✏️新增 | ✅ 数据结构底层 / 持久化 / 主从 / Cluster / 淘汰策略 |
+| 1.7 分布式 | [`tech-stack/mq-essentials.md`](../message_queue/mq-essentials.md) ✏️新增 + [`tech-stack/system-design-primer.md`](../system-design-primer.md) ✏️新增 | ✅ MQ 三大问题 + 系统设计方法论 |
 | 1.8 调优 | [`tech-stack/jvm-and-concurrency.md` §5](./jvm-and-concurrency.md) | ✅ |
-| 1.9 Nginx/Linux | `tech-stack/linux-filesystem-and-perms.md` + [`tech-stack/network-essentials.md`](../protocol/network-essentials.md) ✏️新增 | ✅ TCP/HTTP/HTTPS/WebSocket |
+| 1.9 Nginx/Linux | `tech-stack/linux-filesystem-and-perms.md` + [`tech-stack/network-essentials.md`](../protocol/network-base/network-essentials.md) ✏️新增 | ✅ TCP/HTTP/HTTPS/WebSocket |
 | **新增维度** | [`tech-stack/testing-and-engineering.md`](../engineering/testing-and-engineering.md) ✏️新增 | ✅ 单测 / Git / CR / 文档(外企友好+L 反馈) |
 
 ---
@@ -304,10 +304,10 @@
 | ~~**Spring Bean 生命周期 / 循环依赖三级缓存**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/spring-internals.md` §1-§2](./spring-internals.md) |
 | ~~**Spring AOP 实现原理(JDK 动态代理 vs CGLIB)**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/spring-internals.md` §3](./spring-internals.md) |
 | ~~**MySQL InnoDB 行锁 / 间隙锁 / 临键锁**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/mysql-deep-dive.md` §1](../database/mysql-deep-dive.md) |
-| ~~**Redis 持久化(RDB/AOF) / 主从 / 哨兵 / 集群**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/redis-deep-dive.md`](../cache/redis-deep-dive.md) |
-| ~~**MQ 三大问题(可靠性 / 顺序 / 重复)**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/mq-essentials.md`](../middleware/mq-essentials.md) |
-| ~~**TCP 三次握手 / 四次挥手 / TIME_WAIT**~~ | ⭐⭐⭐ | ✅ **已补** → [`tech-stack/network-essentials.md` §1](../protocol/network-essentials.md) |
-| ~~**HTTP/HTTPS / SSL/TLS**~~ | ⭐⭐⭐ | ✅ **已补** → [`tech-stack/network-essentials.md` §2-§3](../protocol/network-essentials.md) |
+| ~~**Redis 持久化(RDB/AOF) / 主从 / 哨兵 / 集群**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/redis-deep-dive.md`](../database/nosql/redis-deep-dive.md) |
+| ~~**MQ 三大问题(可靠性 / 顺序 / 重复)**~~ | ⭐⭐⭐⭐ | ✅ **已补** → [`tech-stack/mq-essentials.md`](../message_queue/mq-essentials.md) |
+| ~~**TCP 三次握手 / 四次挥手 / TIME_WAIT**~~ | ⭐⭐⭐ | ✅ **已补** → [`tech-stack/network-essentials.md` §1](../protocol/network-base/network-essentials.md) |
+| ~~**HTTP/HTTPS / SSL/TLS**~~ | ⭐⭐⭐ | ✅ **已补** → [`tech-stack/network-essentials.md` §2-§3](../protocol/network-base/network-essentials.md) |
 | **MyBatis 一二级缓存 / Plugin 机制** | ⭐⭐⭐ | ❌ 季度内(本工程未覆盖) |
 | **分布式 ID(雪花算法)** | ⭐⭐⭐ | ⚠️ 系统设计 §3.6 略提 → [`tech-stack/system-design-primer.md` §3.6](../system-design-primer.md) |
 | **Java NIO / Netty 基础** | ⭐⭐⭐ | ❌ 长尾(看你目标公司方向) |

@@ -10,9 +10,9 @@
 > - JVM/GC/JUC → [`jvm-and-concurrency.md`](./jvm-and-concurrency.md)
 > - Spring 内部原理 → [`spring-internals.md`](./spring-internals.md)
 > - MySQL 锁/MVCC/主从 → [`mysql-deep-dive.md`](../database/mysql-deep-dive.md)
-> - Redis 持久化/集群 → [`redis-deep-dive.md`](../cache/redis-deep-dive.md)
-> - MQ 三大问题 → [`mq-essentials.md`](../middleware/mq-essentials.md)
-> - TCP/HTTP/HTTPS/WS → [`network-essentials.md`](../protocol/network-essentials.md)
+> - Redis 持久化/集群 → [`redis-deep-dive.md`](../database/nosql/redis-deep-dive.md)
+> - MQ 三大问题 → [`mq-essentials.md`](../message_queue/mq-essentials.md)
+> - TCP/HTTP/HTTPS/WS → [`network-essentials.md`](../protocol/network-base/network-essentials.md)
 >
 > **导航**:[`tech-stack/java-knowledge-map.md`](./java-knowledge-map.md) 给了每个章节的面试评级 + 与本工程其他素材的串联
 
