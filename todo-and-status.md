@@ -47,7 +47,7 @@
 - **`origin/2-projects/vertiv/SI/experiences/v4.0/SI4.0.md`**：目前仅有大纲和少量 bullet，需要基于 `discovery.md` 和 `zero-engine-analysis.md` 的素材进行内容充实。
 - **`origin/2-projects/vertiv/SI/experiences/v4.0.1/SI4.0.1.md`**：性能测试场景、压测工具、RDU 模拟器故障注入等章节需要填充。
 - **`origin/2-projects/vertiv/SI/experiences/v4.1/SI4.1.md`**：SCID-Fath 跨团队冲突解决细节、硬件搭建过程需要进一步展开。
-- **`origin/2-projects/vertiv/Tool/DriverHub.md`**：作为简历亮点之一，目前仅有几行点列，需要展开其设计架构与实现细节。
+- ~~**`origin/2-projects/vertiv/Tool/DriverHub.md`**~~：✅ 已完成（2026-10）——展开为架构 + MIB 解析 / walk / trap / FreeMarker 导出，含设计模式与面试经历；并抽象到 `tech-stack/template/freemarker.md §13` 与 `design_patterns/design-patterns.md`。
 
 ### 2. 基础边缘补丁
 - **`tech-stack/os/linux/linux-privilege.md`**：Linux 权限与文件系统，目前标记为 `[需补充]`。

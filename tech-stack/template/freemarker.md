@@ -229,6 +229,79 @@ ${.locale}
 
 检查变量 不是 null, 不是空字符串(""), 不是空集合/数组, 不是空Map
 
-2. 
+2.
+
+## 13. 实战范式：模板驱动的可扩展导出（Template Method + 数据/表现分离）
+
+> 场景：**一份数据模型要导出成多种格式、还要随版本演进**（如 `json` / `sql` / `md` 多产物，且格式会迭代）。
+> 若用 Java 硬拼字符串，格式一变就改代码、易错、多版本难维护。FreeMarker 适合把"输出格式"从代码里剥离出去。
+
+### 13.1 核心思想：数据与表现分离
+
+- **Java 只建数据模型**（`Map<String,Object>` 或 JavaBean），不关心最终长什么样。
+- **表现（格式）全部在 `.ftl` 模板里**，加格式 / 改排版不动 Java。
+
+### 13.2 四个落地要点
+
+1. **抽象基类封装 `Configuration`，子类只定制"选哪个模板"（Template Method）**
+
+   ```java
+   public abstract class TemplateGenerator {
+       protected Configuration cfg;
+       public void init() throws Exception {
+           cfg = new Configuration(Configuration.VERSION_2_3_32);
+           cfg.setDefaultEncoding("UTF-8");
+           cfg.setCacheStorage(new NullCacheStorage());        // 关缓存，便于热更新模板
+           cfg.setDirectoryForTemplateLoading(new File(path)); // 按目录加载
+       }
+       // 渲染骨架固定，子类只决定模板名
+       protected String doGenerate(String templateName, Object data) throws Exception {
+           StringWriter w = new StringWriter();
+           cfg.getTemplate(templateName).process(data, w);
+           return w.toString();
+       }
+   }
+   ```
+
+2. **按版本组织模板目录**：`templates/<version>/report.ftl`，运行时按 `version` 选目录——**新增版本 = 加目录，代码零改动**。
+
+3. **一个数据模型复用于多种产物**：同一份 DTO 用标志位 / 不同模板渲染出多份输出（如 `report.json.ftl`、`report.sql.ftl`、`report.md.ftl`）。
+
+4. **用静态工厂把源数据组装成干净 DTO**，再丢给模板，保持数据层与渲染层解耦。
+
+### 13.3 去业务化最小示例
+
+```java
+// 数据模型（中性示例：订单报表）
+Map<String, Object> data = Map.of(
+    "title", "Monthly Report",
+    "orders", List.of(
+        Map.of("id", "A001", "amount", 120),
+        Map.of("id", "A002", "amount", 80)
+    )
+);
+String md = generator.doGenerate("v2/report.md.ftl", data);
+```
+
+```ftl
+<#-- v2/report.md.ftl -->
+# ${title}
+
+| Order | Amount |
+|---|---:|
+<#list orders as o>
+| ${o.id} | ${o.amount?string["#,##0"]} |
+</#list>
+
+Total: ${orders?map(o -> o.amount)?sum}
+```
+
+### 13.4 取舍（面试可讲）
+
+- ✅ 扩展成本从「改代码」降为「加/改模板」，接近开闭原则。
+- ⚠️ 模板**没有编译期校验**——需要测试样例兜底；空值用 `!` / `??` 防御（见本文 §7）。
+- ⚠️ 避免在数据对象里反向依赖 Spring 容器（Service Locator），把生成器以参数注入，保持可测。
+
+> 📎 **真实工程落地与完整设计 / 面试经历**见：[DriverHub 导出模块 §3.4](../../origin/2-projects/vertiv/Tool/DriverHub.md)
 
 

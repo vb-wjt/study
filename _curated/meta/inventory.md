@@ -56,7 +56,7 @@
 | `experiences/v4.1/resolve-mib/design/resolve-mib.md` | 874 | `[就绪]` | `[简历亮点]`⭐ | SNMP4J-SMI-PRO 解析 MIB 设计文档(+6 配套图片) |
 | `experiences/v4.1/resolve-mib/snmp-smi-pro.drawio` | (48 行 outline) | `[就绪]` | — | OID 解析流程图 |
 | `experiences/sms-modem.md` | 154 | `[就绪]` | — | 短信调制解调器 |
-| `Tool/DriverHub.md` | 28 | `[需补充]` | `[简历亮点]`⭐ | 内部工具,只有点列。**简历可写**,值得展开 |
+| `Tool/DriverHub.md` | 245 | `[就绪]` | `[简历亮点]`⭐ | 内部驱动开发工具:架构+MIB解析/walk/trap/FreeMarker导出,含设计模式与面试经历。关联 [`freemarker.md §13`](../../tech-stack/template/freemarker.md)、[`design-patterns.md`](../../tech-stack/design_patterns/design-patterns.md) |
 
 > `common/mtp-core-deep-analysis.md`(11322 行)和 `mtp-core-strengths-summary.md`(421 行)已在 2026-05-10 清理中删除。提炼版仍在 [`../projects/mtp-core-framework.md`](../projects/mtp-core-framework.md)。
 > `experiences/v4.0/zero-engine.md`(7778 行)已删除;2026-05-11 基于源码重写为 `zero-engine-analysis.md`。提炼版在 [`../projects/snmp-zero-engine.md`](../projects/snmp-zero-engine.md)。
